@@ -30,12 +30,12 @@ namespace ProLinkDesktop
         {
             InitializeComponent();
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
-            pnlNav.Height = btnDashBoard.Height;
-            pnlNav.Top = btnDashBoard.Top;
-            pnlNav.Left = btnDashBoard.Left;
-            btnDashBoard.BackColor = Color.FromArgb(46, 51, 73);
+            pnlNav.Height = btnMenu.Height;
+            pnlNav.Top = btnMenu.Top;
+            pnlNav.Left = btnMenu.Left;
+            btnMenu.BackColor = Color.FromArgb(46, 51, 73);
 
-            lblTitle.Text = "Dashbord";
+            lblTitle.Text = "Menu";
             this.pnlFormLoader.Controls.Clear();
             formDashboard FormDashboard_vrb = new formDashboard() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
             FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
@@ -48,14 +48,14 @@ namespace ProLinkDesktop
 
         }
 
-        private void btnDashBoard_Click(object sender, EventArgs e)
+        private void btnMenu_Click(object sender, EventArgs e)
         {
-            pnlNav.Height = btnDashBoard.Height;
-            pnlNav.Top = btnDashBoard.Top;
-            pnlNav.Left = btnDashBoard.Left;
-            btnDashBoard.BackColor = Color.FromArgb(46, 51, 73);
+            pnlNav.Height = btnMenu.Height;
+            pnlNav.Top = btnMenu.Top;
+            pnlNav.Left = btnMenu.Left;
+            btnMenu.BackColor = Color.FromArgb(46, 51, 73);
 
-            lblTitle.Text = "Dashbord";
+            lblTitle.Text = "Menu";
             this.pnlFormLoader.Controls.Clear();
             formDashboard FormDashboard_vrb = new formDashboard() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
             FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
@@ -63,11 +63,11 @@ namespace ProLinkDesktop
             FormDashboard_vrb.Show();
         }
 
-        private void btnAnalystics_Click(object sender, EventArgs e)
+        private void btnOportunidades_Click(object sender, EventArgs e)
         {
-            pnlNav.Height = btnAnalystics.Height;
-            pnlNav.Top = btnAnalystics.Top;
-            btnAnalystics.BackColor = Color.FromArgb(46, 51, 73);
+            pnlNav.Height = btnOportunidades.Height;
+            pnlNav.Top = btnOportunidades.Top;
+            btnOportunidades.BackColor = Color.FromArgb(46, 51, 73);
 
             lblTitle.Text = "Oportunidades";
             this.pnlFormLoader.Controls.Clear();
@@ -77,11 +77,12 @@ namespace ProLinkDesktop
             FormDashboard_vrb.Show();
         }
 
-        private void btnCalendario_Click(object sender, EventArgs e)
+        private void btnExportar_Click(object sender, EventArgs e)
         {
-            pnlNav.Height = btnCalendario.Height;
-            pnlNav.Top = btnCalendario.Top;
-            btnCalendario.BackColor = Color.FromArgb(46, 51, 73);
+            pnlNav.Height = btnExportar.Height;
+            pnlNav.Top = btnExportar.Top;
+            btnExportar.BackColor = Color.FromArgb(46, 51, 73);
+
         }
 
         private void btnContato_Click(object sender, EventArgs e)
@@ -98,19 +99,20 @@ namespace ProLinkDesktop
             btnConfiguracoes.BackColor = Color.FromArgb(46, 51, 73);
         }
 
-        private void btnDashBoard_Leave(object sender, EventArgs e)
-        {
-            btnDashBoard.BackColor = Color.FromArgb(24, 30, 54);
-        }
+        //perfil
 
-        private void btnAnalystics_Leave(object sender, EventArgs e)
+        private void btnMenu_Leave(object sender, EventArgs e)
         {
-            btnAnalystics.BackColor = Color.FromArgb(24, 30, 54);
+             btnMenu.BackColor = Color.FromArgb(24, 30, 54);
         }
-
-        private void btnCalendario_Leave(object sender, EventArgs e)
+        private void btnOportunidades_Leave(object sender, EventArgs e)
+                {
+                    btnOportunidades.BackColor = Color.FromArgb(24, 30, 54);
+                }
+        
+        private void btnExportar_Leave(object sender, EventArgs e)
         {
-            btnCalendario.BackColor = Color.FromArgb(24, 30, 54);
+            btnExportar.BackColor = Color.FromArgb(24, 30, 54);
         }
 
         private void btnContato_Leave(object sender, EventArgs e)
@@ -132,6 +134,8 @@ namespace ProLinkDesktop
         {
             Application.Exit();
         }
+
+      
     }
 }
 

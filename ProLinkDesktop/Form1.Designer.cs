@@ -34,9 +34,9 @@ namespace ProLinkDesktop
             this.pnlNav = new System.Windows.Forms.Panel();
             this.btnConfiguracoes = new System.Windows.Forms.Button();
             this.btnContato = new System.Windows.Forms.Button();
-            this.btnCalendario = new System.Windows.Forms.Button();
-            this.btnAnalystics = new System.Windows.Forms.Button();
-            this.btnDashBoard = new System.Windows.Forms.Button();
+            this.btnExportar = new System.Windows.Forms.Button();
+            this.btnOportunidades = new System.Windows.Forms.Button();
+            this.btnMenu = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -54,9 +54,9 @@ namespace ProLinkDesktop
             this.panel1.Controls.Add(this.pnlNav);
             this.panel1.Controls.Add(this.btnConfiguracoes);
             this.panel1.Controls.Add(this.btnContato);
-            this.panel1.Controls.Add(this.btnCalendario);
-            this.panel1.Controls.Add(this.btnAnalystics);
-            this.panel1.Controls.Add(this.btnDashBoard);
+            this.panel1.Controls.Add(this.btnExportar);
+            this.panel1.Controls.Add(this.btnOportunidades);
+            this.panel1.Controls.Add(this.btnMenu);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -125,59 +125,59 @@ namespace ProLinkDesktop
             this.btnContato.Click += new System.EventHandler(this.btnContato_Click);
             this.btnContato.Leave += new System.EventHandler(this.btnContato_Leave);
             // 
-            // btnCalendario
+            // btnExportar
             // 
-            this.btnCalendario.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnCalendario.FlatAppearance.BorderSize = 0;
-            this.btnCalendario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCalendario.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCalendario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.btnCalendario.Image = global::ProLinkDesktop.Properties.Resources.Exportar;
-            this.btnCalendario.Location = new System.Drawing.Point(0, 238);
-            this.btnCalendario.Name = "btnCalendario";
-            this.btnCalendario.Size = new System.Drawing.Size(186, 42);
-            this.btnCalendario.TabIndex = 3;
-            this.btnCalendario.Text = "Exportar Relatorios";
-            this.btnCalendario.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.btnCalendario.UseVisualStyleBackColor = true;
-            this.btnCalendario.Click += new System.EventHandler(this.btnCalendario_Click);
-            this.btnCalendario.Leave += new System.EventHandler(this.btnCalendario_Leave);
+            this.btnExportar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnExportar.FlatAppearance.BorderSize = 0;
+            this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportar.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExportar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.btnExportar.Image = global::ProLinkDesktop.Properties.Resources.Exportar;
+            this.btnExportar.Location = new System.Drawing.Point(0, 238);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(186, 42);
+            this.btnExportar.TabIndex = 3;
+            this.btnExportar.Text = "Exportar Relatorios";
+            this.btnExportar.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btnExportar.UseVisualStyleBackColor = true;
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            this.btnExportar.Leave += new System.EventHandler(this.btnExportar_Leave);
             // 
-            // btnAnalystics
+            // btnOportunidades
             // 
-            this.btnAnalystics.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnAnalystics.FlatAppearance.BorderSize = 0;
-            this.btnAnalystics.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAnalystics.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAnalystics.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.btnAnalystics.Image = global::ProLinkDesktop.Properties.Resources.Oportunidades;
-            this.btnAnalystics.Location = new System.Drawing.Point(0, 196);
-            this.btnAnalystics.Name = "btnAnalystics";
-            this.btnAnalystics.Size = new System.Drawing.Size(186, 42);
-            this.btnAnalystics.TabIndex = 2;
-            this.btnAnalystics.Text = "Oportunidades";
-            this.btnAnalystics.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.btnAnalystics.UseVisualStyleBackColor = true;
-            this.btnAnalystics.Click += new System.EventHandler(this.btnAnalystics_Click);
-            this.btnAnalystics.Leave += new System.EventHandler(this.btnAnalystics_Leave);
+            this.btnOportunidades.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnOportunidades.FlatAppearance.BorderSize = 0;
+            this.btnOportunidades.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOportunidades.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOportunidades.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.btnOportunidades.Image = global::ProLinkDesktop.Properties.Resources.Oportunidades;
+            this.btnOportunidades.Location = new System.Drawing.Point(0, 196);
+            this.btnOportunidades.Name = "btnOportunidades";
+            this.btnOportunidades.Size = new System.Drawing.Size(186, 42);
+            this.btnOportunidades.TabIndex = 2;
+            this.btnOportunidades.Text = "Oportunidades";
+            this.btnOportunidades.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btnOportunidades.UseVisualStyleBackColor = true;
+            this.btnOportunidades.Click += new System.EventHandler(this.btnOportunidades_Click);
+            this.btnOportunidades.Leave += new System.EventHandler(this.btnOportunidades_Leave);
             // 
-            // btnDashBoard
+            // btnMenu
             // 
-            this.btnDashBoard.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnDashBoard.FlatAppearance.BorderSize = 0;
-            this.btnDashBoard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDashBoard.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDashBoard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.btnDashBoard.Image = global::ProLinkDesktop.Properties.Resources.Menu__1_;
-            this.btnDashBoard.Location = new System.Drawing.Point(0, 154);
-            this.btnDashBoard.Name = "btnDashBoard";
-            this.btnDashBoard.Size = new System.Drawing.Size(186, 42);
-            this.btnDashBoard.TabIndex = 1;
-            this.btnDashBoard.Text = "Menu               ";
-            this.btnDashBoard.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.btnDashBoard.UseVisualStyleBackColor = true;
-            this.btnDashBoard.Click += new System.EventHandler(this.btnDashBoard_Click);
-            this.btnDashBoard.Leave += new System.EventHandler(this.btnDashBoard_Leave);
+            this.btnMenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnMenu.FlatAppearance.BorderSize = 0;
+            this.btnMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMenu.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.btnMenu.Image = global::ProLinkDesktop.Properties.Resources.Menu__1_;
+            this.btnMenu.Location = new System.Drawing.Point(0, 154);
+            this.btnMenu.Name = "btnMenu";
+            this.btnMenu.Size = new System.Drawing.Size(186, 42);
+            this.btnMenu.TabIndex = 1;
+            this.btnMenu.Text = "Menu               ";
+            this.btnMenu.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btnMenu.UseVisualStyleBackColor = true;
+            this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
+            this.btnMenu.Leave += new System.EventHandler(this.btnMenu_Leave);
             // 
             // panel2
             // 
@@ -257,13 +257,13 @@ namespace ProLinkDesktop
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button btnDashBoard;
+        private System.Windows.Forms.Button btnMenu;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnConfiguracoes;
         private System.Windows.Forms.Button btnContato;
-        private System.Windows.Forms.Button btnCalendario;
-        private System.Windows.Forms.Button btnAnalystics;
+        private System.Windows.Forms.Button btnExportar;
+        private System.Windows.Forms.Button btnOportunidades;
         private System.Windows.Forms.Panel pnlNav;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnSair;
