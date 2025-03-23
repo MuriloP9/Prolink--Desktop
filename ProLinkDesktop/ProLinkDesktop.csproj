@@ -143,5 +143,47 @@
   <ItemGroup>
     <None Include="Resources\Senha.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Menu %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Oportunidades.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exportar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Contato.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Contato %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\config.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sair.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PerfilLogin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Senha1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PerfilLogin %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PerfilD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PerfilDesktop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PRL.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
