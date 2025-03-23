@@ -34,6 +34,13 @@ namespace ProLinkDesktop
             pnlNav.Top = btnDashBoard.Top;
             pnlNav.Left = btnDashBoard.Left;
             btnDashBoard.BackColor = Color.FromArgb(46, 51, 73);
+
+            lblTitle.Text = "Dashbord";
+            this.pnlFormLoader.Controls.Clear();
+            formDashboard FormDashboard_vrb = new formDashboard() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
+            this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
+            FormDashboard_vrb.Show();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -47,6 +54,13 @@ namespace ProLinkDesktop
             pnlNav.Top = btnDashBoard.Top;
             pnlNav.Left = btnDashBoard.Left;
             btnDashBoard.BackColor = Color.FromArgb(46, 51, 73);
+
+            lblTitle.Text = "Dashbord";
+            this.pnlFormLoader.Controls.Clear();
+            formDashboard FormDashboard_vrb = new formDashboard() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
+            this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
+            FormDashboard_vrb.Show();
         }
 
         private void btnAnalystics_Click(object sender, EventArgs e)
@@ -54,6 +68,13 @@ namespace ProLinkDesktop
             pnlNav.Height = btnAnalystics.Height;
             pnlNav.Top = btnAnalystics.Top;
             btnAnalystics.BackColor = Color.FromArgb(46, 51, 73);
+
+            lblTitle.Text = "Oportunidades";
+            this.pnlFormLoader.Controls.Clear();
+            frmOportunidades FormDashboard_vrb = new frmOportunidades() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
+            this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
+            FormDashboard_vrb.Show();
         }
 
         private void btnCalendario_Click(object sender, EventArgs e)
@@ -100,6 +121,11 @@ namespace ProLinkDesktop
         private void btnConfiguracoes_Leave(object sender, EventArgs e)
         {
             btnConfiguracoes.BackColor = Color.FromArgb(24, 30, 54);
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

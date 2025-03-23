@@ -13,3 +13,20 @@ C:\Users\DELL\source\repos\ProLinkDesktop\ProLinkDesktop\bin\Debug\WinFormAnimat
 C:\Users\DELL\source\repos\ProLinkDesktop\ProLinkDesktop\bin\Debug\CircularProgressBar.xml
 C:\Users\DELL\source\repos\ProLinkDesktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.csproj.CopyComplete
 C:\Users\DELL\source\repos\ProLinkDesktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FormLogin.resources
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\bin\Debug\ProLinkDesktop.exe.config
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\bin\Debug\ProLinkDesktop.exe
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\bin\Debug\ProLinkDesktop.pdb
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\bin\Debug\CircularProgressBar.dll
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\bin\Debug\WinFormAnimation.dll
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\bin\Debug\CircularProgressBar.xml
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.csproj.AssemblyReference.cache
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.Form1.resources
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FormLogin.resources
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.Properties.Resources.resources
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.csproj.GenerateResource.cache
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.csproj.CoreCompileInputs.cache
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.csproj.CopyComplete
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.exe
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.pdb
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.formDashboard.resources
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.frmOportunidades.resources
