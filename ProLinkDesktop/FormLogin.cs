@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -8,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Data.SqlClient;
+using System.Collections.Generic;
+
 namespace ProLinkDesktop
 {
     public partial class FormLogin : Form
     {
-        private const string usuarioCorreto = "pedro@teste.com";
-        private const string senhaCorreta = "1234";
-
         public FormLogin()
         {
             InitializeComponent();
@@ -27,6 +25,7 @@ namespace ProLinkDesktop
             txtSenha.KeyDown += new KeyEventHandler(txtSenha_KeyDown);
             txtUsuario.KeyDown += new KeyEventHandler(txtUsuario_KeyDown);
         }
+
         private void txtUsuario_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -53,8 +52,30 @@ namespace ProLinkDesktop
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
+            string email = txtUsuario.Text.Trim();
+            string senha = txtSenha.Text.Trim();
 
-            if (txtUsuario.Text == usuarioCorreto && txtSenha.Text == senhaCorreta)
+            bool isValid = false;
+
+            // Conexão com o banco
+            using (var conexao = new Conexao())
+            {
+                string query = "SELECT COUNT(1) FROM Administrador WHERE email = @Email AND senha = @Senha";
+                var parameters = new List<SqlParameter>
+                {
+                    new SqlParameter("@Email", email),
+                    new SqlParameter("@Senha", senha)
+                };
+
+                DataTable result = conexao.ExecuteQuery(query, parameters);
+
+                if (result.Rows.Count > 0 && Convert.ToInt32(result.Rows[0][0]) > 0)
+                {
+                    isValid = true;
+                }
+            }
+
+            if (isValid)
             {
                 Form1 form1 = new Form1();
                 form1.Show();
@@ -62,9 +83,7 @@ namespace ProLinkDesktop
             }
             else
             {
-
                 MessageBox.Show("Usuário ou senha incorretos.");
-
                 txtSenha.Clear();
                 txtSenha.Focus();
             }
@@ -72,27 +91,21 @@ namespace ProLinkDesktop
 
         private void btnSair_Click(object sender, EventArgs e)
         {
-
             Application.Exit();
         }
 
-
         private bool ValidarEmail(string email)
         {
-
             string padraoEmail = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-            Regex regex = new Regex(padraoEmail);
-            return regex.IsMatch(email);
+            return new System.Text.RegularExpressions.Regex(padraoEmail).IsMatch(email);
         }
-
 
         private void lblCadastro_Click_1(object sender, EventArgs e)
         {
-
             Cadastro cadastroForm = new Cadastro();
             cadastroForm.Show();
             this.Hide();
-          
         }
     }
 }
+
