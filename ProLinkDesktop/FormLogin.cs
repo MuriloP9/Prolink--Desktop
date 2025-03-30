@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;  
+using System.Text.RegularExpressions;
 namespace ProLinkDesktop
 {
     public partial class FormLogin : Form
@@ -18,7 +18,7 @@ namespace ProLinkDesktop
         public FormLogin()
         {
             InitializeComponent();
-                      txtUsuario.Select();
+            txtUsuario.Select();
 
             txtUsuario.Multiline = false;
             txtSenha.Multiline = false;
@@ -29,60 +29,70 @@ namespace ProLinkDesktop
         }
         private void txtUsuario_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter) 
+            if (e.KeyCode == Keys.Enter)
             {
                 if (ValidarEmail(txtUsuario.Text))
                 {
-                    txtSenha.Focus(); 
+                    txtSenha.Focus();
                 }
                 else
                 {
                     MessageBox.Show("Por favor, insira um e-mail válido.");
-                    txtUsuario.Select(); 
+                    txtUsuario.Select();
                 }
             }
         }
 
         private void txtSenha_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter) 
+            if (e.KeyCode == Keys.Enter)
             {
-                btnEntrar.PerformClick(); 
+                btnEntrar.PerformClick();
             }
         }
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
-           
+
             if (txtUsuario.Text == usuarioCorreto && txtSenha.Text == senhaCorreta)
             {
                 Form1 form1 = new Form1();
                 form1.Show();
-                this.Hide(); 
+                this.Hide();
             }
             else
             {
-              
+
                 MessageBox.Show("Usuário ou senha incorretos.");
 
                 txtSenha.Clear();
-                txtSenha.Focus(); 
+                txtSenha.Focus();
             }
         }
 
         private void btnSair_Click(object sender, EventArgs e)
         {
-            
+
             Application.Exit();
         }
 
-  
+
         private bool ValidarEmail(string email)
         {
-            
+
             string padraoEmail = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
             Regex regex = new Regex(padraoEmail);
             return regex.IsMatch(email);
+        }
+
+
+        private void lblCadastro_Click_1(object sender, EventArgs e)
+        {
+
+            Cadastro cadastroForm = new Cadastro();
+            cadastroForm.Show();
+            this.Hide();
+          
         }
     }
 }
