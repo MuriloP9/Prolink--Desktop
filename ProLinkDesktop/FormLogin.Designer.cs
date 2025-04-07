@@ -50,12 +50,13 @@ namespace ProLinkDesktop
             // 
             // btnEntrar
             // 
-            this.btnEntrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(117)))), ((int)(((byte)(214)))));
+            this.btnEntrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.btnEntrar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnEntrar.FlatAppearance.BorderSize = 0;
             this.btnEntrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEntrar.Font = new System.Drawing.Font("Montserrat", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEntrar.ForeColor = System.Drawing.Color.White;
-            this.btnEntrar.Location = new System.Drawing.Point(139, 269);
+            this.btnEntrar.Location = new System.Drawing.Point(133, 269);
             this.btnEntrar.Name = "btnEntrar";
             this.btnEntrar.Size = new System.Drawing.Size(84, 29);
             this.btnEntrar.TabIndex = 2;
@@ -105,7 +106,7 @@ namespace ProLinkDesktop
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(117)))), ((int)(((byte)(214)))));
-            this.panel3.Location = new System.Drawing.Point(85, 413);
+            this.panel3.Location = new System.Drawing.Point(95, 412);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(170, 1);
             this.panel3.TabIndex = 10;
@@ -115,7 +116,7 @@ namespace ProLinkDesktop
             this.lblCadastro.AutoSize = true;
             this.lblCadastro.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCadastro.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.lblCadastro.Location = new System.Drawing.Point(136, 301);
+            this.lblCadastro.Location = new System.Drawing.Point(130, 301);
             this.lblCadastro.Name = "lblCadastro";
             this.lblCadastro.Size = new System.Drawing.Size(93, 16);
             this.lblCadastro.TabIndex = 15;
@@ -179,7 +180,7 @@ namespace ProLinkDesktop
             this.txtSenha.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtSenha.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSenha.ForeColor = System.Drawing.Color.White;
-            this.txtSenha.Location = new System.Drawing.Point(55, 183);
+            this.txtSenha.Location = new System.Drawing.Point(55, 176);
             this.txtSenha.Multiline = true;
             this.txtSenha.Name = "txtSenha";
             this.txtSenha.Size = new System.Drawing.Size(205, 24);
@@ -192,7 +193,7 @@ namespace ProLinkDesktop
             this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsuario.ForeColor = System.Drawing.Color.White;
-            this.txtUsuario.Location = new System.Drawing.Point(55, 116);
+            this.txtUsuario.Location = new System.Drawing.Point(55, 123);
             this.txtUsuario.Multiline = true;
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(349, 24);

@@ -33,7 +33,7 @@ namespace ProLinkDesktop
             this.btnSair = new System.Windows.Forms.Button();
             this.pnlNav = new System.Windows.Forms.Panel();
             this.btnConfiguracoes = new System.Windows.Forms.Button();
-            this.btnContato = new System.Windows.Forms.Button();
+            this.btnCadastrarEmpresa = new System.Windows.Forms.Button();
             this.btnExportar = new System.Windows.Forms.Button();
             this.btnOportunidades = new System.Windows.Forms.Button();
             this.btnMenu = new System.Windows.Forms.Button();
@@ -53,7 +53,7 @@ namespace ProLinkDesktop
             this.panel1.Controls.Add(this.btnSair);
             this.panel1.Controls.Add(this.pnlNav);
             this.panel1.Controls.Add(this.btnConfiguracoes);
-            this.panel1.Controls.Add(this.btnContato);
+            this.panel1.Controls.Add(this.btnCadastrarEmpresa);
             this.panel1.Controls.Add(this.btnExportar);
             this.panel1.Controls.Add(this.btnOportunidades);
             this.panel1.Controls.Add(this.btnMenu);
@@ -107,23 +107,23 @@ namespace ProLinkDesktop
             this.btnConfiguracoes.Click += new System.EventHandler(this.btnConfiguracoes_Click);
             this.btnConfiguracoes.Leave += new System.EventHandler(this.btnConfiguracoes_Leave);
             // 
-            // btnContato
+            // btnCadastrarEmpresa
             // 
-            this.btnContato.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnContato.FlatAppearance.BorderSize = 0;
-            this.btnContato.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnContato.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnContato.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.btnContato.Image = global::ProLinkDesktop.Properties.Resources.Contato__1_;
-            this.btnContato.Location = new System.Drawing.Point(0, 280);
-            this.btnContato.Name = "btnContato";
-            this.btnContato.Size = new System.Drawing.Size(186, 42);
-            this.btnContato.TabIndex = 4;
-            this.btnContato.Text = "Contato        ";
-            this.btnContato.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.btnContato.UseVisualStyleBackColor = true;
-            this.btnContato.Click += new System.EventHandler(this.btnContato_Click);
-            this.btnContato.Leave += new System.EventHandler(this.btnContato_Leave);
+            this.btnCadastrarEmpresa.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnCadastrarEmpresa.FlatAppearance.BorderSize = 0;
+            this.btnCadastrarEmpresa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCadastrarEmpresa.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCadastrarEmpresa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.btnCadastrarEmpresa.Image = global::ProLinkDesktop.Properties.Resources.EmpresaseSubdivisoes;
+            this.btnCadastrarEmpresa.Location = new System.Drawing.Point(0, 280);
+            this.btnCadastrarEmpresa.Name = "btnCadastrarEmpresa";
+            this.btnCadastrarEmpresa.Size = new System.Drawing.Size(186, 42);
+            this.btnCadastrarEmpresa.TabIndex = 4;
+            this.btnCadastrarEmpresa.Text = "Cadastrar Empresa";
+            this.btnCadastrarEmpresa.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btnCadastrarEmpresa.UseVisualStyleBackColor = true;
+            this.btnCadastrarEmpresa.Click += new System.EventHandler(this.btnCadastrarEmpresa_Click);
+            this.btnCadastrarEmpresa.Leave += new System.EventHandler(this.btnContato_Leave);
             // 
             // btnExportar
             // 
@@ -199,6 +199,7 @@ namespace ProLinkDesktop
             this.label1.Size = new System.Drawing.Size(62, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "Usuário";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // pictureBox1
             // 
@@ -218,9 +219,9 @@ namespace ProLinkDesktop
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(161)))), ((int)(((byte)(176)))));
             this.lblTitle.Location = new System.Drawing.Point(204, 22);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(166, 32);
+            this.lblTitle.Size = new System.Drawing.Size(90, 32);
             this.lblTitle.TabIndex = 1;
-            this.lblTitle.Text = "DashBoard";
+            this.lblTitle.Text = "Menu";
             // 
             // pnlFormLoader
             // 
@@ -261,7 +262,7 @@ namespace ProLinkDesktop
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnConfiguracoes;
-        private System.Windows.Forms.Button btnContato;
+        private System.Windows.Forms.Button btnCadastrarEmpresa;
         private System.Windows.Forms.Button btnExportar;
         private System.Windows.Forms.Button btnOportunidades;
         private System.Windows.Forms.Panel pnlNav;

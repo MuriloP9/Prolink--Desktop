@@ -30,27 +30,21 @@ namespace ProLinkDesktop
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.txtSenha = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnCadastrar = new System.Windows.Forms.Button();
-            this.txtRazaoSocial = new System.Windows.Forms.TextBox();
-            this.txtUsuario = new System.Windows.Forms.TextBox();
-            this.txtCnpj = new System.Windows.Forms.TextBox();
+            this.txtNomeCompleto = new System.Windows.Forms.TextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnSair = new System.Windows.Forms.Button();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtSenha = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -62,17 +56,11 @@ namespace ProLinkDesktop
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.panel5);
             this.panel1.Controls.Add(this.txtSenha);
-            this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.panel3);
-            this.panel1.Controls.Add(this.panel2);
-            this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.btnCadastrar);
-            this.panel1.Controls.Add(this.txtRazaoSocial);
-            this.panel1.Controls.Add(this.txtUsuario);
-            this.panel1.Controls.Add(this.txtCnpj);
+            this.panel1.Controls.Add(this.txtNomeCompleto);
             this.panel1.Controls.Add(this.txtEmail);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
@@ -80,6 +68,24 @@ namespace ProLinkDesktop
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(462, 464);
             this.panel1.TabIndex = 0;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(117)))), ((int)(((byte)(214)))));
+            this.panel6.Location = new System.Drawing.Point(11, 290);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(275, 1);
+            this.panel6.TabIndex = 18;
+            // 
+            // label8
+            // 
+            this.label8.Font = new System.Drawing.Font("Montserrat", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Black;
+            this.label8.Location = new System.Drawing.Point(5, 236);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(221, 29);
+            this.label8.TabIndex = 17;
+            this.label8.Text = "Senha";
             // 
             // panel5
             // 
@@ -89,59 +95,33 @@ namespace ProLinkDesktop
             this.panel5.Size = new System.Drawing.Size(275, 1);
             this.panel5.TabIndex = 15;
             // 
-            // panel4
+            // txtSenha
             // 
-            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(117)))), ((int)(((byte)(214)))));
-            this.panel4.Location = new System.Drawing.Point(11, 330);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(275, 1);
-            this.panel4.TabIndex = 15;
+            this.txtSenha.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtSenha.Font = new System.Drawing.Font("Montserrat SemiBold", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSenha.Location = new System.Drawing.Point(9, 268);
+            this.txtSenha.Name = "txtSenha";
+            this.txtSenha.PasswordChar = '*';
+            this.txtSenha.Size = new System.Drawing.Size(275, 16);
+            this.txtSenha.TabIndex = 16;
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(117)))), ((int)(((byte)(214)))));
-            this.panel3.Location = new System.Drawing.Point(11, 268);
+            this.panel3.Location = new System.Drawing.Point(11, 222);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(275, 1);
             this.panel3.TabIndex = 15;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(117)))), ((int)(((byte)(214)))));
-            this.panel2.Location = new System.Drawing.Point(11, 214);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(275, 1);
-            this.panel2.TabIndex = 14;
-            // 
-            // label7
-            // 
-            this.label7.Font = new System.Drawing.Font("Montserrat", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(5, 280);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(221, 29);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Razão Social";
             // 
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Montserrat", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(5, 218);
+            this.label6.Location = new System.Drawing.Point(5, 174);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(221, 29);
             this.label6.TabIndex = 12;
-            this.label6.Text = "Nome Usuário";
-            // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("Montserrat", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(5, 167);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(227, 29);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "CNPJ";
+            this.label6.Text = "Nome Completo";
             // 
             // label4
             // 
@@ -167,32 +147,14 @@ namespace ProLinkDesktop
             this.btnCadastrar.Text = "Cadastrar";
             this.btnCadastrar.UseVisualStyleBackColor = false;
             // 
-            // txtRazaoSocial
+            // txtNomeCompleto
             // 
-            this.txtRazaoSocial.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtRazaoSocial.Font = new System.Drawing.Font("Montserrat SemiBold", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRazaoSocial.Location = new System.Drawing.Point(11, 312);
-            this.txtRazaoSocial.Name = "txtRazaoSocial";
-            this.txtRazaoSocial.Size = new System.Drawing.Size(275, 16);
-            this.txtRazaoSocial.TabIndex = 8;
-            // 
-            // txtUsuario
-            // 
-            this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtUsuario.Font = new System.Drawing.Font("Montserrat SemiBold", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUsuario.Location = new System.Drawing.Point(11, 250);
-            this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(272, 16);
-            this.txtUsuario.TabIndex = 7;
-            // 
-            // txtCnpj
-            // 
-            this.txtCnpj.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtCnpj.Font = new System.Drawing.Font("Montserrat SemiBold", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCnpj.Location = new System.Drawing.Point(11, 199);
-            this.txtCnpj.Name = "txtCnpj";
-            this.txtCnpj.Size = new System.Drawing.Size(272, 16);
-            this.txtCnpj.TabIndex = 6;
+            this.txtNomeCompleto.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtNomeCompleto.Font = new System.Drawing.Font("Montserrat SemiBold", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNomeCompleto.Location = new System.Drawing.Point(9, 207);
+            this.txtNomeCompleto.Name = "txtNomeCompleto";
+            this.txtNomeCompleto.Size = new System.Drawing.Size(272, 16);
+            this.txtNomeCompleto.TabIndex = 7;
             // 
             // txtEmail
             // 
@@ -259,34 +221,6 @@ namespace ProLinkDesktop
             this.btnSair.TabIndex = 10;
             this.btnSair.UseVisualStyleBackColor = false;
             // 
-            // panel6
-            // 
-            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(117)))), ((int)(((byte)(214)))));
-            this.panel6.Location = new System.Drawing.Point(11, 393);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(275, 1);
-            this.panel6.TabIndex = 18;
-            // 
-            // label8
-            // 
-            this.label8.Font = new System.Drawing.Font("Montserrat", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(5, 343);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(221, 29);
-            this.label8.TabIndex = 17;
-            this.label8.Text = "Senha";
-            // 
-            // txtSenha
-            // 
-            this.txtSenha.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtSenha.Font = new System.Drawing.Font("Montserrat SemiBold", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSenha.Location = new System.Drawing.Point(11, 375);
-            this.txtSenha.Name = "txtSenha";
-            this.txtSenha.PasswordChar = '*';
-            this.txtSenha.Size = new System.Drawing.Size(275, 16);
-            this.txtSenha.TabIndex = 16;
-            // 
             // Cadastro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -316,21 +250,15 @@ namespace ProLinkDesktop
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtRazaoSocial;
-        private System.Windows.Forms.TextBox txtUsuario;
-        private System.Windows.Forms.TextBox txtCnpj;
+        private System.Windows.Forms.TextBox txtNomeCompleto;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnCadastrar;
         private System.Windows.Forms.Button btnSair;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtSenha;

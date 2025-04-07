@@ -143,6 +143,26 @@ namespace ProLinkDesktop.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Empresas {
+            get {
+                object obj = ResourceManager.GetObject("Empresas", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EmpresaseSubdivisoes {
+            get {
+                object obj = ResourceManager.GetObject("EmpresaseSubdivisoes", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Exportar {
             get {
                 object obj = ResourceManager.GetObject("Exportar", resourceCulture);
@@ -296,6 +316,16 @@ namespace ProLinkDesktop.Properties {
         internal static System.Drawing.Bitmap Setting {
             get {
                 object obj = ResourceManager.GetObject("Setting", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UltimoAcesso {
+            get {
+                object obj = ResourceManager.GetObject("UltimoAcesso", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

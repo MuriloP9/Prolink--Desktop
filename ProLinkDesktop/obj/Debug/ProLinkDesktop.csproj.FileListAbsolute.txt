@@ -31,3 +31,7 @@ C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkD
 C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.formDashboard.resources
 C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.frmOportunidades.resources
 C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.Cadastro.resources
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FrmCadastrarEmpresas.resources
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FrmConfiguracoes.resources
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FrmExportarRelatorios.resources
+C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FrmPerfil.resources

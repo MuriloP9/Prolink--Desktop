@@ -83,13 +83,28 @@ namespace ProLinkDesktop
             pnlNav.Top = btnExportar.Top;
             btnExportar.BackColor = Color.FromArgb(46, 51, 73);
 
+            lblTitle.Text = "Exportar Relatorios";
+            this.pnlFormLoader.Controls.Clear();
+            FrmExportarRelatorios FormDashboard_vrb = new FrmExportarRelatorios() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
+            this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
+            FormDashboard_vrb.Show();
+
         }
 
-        private void btnContato_Click(object sender, EventArgs e)
-        {
-            pnlNav.Height = btnContato.Height;
-            pnlNav.Top = btnContato.Top;
-            btnContato.BackColor = Color.FromArgb(46, 51, 73);
+          private void btnCadastrarEmpresa_Click(object sender, EventArgs e)
+                {
+            pnlNav.Height = btnExportar.Height;
+            pnlNav.Top = btnExportar.Top;
+            btnExportar.BackColor = Color.FromArgb(46, 51, 73);
+
+            lblTitle.Text = "Cadastrar Empresas";
+            this.pnlFormLoader.Controls.Clear();
+           FrmCadastrarEmpresas FormDashboard_vrb = new FrmCadastrarEmpresas() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
+            this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
+            FormDashboard_vrb.Show();
+
         }
 
         private void btnConfiguracoes_Click(object sender, EventArgs e)
@@ -97,6 +112,13 @@ namespace ProLinkDesktop
             pnlNav.Height = btnConfiguracoes.Height;
             pnlNav.Top = btnConfiguracoes.Top;
             btnConfiguracoes.BackColor = Color.FromArgb(46, 51, 73);
+
+            lblTitle.Text = "Configurações";
+            this.pnlFormLoader.Controls.Clear();
+            FrmConfiguracoes FormDashboard_vrb = new FrmConfiguracoes() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
+            this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
+            FormDashboard_vrb.Show();
         }
 
         //perfil
@@ -117,7 +139,7 @@ namespace ProLinkDesktop
 
         private void btnContato_Leave(object sender, EventArgs e)
         {
-            btnContato.BackColor = Color.FromArgb(24, 30, 54);
+            btnCadastrarEmpresa.BackColor = Color.FromArgb(24, 30, 54);
         }
 
         private void btnConfiguracoes_Leave(object sender, EventArgs e)
@@ -132,10 +154,23 @@ namespace ProLinkDesktop
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            lblTitle.Text = "Perfil";
+            this.pnlFormLoader.Controls.Clear();
+            FrmPerfil FormDashboard_vrb = new FrmPerfil() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
+            this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
+            FormDashboard_vrb.Show();
         }
 
-      
+        private void label1_Click(object sender, EventArgs e)
+        {
+            lblTitle.Text = "Perfil";
+            this.pnlFormLoader.Controls.Clear();
+            FrmPerfil FormDashboard_vrb = new FrmPerfil() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
+            this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
+            FormDashboard_vrb.Show();
+        }
     }
 }
 

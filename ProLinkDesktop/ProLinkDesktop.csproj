@@ -31,6 +31,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Globo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="CircularProgressBar, Version=2.8.0.16, Culture=neutral, PublicKeyToken=310fd07b25df79b3, processorArchitecture=MSIL">
       <HintPath>..\packages\CircularProgressBar.2.8.0.16\lib\net40\CircularProgressBar.dll</HintPath>
@@ -57,7 +61,7 @@
     <Compile Include="Cadastro.Designer.cs">
       <DependentUpon>Cadastro.cs</DependentUpon>
     </Compile>
-    <Compile Include="Conexao.cs" />
+    <Compile Include="ClasseConexao.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,11 +80,35 @@
     <Compile Include="formDashboard.Designer.cs">
       <DependentUpon>formDashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmCadastrarEmpresas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCadastrarEmpresas.Designer.cs">
+      <DependentUpon>FrmCadastrarEmpresas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmConfiguracoes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmConfiguracoes.Designer.cs">
+      <DependentUpon>FrmConfiguracoes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmExportarRelatorios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmExportarRelatorios.Designer.cs">
+      <DependentUpon>FrmExportarRelatorios.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmOportunidades.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmOportunidades.Designer.cs">
       <DependentUpon>frmOportunidades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPerfil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPerfil.Designer.cs">
+      <DependentUpon>FrmPerfil.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,8 +124,20 @@
     <EmbeddedResource Include="formDashboard.resx">
       <DependentUpon>formDashboard.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmCadastrarEmpresas.resx">
+      <DependentUpon>FrmCadastrarEmpresas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmConfiguracoes.resx">
+      <DependentUpon>FrmConfiguracoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmExportarRelatorios.resx">
+      <DependentUpon>FrmExportarRelatorios.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmOportunidades.resx">
       <DependentUpon>frmOportunidades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPerfil.resx">
+      <DependentUpon>FrmPerfil.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -197,6 +237,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\globo-mundial.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Empresas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UltimoAcesso.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EmpresaseSubdivisoes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Globo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
