@@ -38,7 +38,7 @@ namespace ProLinkDesktop
             this.btnOportunidades = new System.Windows.Forms.Button();
             this.btnMenu = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblUsuario = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlFormLoader = new System.Windows.Forms.Panel();
@@ -70,7 +70,7 @@ namespace ProLinkDesktop
             this.btnSair.FlatAppearance.BorderSize = 0;
             this.btnSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSair.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSair.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.btnSair.ForeColor = System.Drawing.Color.White;
             this.btnSair.Image = global::ProLinkDesktop.Properties.Resources.Sair;
             this.btnSair.Location = new System.Drawing.Point(0, 535);
             this.btnSair.Name = "btnSair";
@@ -95,7 +95,7 @@ namespace ProLinkDesktop
             this.btnConfiguracoes.FlatAppearance.BorderSize = 0;
             this.btnConfiguracoes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfiguracoes.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConfiguracoes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.btnConfiguracoes.ForeColor = System.Drawing.Color.White;
             this.btnConfiguracoes.Image = global::ProLinkDesktop.Properties.Resources.config;
             this.btnConfiguracoes.Location = new System.Drawing.Point(0, 322);
             this.btnConfiguracoes.Name = "btnConfiguracoes";
@@ -105,7 +105,7 @@ namespace ProLinkDesktop
             this.btnConfiguracoes.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnConfiguracoes.UseVisualStyleBackColor = true;
             this.btnConfiguracoes.Click += new System.EventHandler(this.btnConfiguracoes_Click);
-            this.btnConfiguracoes.Leave += new System.EventHandler(this.btnConfiguracoes_Leave);
+
             // 
             // btnCadastrarEmpresa
             // 
@@ -113,7 +113,7 @@ namespace ProLinkDesktop
             this.btnCadastrarEmpresa.FlatAppearance.BorderSize = 0;
             this.btnCadastrarEmpresa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCadastrarEmpresa.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCadastrarEmpresa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.btnCadastrarEmpresa.ForeColor = System.Drawing.Color.White;
             this.btnCadastrarEmpresa.Image = global::ProLinkDesktop.Properties.Resources.EmpresaseSubdivisoes;
             this.btnCadastrarEmpresa.Location = new System.Drawing.Point(0, 280);
             this.btnCadastrarEmpresa.Name = "btnCadastrarEmpresa";
@@ -123,7 +123,7 @@ namespace ProLinkDesktop
             this.btnCadastrarEmpresa.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnCadastrarEmpresa.UseVisualStyleBackColor = true;
             this.btnCadastrarEmpresa.Click += new System.EventHandler(this.btnCadastrarEmpresa_Click);
-            this.btnCadastrarEmpresa.Leave += new System.EventHandler(this.btnContato_Leave);
+
             // 
             // btnExportar
             // 
@@ -131,7 +131,7 @@ namespace ProLinkDesktop
             this.btnExportar.FlatAppearance.BorderSize = 0;
             this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportar.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExportar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.btnExportar.ForeColor = System.Drawing.Color.White;
             this.btnExportar.Image = global::ProLinkDesktop.Properties.Resources.Exportar;
             this.btnExportar.Location = new System.Drawing.Point(0, 238);
             this.btnExportar.Name = "btnExportar";
@@ -141,7 +141,7 @@ namespace ProLinkDesktop
             this.btnExportar.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnExportar.UseVisualStyleBackColor = true;
             this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
-            this.btnExportar.Leave += new System.EventHandler(this.btnExportar_Leave);
+
             // 
             // btnOportunidades
             // 
@@ -149,7 +149,7 @@ namespace ProLinkDesktop
             this.btnOportunidades.FlatAppearance.BorderSize = 0;
             this.btnOportunidades.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOportunidades.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOportunidades.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.btnOportunidades.ForeColor = System.Drawing.Color.White;
             this.btnOportunidades.Image = global::ProLinkDesktop.Properties.Resources.Oportunidades;
             this.btnOportunidades.Location = new System.Drawing.Point(0, 196);
             this.btnOportunidades.Name = "btnOportunidades";
@@ -159,7 +159,7 @@ namespace ProLinkDesktop
             this.btnOportunidades.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnOportunidades.UseVisualStyleBackColor = true;
             this.btnOportunidades.Click += new System.EventHandler(this.btnOportunidades_Click);
-            this.btnOportunidades.Leave += new System.EventHandler(this.btnOportunidades_Leave);
+
             // 
             // btnMenu
             // 
@@ -167,7 +167,7 @@ namespace ProLinkDesktop
             this.btnMenu.FlatAppearance.BorderSize = 0;
             this.btnMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMenu.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMenu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.btnMenu.ForeColor = System.Drawing.Color.White;
             this.btnMenu.Image = global::ProLinkDesktop.Properties.Resources.Menu__1_;
             this.btnMenu.Location = new System.Drawing.Point(0, 154);
             this.btnMenu.Name = "btnMenu";
@@ -177,11 +177,11 @@ namespace ProLinkDesktop
             this.btnMenu.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnMenu.UseVisualStyleBackColor = true;
             this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
-            this.btnMenu.Leave += new System.EventHandler(this.btnMenu_Leave);
+
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.lblUsuario);
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
@@ -189,17 +189,17 @@ namespace ProLinkDesktop
             this.panel2.Size = new System.Drawing.Size(186, 154);
             this.panel2.TabIndex = 0;
             // 
-            // label1
+            // lblUsuario
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.label1.Location = new System.Drawing.Point(61, 112);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(62, 16);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Usuário";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.lblUsuario.AutoSize = true;
+            this.lblUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsuario.ForeColor = System.Drawing.Color.White;
+            this.lblUsuario.Location = new System.Drawing.Point(61, 112);
+            this.lblUsuario.Name = "lblUsuario";
+            this.lblUsuario.Size = new System.Drawing.Size(62, 16);
+            this.lblUsuario.TabIndex = 1;
+            this.lblUsuario.Text = "Usuário";
+            this.lblUsuario.Click += new System.EventHandler(this.lblUsuario_Click);
             // 
             // pictureBox1
             // 
@@ -244,7 +244,6 @@ namespace ProLinkDesktop
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
@@ -259,7 +258,7 @@ namespace ProLinkDesktop
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnMenu;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblUsuario;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnConfiguracoes;
         private System.Windows.Forms.Button btnCadastrarEmpresa;

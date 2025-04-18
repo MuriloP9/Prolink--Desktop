@@ -14,7 +14,6 @@ namespace ProLinkDesktop
     public partial class Form1 : Form
     {
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-
         private static extern IntPtr CreateRoundRectRgn
             (
             int nLeftRect,
@@ -25,15 +24,19 @@ namespace ProLinkDesktop
             int nHeightEllipse
             );
 
+        private Button activeButton; // Variável para rastrear o botão ativo
 
         public Form1()
         {
             InitializeComponent();
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
+
+            // Configuração inicial
             pnlNav.Height = btnMenu.Height;
             pnlNav.Top = btnMenu.Top;
             pnlNav.Left = btnMenu.Left;
             btnMenu.BackColor = Color.FromArgb(46, 51, 73);
+            activeButton = btnMenu;
 
             lblTitle.Text = "Menu";
             this.pnlFormLoader.Controls.Clear();
@@ -43,17 +46,28 @@ namespace ProLinkDesktop
             FormDashboard_vrb.Show();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void ResetButtonColors()
         {
+            if (activeButton != null)
+            {
+                activeButton.BackColor = Color.FromArgb(24, 30, 54); // Cor padrão dos botões
+            }
+        }
 
+        private void SetActiveButton(Button button)
+        {
+            ResetButtonColors();
+            activeButton = button;
+            activeButton.BackColor = Color.FromArgb(46, 51, 73); // Cor do botão ativo
         }
 
         private void btnMenu_Click(object sender, EventArgs e)
         {
+            SetActiveButton(btnMenu);
+
             pnlNav.Height = btnMenu.Height;
             pnlNav.Top = btnMenu.Top;
             pnlNav.Left = btnMenu.Left;
-            btnMenu.BackColor = Color.FromArgb(46, 51, 73);
 
             lblTitle.Text = "Menu";
             this.pnlFormLoader.Controls.Clear();
@@ -65,9 +79,10 @@ namespace ProLinkDesktop
 
         private void btnOportunidades_Click(object sender, EventArgs e)
         {
+            SetActiveButton(btnOportunidades);
+
             pnlNav.Height = btnOportunidades.Height;
             pnlNav.Top = btnOportunidades.Top;
-            btnOportunidades.BackColor = Color.FromArgb(46, 51, 73);
 
             lblTitle.Text = "Oportunidades";
             this.pnlFormLoader.Controls.Clear();
@@ -79,39 +94,45 @@ namespace ProLinkDesktop
 
         private void btnExportar_Click(object sender, EventArgs e)
         {
+            SetActiveButton(btnExportar);
+
             pnlNav.Height = btnExportar.Height;
             pnlNav.Top = btnExportar.Top;
-            btnExportar.BackColor = Color.FromArgb(46, 51, 73);
 
-            lblTitle.Text = "Exportar Relatorios";
+            lblTitle.Text = "Exportar Relatórios";
             this.pnlFormLoader.Controls.Clear();
             FrmExportarRelatorios FormDashboard_vrb = new FrmExportarRelatorios() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
             FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
             this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
             FormDashboard_vrb.Show();
-
         }
 
-          private void btnCadastrarEmpresa_Click(object sender, EventArgs e)
-                {
-            pnlNav.Height = btnExportar.Height;
-            pnlNav.Top = btnExportar.Top;
-            btnExportar.BackColor = Color.FromArgb(46, 51, 73);
+        private void btnCadastrarEmpresa_Click(object sender, EventArgs e)
+        {
+            SetActiveButton(btnCadastrarEmpresa);
+
+            pnlNav.Height = btnCadastrarEmpresa.Height;
+            pnlNav.Top = btnCadastrarEmpresa.Top;
 
             lblTitle.Text = "Cadastrar Empresas";
             this.pnlFormLoader.Controls.Clear();
-           FrmCadastrarEmpresas FormDashboard_vrb = new FrmCadastrarEmpresas() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            FrmCadastrarEmpresas FormDashboard_vrb = new FrmCadastrarEmpresas()
+            {
+                Dock = DockStyle.Fill,
+                TopLevel = false,
+                TopMost = true
+            };
             FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
             this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
             FormDashboard_vrb.Show();
-
         }
 
         private void btnConfiguracoes_Click(object sender, EventArgs e)
         {
+            SetActiveButton(btnConfiguracoes);
+
             pnlNav.Height = btnConfiguracoes.Height;
             pnlNav.Top = btnConfiguracoes.Top;
-            btnConfiguracoes.BackColor = Color.FromArgb(46, 51, 73);
 
             lblTitle.Text = "Configurações";
             this.pnlFormLoader.Controls.Clear();
@@ -119,32 +140,6 @@ namespace ProLinkDesktop
             FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
             this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
             FormDashboard_vrb.Show();
-        }
-
-        //perfil
-
-        private void btnMenu_Leave(object sender, EventArgs e)
-        {
-             btnMenu.BackColor = Color.FromArgb(24, 30, 54);
-        }
-        private void btnOportunidades_Leave(object sender, EventArgs e)
-                {
-                    btnOportunidades.BackColor = Color.FromArgb(24, 30, 54);
-                }
-        
-        private void btnExportar_Leave(object sender, EventArgs e)
-        {
-            btnExportar.BackColor = Color.FromArgb(24, 30, 54);
-        }
-
-        private void btnContato_Leave(object sender, EventArgs e)
-        {
-            btnCadastrarEmpresa.BackColor = Color.FromArgb(24, 30, 54);
-        }
-
-        private void btnConfiguracoes_Leave(object sender, EventArgs e)
-        {
-            btnConfiguracoes.BackColor = Color.FromArgb(24, 30, 54);
         }
 
         private void btnSair_Click(object sender, EventArgs e)
@@ -162,7 +157,7 @@ namespace ProLinkDesktop
             FormDashboard_vrb.Show();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void lblUsuario_Click(object sender, EventArgs e)
         {
             lblTitle.Text = "Perfil";
             this.pnlFormLoader.Controls.Clear();
@@ -173,4 +168,3 @@ namespace ProLinkDesktop
         }
     }
 }
-
