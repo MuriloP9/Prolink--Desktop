@@ -18,4 +18,4 @@ SELECT * FROM Funcionario;
 DELETE FROM Funcionario;
 
 INSERT INTO Funcionario (email, senha, nome_completo)
-VALUES ('teste@empresa.com', 'senha123', 'Empresa Teste LTDA');
+VALUES ('Teste@empresaw.com', 'senha123', 'Empresa Teste');

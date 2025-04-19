@@ -79,7 +79,7 @@ namespace ProLinkDesktop
 
         private void VoltarParaLogin()
         {
-            FormLogin formLogin = new FormLogin();
+            FrmLogin formLogin = new FrmLogin();
             formLogin.Show();
             this.Close();
         }

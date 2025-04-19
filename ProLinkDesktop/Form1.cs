@@ -13,23 +13,31 @@ namespace ProLinkDesktop
 {
     public partial class Form1 : Form
     {
-        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRgn
-            (
-            int nLeftRect,
-            int nTopRect,
-            int nRightRect,
-            int nBottomRect,
-            int nWidthEllipse,
-            int nHeightEllipse
-            );
+        private string _nomeUsuario;
+        private int _nivelAcesso;
 
-        private Button activeButton; // Variável para rastrear o botão ativo
+        // Propriedades
+        public string NomeUsuario
+        {
+            get => _nomeUsuario;
+            set { _nomeUsuario = value; lblUsuario.Text = value; }
+        }
+
+        public int NivelAcesso
+        {
+            get => _nivelAcesso;
+            set { _nivelAcesso = value; ConfigurarBotoesPorNivel(); }
+        }
+
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
+
+        private Button activeButton;
 
         public Form1()
         {
             InitializeComponent();
-            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
+            Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
 
             // Configuração inicial
             pnlNav.Height = btnMenu.Height;
@@ -39,132 +47,112 @@ namespace ProLinkDesktop
             activeButton = btnMenu;
 
             lblTitle.Text = "Menu";
-            this.pnlFormLoader.Controls.Clear();
-            formDashboard FormDashboard_vrb = new formDashboard() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-            FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
-            this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
-            FormDashboard_vrb.Show();
+            CarregarForm(new formDashboard());
         }
 
+        // Métodos de controle de acesso
+        private void ConfigurarBotoesPorNivel()
+        {
+            btnGerenciarFuncionarios.Visible = (_nivelAcesso == 0);  // Só Admin (0)
+            btnGerenciarUsuarios.Visible = (_nivelAcesso <= 1);     // Admin e Gerente (0-1)
+            ReorganizarBotoes();
+        }
+
+        private void ReorganizarBotoes()
+        {
+            int posY = btnMenu.Bottom + 10;
+
+            if (btnGerenciarFuncionarios.Visible)
+            {
+                btnGerenciarFuncionarios.Location = new Point(btnMenu.Left, posY);
+                posY = btnGerenciarFuncionarios.Bottom + 10;
+            }
+
+            if (btnGerenciarUsuarios.Visible)
+            {
+                btnGerenciarUsuarios.Location = new Point(btnMenu.Left, posY);
+                posY = btnGerenciarUsuarios.Bottom + 10;
+            }
+
+            // Botões fixos
+            btnOportunidades.Location = new Point(btnMenu.Left, posY);
+            btnConfiguracoes.Location = new Point(btnMenu.Left, btnOportunidades.Bottom + 10);
+            btnSair.Location = new Point(btnMenu.Left, btnConfiguracoes.Bottom + 10);
+        }
+
+        // Métodos auxiliares
         private void ResetButtonColors()
         {
             if (activeButton != null)
-            {
-                activeButton.BackColor = Color.FromArgb(24, 30, 54); // Cor padrão dos botões
-            }
+                activeButton.BackColor = Color.FromArgb(24, 30, 54);
         }
 
         private void SetActiveButton(Button button)
         {
             ResetButtonColors();
             activeButton = button;
-            activeButton.BackColor = Color.FromArgb(46, 51, 73); // Cor do botão ativo
+            activeButton.BackColor = Color.FromArgb(46, 51, 73);
         }
 
+        private void CarregarForm(Form form)
+        {
+            pnlFormLoader.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            pnlFormLoader.Controls.Add(form);
+            form.Show();
+        }
+
+        // Eventos dos botões (mantenha os existentes, só adicione os novos)
         private void btnMenu_Click(object sender, EventArgs e)
         {
             SetActiveButton(btnMenu);
-
-            pnlNav.Height = btnMenu.Height;
             pnlNav.Top = btnMenu.Top;
-            pnlNav.Left = btnMenu.Left;
-
             lblTitle.Text = "Menu";
-            this.pnlFormLoader.Controls.Clear();
-            formDashboard FormDashboard_vrb = new formDashboard() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-            FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
-            this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
-            FormDashboard_vrb.Show();
+            CarregarForm(new formDashboard());
         }
 
         private void btnOportunidades_Click(object sender, EventArgs e)
         {
             SetActiveButton(btnOportunidades);
-
-            pnlNav.Height = btnOportunidades.Height;
             pnlNav.Top = btnOportunidades.Top;
-
             lblTitle.Text = "Oportunidades";
-            this.pnlFormLoader.Controls.Clear();
-            frmOportunidades FormDashboard_vrb = new frmOportunidades() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-            FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
-            this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
-            FormDashboard_vrb.Show();
+            CarregarForm(new frmOportunidades());
         }
 
-        private void btnExportar_Click(object sender, EventArgs e)
+        private void btnGerenciarUsuarios_Click(object sender, EventArgs e)
         {
-            SetActiveButton(btnExportar);
-
-            pnlNav.Height = btnExportar.Height;
-            pnlNav.Top = btnExportar.Top;
-
-            lblTitle.Text = "Exportar Relatórios";
-            this.pnlFormLoader.Controls.Clear();
-            FrmExportarRelatorios FormDashboard_vrb = new FrmExportarRelatorios() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-            FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
-            this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
-            FormDashboard_vrb.Show();
+            SetActiveButton(btnGerenciarUsuarios);
+            pnlNav.Top = btnGerenciarUsuarios.Top;
+            lblTitle.Text = "Gerenciar Usuários";
+            CarregarForm(new FrmExportarRelatorios());
         }
 
-        private void btnCadastrarEmpresa_Click(object sender, EventArgs e)
+        private void btnGerenciarFuncionarios_Click(object sender, EventArgs e)
         {
-            SetActiveButton(btnCadastrarEmpresa);
-
-            pnlNav.Height = btnCadastrarEmpresa.Height;
-            pnlNav.Top = btnCadastrarEmpresa.Top;
-
-            lblTitle.Text = "Cadastrar Empresas";
-            this.pnlFormLoader.Controls.Clear();
-            FrmCadastrarEmpresas FormDashboard_vrb = new FrmCadastrarEmpresas()
-            {
-                Dock = DockStyle.Fill,
-                TopLevel = false,
-                TopMost = true
-            };
-            FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
-            this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
-            FormDashboard_vrb.Show();
+            SetActiveButton(btnGerenciarFuncionarios);
+            pnlNav.Top = btnGerenciarFuncionarios.Top;
+            lblTitle.Text = "Gerenciar Funcionarios";
+            CarregarForm(new FrmCadastrarEmpresas());
         }
 
         private void btnConfiguracoes_Click(object sender, EventArgs e)
         {
             SetActiveButton(btnConfiguracoes);
-
-            pnlNav.Height = btnConfiguracoes.Height;
             pnlNav.Top = btnConfiguracoes.Top;
-
             lblTitle.Text = "Configurações";
-            this.pnlFormLoader.Controls.Clear();
-            FrmConfiguracoes FormDashboard_vrb = new FrmConfiguracoes() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-            FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
-            this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
-            FormDashboard_vrb.Show();
+            CarregarForm(new FrmConfiguracoes());
         }
 
-        private void btnSair_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
+        private void btnSair_Click(object sender, EventArgs e) => Application.Exit();
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             lblTitle.Text = "Perfil";
-            this.pnlFormLoader.Controls.Clear();
-            FrmPerfil FormDashboard_vrb = new FrmPerfil() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-            FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
-            this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
-            FormDashboard_vrb.Show();
+            CarregarForm(new FrmPerfil());
         }
 
-        private void lblUsuario_Click(object sender, EventArgs e)
-        {
-            lblTitle.Text = "Perfil";
-            this.pnlFormLoader.Controls.Clear();
-            FrmPerfil FormDashboard_vrb = new FrmPerfil() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-            FormDashboard_vrb.FormBorderStyle = FormBorderStyle.None;
-            this.pnlFormLoader.Controls.Add(FormDashboard_vrb);
-            FormDashboard_vrb.Show();
-        }
+        private void lblUsuario_Click(object sender, EventArgs e) => pictureBox1_Click(sender, e);
     }
 }

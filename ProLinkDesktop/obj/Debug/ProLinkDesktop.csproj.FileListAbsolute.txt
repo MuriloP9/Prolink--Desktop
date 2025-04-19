@@ -21,7 +21,6 @@ C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\bin\Debug\WinFormA
 C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\bin\Debug\CircularProgressBar.xml
 C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.csproj.AssemblyReference.cache
 C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.Form1.resources
-C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FormLogin.resources
 C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.Properties.Resources.resources
 C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.csproj.GenerateResource.cache
 C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.csproj.CoreCompileInputs.cache
@@ -35,3 +34,4 @@ C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkD
 C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FrmConfiguracoes.resources
 C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FrmExportarRelatorios.resources
 C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FrmPerfil.resources
+C:\Users\Pedro H\source\repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FrmLogin.resources

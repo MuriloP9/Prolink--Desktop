@@ -12,12 +12,12 @@ using System.Drawing.Drawing2D;
 
 namespace ProLinkDesktop
 {
-    public partial class FormLogin : Form
+    public partial class FrmLogin : Form
     {
         ClasseConexao con;
         private bool isMouseOverButton = false; // Variável para rastrear o estado do mouse no botão
 
-        public FormLogin()
+        public FrmLogin()
         {
             InitializeComponent();
             txtUsuario.Select();
@@ -62,60 +62,67 @@ namespace ProLinkDesktop
             string email = txtUsuario.Text.Trim();
             string senha = txtSenha.Text.Trim();
 
-            if (email == "" || senha == "")
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(senha))
             {
                 MessageBox.Show("Preencha todos os campos.");
                 return;
             }
 
             con = new ClasseConexao();
-            string sql = "SELECT * FROM Funcionario WHERE email = @Email AND senha = @Senha";
+            string sql = "SELECT id_funcionario, nome_completo, nivel_acesso FROM Funcionario WHERE email = @Email AND senha = @Senha AND ativo = 1";
 
-            using (SqlCommand comando = new SqlCommand(sql))
+            using (SqlCommand comando = new SqlCommand(sql, con.conectar()))
             {
                 comando.Parameters.AddWithValue("@Email", email);
                 comando.Parameters.AddWithValue("@Senha", senha);
 
-                SqlConnection conexao = con.conectar();
-
-                if (conexao == null)
-                {
-                    MessageBox.Show("Não foi possível conectar ao banco de dados.");
-                    return;
-                }
-
-                comando.Connection = conexao;
-                SqlDataAdapter adaptador = new SqlDataAdapter(comando);
-                DataTable dt = new DataTable();
-
                 try
                 {
-                    adaptador.Fill(dt);
-
-                    if (dt.Rows.Count > 0)
+                    SqlDataReader reader = comando.ExecuteReader();
+                    if (reader.Read())
                     {
-                        string nomeUsuario = dt.Rows[0]["nome_completo"].ToString();
+                        string nome = reader["nome_completo"].ToString();
+                        int nivelAcesso = Convert.ToInt32(reader["nivel_acesso"]);
 
-                        MessageBox.Show("Bem-vindo(a), " + nomeUsuario + "!", "Login realizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // Define o cargo (sintaxe tradicional)
+                        string cargo;
+                        switch (nivelAcesso)
+                        {
+                            case 0:
+                                cargo = "Admin Master";
+                                break;
+                            case 1:
+                                cargo = "Gerente";
+                                break;
+                            case 2:
+                                cargo = "Supervisor";
+                                break;
+                            default:
+                                cargo = "Funcionário";
+                                break;
+                        }
 
-                        Form1 form1 = new Form1();
-                        form1.Show();
+                        // Mensagem de boas-vindas
+                        MessageBox.Show($"Bem-vindo {cargo} {nome}!", "Login realizado",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Abre o formulário principal
+                        Form1 formPrincipal = new Form1();
+                        formPrincipal.NomeUsuario = nome;
+                        formPrincipal.NivelAcesso = nivelAcesso;
+                        formPrincipal.Show();
                         this.Hide();
                     }
                     else
                     {
-                        MessageBox.Show("Usuário ou senha incorretos.");
-                        txtSenha.Clear();
-                        txtSenha.Focus();
+                        MessageBox.Show("E-mail ou senha incorretos.", "Erro",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Erro ao acessar o banco de dados: " + ex.Message);
-                }
-                finally
-                {
-                    con.desconectar();
+                    MessageBox.Show($"Erro ao acessar o banco: {ex.Message}", "Erro",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -184,5 +191,7 @@ namespace ProLinkDesktop
             isMouseOverButton = false;
             btnEntrar.Invalidate();
         }
+
+      
     }
 }

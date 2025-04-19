@@ -69,7 +69,7 @@ public class ClasseConexao
             SqlCommand comando = new SqlCommand();
             comando.CommandText = comando_sql;
             comando.Connection = conexao;
-            comando.ExecuteScalar();
+            comando.ExecuteScalar(); 
             return true;
         }
         catch (Exception)

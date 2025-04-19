@@ -1,7 +1,7 @@
 ﻿
 namespace ProLinkDesktop
 {
-    partial class FormLogin
+    partial class FrmLogin
     {
         /// <summary>
         /// Required designer variable.
@@ -35,7 +35,6 @@ namespace ProLinkDesktop
             this.label1 = new System.Windows.Forms.Label();
             this.btnSair = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.lblCadastro = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBoxSenha = new System.Windows.Forms.PictureBox();
             this.pictureBoxUsuario = new System.Windows.Forms.PictureBox();
@@ -56,7 +55,7 @@ namespace ProLinkDesktop
             this.btnEntrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEntrar.Font = new System.Drawing.Font("Montserrat", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEntrar.ForeColor = System.Drawing.Color.White;
-            this.btnEntrar.Location = new System.Drawing.Point(133, 269);
+            this.btnEntrar.Location = new System.Drawing.Point(133, 309);
             this.btnEntrar.Name = "btnEntrar";
             this.btnEntrar.Size = new System.Drawing.Size(84, 29);
             this.btnEntrar.TabIndex = 2;
@@ -110,18 +109,6 @@ namespace ProLinkDesktop
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(170, 1);
             this.panel3.TabIndex = 10;
-            // 
-            // lblCadastro
-            // 
-            this.lblCadastro.AutoSize = true;
-            this.lblCadastro.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCadastro.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.lblCadastro.Location = new System.Drawing.Point(130, 301);
-            this.lblCadastro.Name = "lblCadastro";
-            this.lblCadastro.Size = new System.Drawing.Size(93, 16);
-            this.lblCadastro.TabIndex = 15;
-            this.lblCadastro.Text = "Cadastra-se";
-            this.lblCadastro.Click += new System.EventHandler(this.lblCadastro_Click_1);
             // 
             // pictureBox3
             // 
@@ -183,7 +170,7 @@ namespace ProLinkDesktop
             this.txtSenha.Location = new System.Drawing.Point(55, 176);
             this.txtSenha.Multiline = true;
             this.txtSenha.Name = "txtSenha";
-            this.txtSenha.Size = new System.Drawing.Size(205, 24);
+            this.txtSenha.Size = new System.Drawing.Size(275, 24);
             this.txtSenha.TabIndex = 3;
             this.txtSenha.UseSystemPasswordChar = true;
             // 
@@ -193,13 +180,13 @@ namespace ProLinkDesktop
             this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsuario.ForeColor = System.Drawing.Color.White;
-            this.txtUsuario.Location = new System.Drawing.Point(55, 123);
+            this.txtUsuario.Location = new System.Drawing.Point(55, 120);
             this.txtUsuario.Multiline = true;
             this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(349, 24);
+            this.txtUsuario.Size = new System.Drawing.Size(275, 24);
             this.txtUsuario.TabIndex = 0;
             // 
-            // FormLogin
+            // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -207,7 +194,6 @@ namespace ProLinkDesktop
             this.ClientSize = new System.Drawing.Size(364, 498);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.lblCadastro);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.btnSair);
             this.Controls.Add(this.label1);
@@ -220,7 +206,7 @@ namespace ProLinkDesktop
             this.Controls.Add(this.btnEntrar);
             this.Controls.Add(this.txtUsuario);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "FormLogin";
+            this.Name = "FrmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login c#";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -241,7 +227,6 @@ namespace ProLinkDesktop
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSair;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label lblCadastro;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtSenha;
