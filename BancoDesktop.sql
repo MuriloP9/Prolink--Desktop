@@ -76,6 +76,25 @@ VALUES (
     2,           -- Nível 2 (Acesso restrito)
     2            -- Cadastrado pelo Gerente (id 2)
 );
+
+INSERT INTO AreaAtuacao (nome_area) VALUES 
+('Tecnologia da Informação'),
+('Marketing'),
+('Recursos
+ Humanos'),
+('Finanças'),
+('Vendas');
+
+INSERT INTO Vagas (id_func, titulo_vaga, localizacao, tipo_emprego, id_area, empresa) VALUES
+(2, 'Vndedor iNterno', 'Belo Horizonte', 'part-time', 5, 'Vendas');
+
+INSERT INTO Vagas (id_func, titulo_vaga, localizacao, tipo_emprego, id_area, empresa) VALUES
+(1, 'Desenvolvedor Full Stack', 'São Paulo/Remoto', 'full-time', 1, 'Prolink Solutions'),
+(2, 'Analista de RH Pleno', 'Rio de Janeiro', 'full-time', 3, 'Prolink RH'),
+(3, 'Estagiário em Marketing Digital', 'São Paulo', 'internship', 2, 'Prolink Marketing'),
+(1, 'Gerente Financeiro', 'São Paulo', 'full-time', 4, 'Prolink Finance'),
+(2, 'Vendedor Externo', 'Belo Horizonte', 'part-time', 5, 'Prolink Vendas');
+
 SELECT * FROM Funcionario;
 DELETE FROM Funcionario;
 
