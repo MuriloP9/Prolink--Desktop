@@ -178,13 +178,6 @@ namespace ProLinkDesktop
             return new Regex(padraoEmail).IsMatch(email);
         }
 
-        private void lblCadastro_Click_1(object sender, EventArgs e)
-        {
-            Cadastro cadastroForm = new Cadastro();
-            cadastroForm.Show();
-            this.Hide();
-        }
-
         private void btnEntrar_Paint(object sender, PaintEventArgs e)
         {
             Rectangle botaoRetangulo = btnEntrar.ClientRectangle;
