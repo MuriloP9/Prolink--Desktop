@@ -16,18 +16,19 @@ namespace ProLinkDesktop
         private string _nomeUsuario;
         private int _nivelAcesso;
 
-        // Propriedades
         public string NomeUsuario
         {
-            get => _nomeUsuario;
+            get { return _nomeUsuario; }
             set { _nomeUsuario = value; lblUsuario.Text = value; }
         }
 
         public int NivelAcesso
         {
-            get => _nivelAcesso;
+            get { return _nivelAcesso; }
             set { _nivelAcesso = value; ConfigurarBotoesPorNivel(); }
         }
+
+        public int IdFuncionario { get; set; }
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
@@ -39,7 +40,6 @@ namespace ProLinkDesktop
             InitializeComponent();
             Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
 
-            // Configuração inicial
             pnlNav.Height = btnMenu.Height;
             pnlNav.Top = btnMenu.Top;
             pnlNav.Left = btnMenu.Left;
@@ -47,14 +47,13 @@ namespace ProLinkDesktop
             activeButton = btnMenu;
 
             lblTitle.Text = "Menu";
-            CarregarForm(new formDashboard());
+            CarregarForm(new formDashboard(this));
         }
 
-        // Métodos de controle de acesso
         private void ConfigurarBotoesPorNivel()
         {
-            btnGerenciarFuncionarios.Visible = (_nivelAcesso == 0);  // Só Admin (0)
-            btnGerenciarUsuarios.Visible = (_nivelAcesso <= 1);     // Admin e Gerente (0-1)
+            btnGerenciarFuncionarios.Visible = (_nivelAcesso == 0);
+            btnGerenciarUsuarios.Visible = (_nivelAcesso <= 1);
             ReorganizarBotoes();
         }
 
@@ -74,13 +73,11 @@ namespace ProLinkDesktop
                 posY = btnGerenciarUsuarios.Bottom + 10;
             }
 
-            // Botões fixos
             btnOportunidades.Location = new Point(btnMenu.Left, posY);
             btnConfiguracoes.Location = new Point(btnMenu.Left, btnOportunidades.Bottom + 10);
             btnSair.Location = new Point(btnMenu.Left, btnConfiguracoes.Bottom + 10);
         }
 
-        // Métodos auxiliares
         private void ResetButtonColors()
         {
             if (activeButton != null)
@@ -94,7 +91,7 @@ namespace ProLinkDesktop
             activeButton.BackColor = Color.FromArgb(46, 51, 73);
         }
 
-        private void CarregarForm(Form form)
+        public void CarregarForm(Form form)
         {
             pnlFormLoader.Controls.Clear();
             form.TopLevel = false;
@@ -104,13 +101,12 @@ namespace ProLinkDesktop
             form.Show();
         }
 
-        // Eventos dos botões (mantenha os existentes, só adicione os novos)
         private void btnMenu_Click(object sender, EventArgs e)
         {
             SetActiveButton(btnMenu);
             pnlNav.Top = btnMenu.Top;
             lblTitle.Text = "Menu";
-            CarregarForm(new formDashboard());
+            CarregarForm(new formDashboard(this));
         }
 
         private void btnOportunidades_Click(object sender, EventArgs e)
@@ -145,7 +141,10 @@ namespace ProLinkDesktop
             CarregarForm(new FrmConfiguracoes());
         }
 
-        private void btnSair_Click(object sender, EventArgs e) => Application.Exit();
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -153,6 +152,9 @@ namespace ProLinkDesktop
             CarregarForm(new FrmPerfil());
         }
 
-        private void lblUsuario_Click(object sender, EventArgs e) => pictureBox1_Click(sender, e);
+        private void lblUsuario_Click(object sender, EventArgs e)
+        {
+            pictureBox1_Click(sender, e);
+        }
     }
 }

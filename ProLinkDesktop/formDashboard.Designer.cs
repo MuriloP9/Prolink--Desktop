@@ -30,14 +30,14 @@ namespace ProLinkDesktop
         private void InitializeComponent()
         {
             this.panel6 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.circularProgressBar1 = new CircularProgressBar.CircularProgressBar();
             this.label12 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lblAcessoHorario = new System.Windows.Forms.Label();
+            this.lblAcessoEmail = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -67,60 +67,6 @@ namespace ProLinkDesktop
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(404, 295);
             this.panel6.TabIndex = 12;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::ProLinkDesktop.Properties.Resources.UltimoAcesso;
-            this.pictureBox1.Location = new System.Drawing.Point(22, 124);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(52, 47);
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(161)))), ((int)(((byte)(176)))));
-            this.label3.Location = new System.Drawing.Point(12, 73);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 17);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "06/04/2025 - 14:32";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(161)))), ((int)(((byte)(176)))));
-            this.label2.Location = new System.Drawing.Point(12, 56);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(135, 17);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "admin@empresa.com";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.White;
-            this.label13.Location = new System.Drawing.Point(10, 21);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(131, 25);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "Último Acesso";
-            // 
-            // panel5
-            // 
-            this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
-            this.panel5.Controls.Add(this.pictureBox1);
-            this.panel5.Controls.Add(this.label13);
-            this.panel5.Controls.Add(this.label3);
-            this.panel5.Controls.Add(this.label2);
-            this.panel5.Location = new System.Drawing.Point(21, 170);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(258, 296);
-            this.panel5.TabIndex = 13;
             // 
             // label1
             // 
@@ -175,6 +121,60 @@ namespace ProLinkDesktop
             this.label12.Size = new System.Drawing.Size(190, 25);
             this.label12.TabIndex = 0;
             this.label12.Text = "Meta de Candidatura";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::ProLinkDesktop.Properties.Resources.UltimoAcesso;
+            this.pictureBox1.Location = new System.Drawing.Point(22, 124);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(52, 47);
+            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabStop = false;
+            // 
+            // lblAcessoHorario
+            // 
+            this.lblAcessoHorario.AutoSize = true;
+            this.lblAcessoHorario.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAcessoHorario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(161)))), ((int)(((byte)(176)))));
+            this.lblAcessoHorario.Location = new System.Drawing.Point(12, 73);
+            this.lblAcessoHorario.Name = "lblAcessoHorario";
+            this.lblAcessoHorario.Size = new System.Drawing.Size(118, 17);
+            this.lblAcessoHorario.TabIndex = 6;
+            this.lblAcessoHorario.Text = "06/04/2025 - 14:32";
+            // 
+            // lblAcessoEmail
+            // 
+            this.lblAcessoEmail.AutoSize = true;
+            this.lblAcessoEmail.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAcessoEmail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(161)))), ((int)(((byte)(176)))));
+            this.lblAcessoEmail.Location = new System.Drawing.Point(12, 56);
+            this.lblAcessoEmail.Name = "lblAcessoEmail";
+            this.lblAcessoEmail.Size = new System.Drawing.Size(135, 17);
+            this.lblAcessoEmail.TabIndex = 5;
+            this.lblAcessoEmail.Text = "admin@empresa.com";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(10, 21);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(131, 25);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Último Acesso";
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
+            this.panel5.Controls.Add(this.pictureBox1);
+            this.panel5.Controls.Add(this.label13);
+            this.panel5.Controls.Add(this.lblAcessoHorario);
+            this.panel5.Controls.Add(this.lblAcessoEmail);
+            this.panel5.Location = new System.Drawing.Point(21, 170);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(258, 296);
+            this.panel5.TabIndex = 13;
             // 
             // panel4
             // 
@@ -332,7 +332,7 @@ namespace ProLinkDesktop
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblAcessoHorario;
+        private System.Windows.Forms.Label lblAcessoEmail;
     }
 }

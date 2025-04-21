@@ -1,17 +1,9 @@
-﻿
-namespace ProLinkDesktop
+﻿namespace ProLinkDesktop
 {
     partial class frmOportunidades
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -23,27 +15,73 @@ namespace ProLinkDesktop
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
+            this.gridOportunidades = new System.Windows.Forms.DataGridView();
+            this.btnAdicionar = new System.Windows.Forms.Button();
+            this.btnAtualizar = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.gridOportunidades)).BeginInit();
             this.SuspendLayout();
+            // 
+            // gridOportunidades
+            // 
+            this.gridOportunidades.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridOportunidades.BackgroundColor = System.Drawing.Color.White;
+            this.gridOportunidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridOportunidades.Location = new System.Drawing.Point(33, 50);
+            this.gridOportunidades.Name = "gridOportunidades";
+            this.gridOportunidades.Size = new System.Drawing.Size(719, 385);
+            this.gridOportunidades.TabIndex = 0;
+            // 
+            // btnAdicionar
+            // 
+            this.btnAdicionar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.btnAdicionar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdicionar.ForeColor = System.Drawing.Color.White;
+            this.btnAdicionar.Location = new System.Drawing.Point(33, 12);
+            this.btnAdicionar.Name = "btnAdicionar";
+            this.btnAdicionar.Size = new System.Drawing.Size(100, 30);
+            this.btnAdicionar.TabIndex = 1;
+            this.btnAdicionar.Text = "Adicionar Vaga";
+            this.btnAdicionar.UseVisualStyleBackColor = false;
+            this.btnAdicionar.Click += new System.EventHandler(this.btnAdicionar_Click);
+            // 
+            // btnAtualizar
+            // 
+            this.btnAtualizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.btnAtualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAtualizar.ForeColor = System.Drawing.Color.White;
+            this.btnAtualizar.Location = new System.Drawing.Point(139, 12);
+            this.btnAtualizar.Name = "btnAtualizar";
+            this.btnAtualizar.Size = new System.Drawing.Size(100, 30);
+            this.btnAtualizar.TabIndex = 2;
+            this.btnAtualizar.Text = "Atualizar";
+            this.btnAtualizar.UseVisualStyleBackColor = false;
+            this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
             // 
             // frmOportunidades
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(733, 477);
+            this.ClientSize = new System.Drawing.Size(784, 462);
+            this.Controls.Add(this.btnAtualizar);
+            this.Controls.Add(this.btnAdicionar);
+            this.Controls.Add(this.gridOportunidades);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmOportunidades";
-            this.Text = "frmOportunidades";
+            this.Text = "Oportunidades";
+            ((System.ComponentModel.ISupportInitialize)(this.gridOportunidades)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.DataGridView gridOportunidades;
+        private System.Windows.Forms.Button btnAdicionar;
+        private System.Windows.Forms.Button btnAtualizar;
     }
 }
