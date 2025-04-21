@@ -1,99 +1,112 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-//Pacotes essenciais p/ a conexao com o banco
 using System.Data;
 using System.Data.SqlClient;
 
-
 public class ClasseConexao
 {
-    SqlConnection conexao = new SqlConnection();
+    private static readonly string connectionString = "Password=etesp; Persist Security Info=True; User ID=sa; Initial Catalog=Prolink; Data Source=(local)"; // ou seu nome de servidor fixo
 
     public SqlConnection conectar()
     {
+        SqlConnection conexao = new SqlConnection(connectionString);
         try
         {
-            String strConexao = "Password=etesp; Persist Security Info=True; User ID=sa; Initial Catalog=Prolink; Data Source=" + Environment.MachineName;
-            conexao.ConnectionString = strConexao;
-            conexao.Open();
+            if (conexao.State != ConnectionState.Open)
+            {
+                conexao.Open();
+            }
             return conexao;
         }
-        catch (Exception)
+        catch (SqlException ex)
         {
-            desconectar();
-            return null;
+            // Log do erro (você pode implementar um sistema de log)
+            Console.WriteLine($"Erro ao conectar: {ex.Message}");
+            conexao.Dispose();
+            throw; // Relança a exceção para ser tratada pelo chamador
         }
     }
 
-    public void desconectar()
+    public void desconectar(SqlConnection connection)
     {
         try
         {
-            if ((conexao.State == ConnectionState.Open))
+            if (connection != null && connection.State == ConnectionState.Open)
             {
-                conexao.Close();
-                conexao.Dispose();
-                conexao = null;
+                connection.Close();
+                connection.Dispose();
             }
         }
-        catch (Exception) { }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao desconectar: {ex.Message}");
+        }
     }
 
     public DataTable executarSQL(String comando_sql)
     {
+        SqlConnection conexao = null;
         try
         {
-            conectar();
+            conexao = conectar();
             SqlDataAdapter adaptador = new SqlDataAdapter(comando_sql, conexao);
-            DataSet ds = new DataSet(); //Instancia um obj que se refere ao banco todo
+            DataSet ds = new DataSet();
             adaptador.Fill(ds);
             return ds.Tables[0];
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            Console.WriteLine($"Erro ao executar SQL: {ex.Message}");
             return null;
         }
         finally
         {
-            desconectar();
+            desconectar(conexao);
         }
     }
 
-    public bool manutencaoDB(String comando_sql) //incluir, alterar, excluir
+    public bool manutencaoDB(String comando_sql)
     {
+        SqlConnection conexao = null;
         try
         {
-            conectar();
-            SqlCommand comando = new SqlCommand();
-            comando.CommandText = comando_sql;
-            comando.Connection = conexao;
-            comando.ExecuteScalar(); 
+            conexao = conectar();
+            SqlCommand comando = new SqlCommand(comando_sql, conexao);
+            comando.ExecuteNonQuery();
             return true;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            Console.WriteLine($"Erro na manutenção do DB: {ex.Message}");
             return false;
         }
         finally
         {
-            desconectar();
+            desconectar(conexao);
         }
-    }//fim do método manutençãoDB
+    }
 
-    public int manutencaoDB_Parametros(SqlCommand comando) //incluir, alterar, excluir com parâmetros
+    public int manutencaoDB_Parametros(SqlCommand comando)
     {
-        int retorno = 0;
+        SqlConnection conexao = null;
         try
         {
-            comando.Connection = conectar();  //adiciona a conexão ao SQLCommand
-            retorno = comando.ExecuteNonQuery(); //devolve o número de linhas afetadas no banco
+            conexao = conectar();
+            comando.Connection = conexao;
+            int linhasAfetadas = comando.ExecuteNonQuery();
+            return linhasAfetadas;
         }
-        catch (Exception) { }
-        desconectar();
-        return retorno;
-    }//fim do método manutençãoDB com parâmetros
-
-}//fim da classeConexao
-
+        catch (Exception ex)
+        {
+            // Log do erro completo
+            Console.WriteLine($"Erro na manutenção com parâmetros: {ex.ToString()}");
+            return 0;
+        }
+        finally
+        {
+            if (conexao != null && conexao.State == ConnectionState.Open)
+            {
+                conexao.Close();
+            }
+        }
+    }
+}

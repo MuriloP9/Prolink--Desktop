@@ -93,7 +93,7 @@ namespace ProLinkDesktop
             // Botão de Detalhes
             var btnDetalhes = new DataGridViewButtonColumn()
             {
-                Text = "Detalhes",
+                Text = "Editar",
                 UseColumnTextForButtonValue = true,
                 HeaderText = "Ações",
                 Width = 80

@@ -57,92 +57,89 @@ namespace ProLinkDesktop
         }
 
         private void btnEntrar_Click(object sender, EventArgs e)
-{
-    string email = txtUsuario.Text.Trim();
-    string senha = txtSenha.Text.Trim();
-
-    if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(senha))
-    {
-        MessageBox.Show("Preencha todos os campos.");
-        return;
-    }
-
-    // Instancia a classe de conexão
-    ClasseConexao con = new ClasseConexao();
-    
-    string sql = @"SELECT id_funcionario, nome_completo, nivel_acesso 
-          FROM Funcionario 
-          WHERE email = @Email AND senha = @Senha AND ativo = 1";
-
-    try
-    {
-        // Abre a conexão
-        SqlConnection connection = con.conectar();
-        
-        if (connection == null || connection.State != ConnectionState.Open)
         {
-            MessageBox.Show("Erro ao conectar ao banco de dados.");
-            return;
-        }
+            string email = txtUsuario.Text.Trim();
+            string senha = txtSenha.Text.Trim();
 
-        using (SqlCommand cmd = new SqlCommand(sql, connection))
-        {
-            cmd.Parameters.AddWithValue("@Email", email);
-            cmd.Parameters.AddWithValue("@Senha", senha);
-
-            using (SqlDataReader reader = cmd.ExecuteReader())
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(senha))
             {
-                if (reader.Read())
+                MessageBox.Show("Preencha todos os campos.");
+                return;
+            }
+
+            ClasseConexao con = new ClasseConexao();
+            SqlConnection connection = null;
+
+            try
+            {
+                connection = con.conectar();
+
+                string sql = @"SELECT id_funcionario, nome_completo, nivel_acesso 
+              FROM Funcionario 
+              WHERE email = @Email AND senha = @Senha AND ativo = 1";
+
+                using (SqlCommand cmd = new SqlCommand(sql, connection))
                 {
-                    int idFuncionario = Convert.ToInt32(reader["id_funcionario"]);
-                    string nome = reader["nome_completo"].ToString();
-                    int nivelAcesso = Convert.ToInt32(reader["nivel_acesso"]);
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    cmd.Parameters.AddWithValue("@Senha", senha);
 
-                    // Fecha o reader antes de executar o update
-                    reader.Close();
-
-                    // Atualiza o último acesso
-                    string updateSql = "UPDATE Funcionario SET ultimo_acesso = GETDATE() WHERE id_funcionario = @id";
-                    using (SqlCommand updateCmd = new SqlCommand(updateSql, connection))
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        updateCmd.Parameters.AddWithValue("@id", idFuncionario);
-                        updateCmd.ExecuteNonQuery();
+                        if (reader.Read())
+                        {
+                            int idFuncionario = Convert.ToInt32(reader["id_funcionario"]);
+                            string nome = reader["nome_completo"].ToString();
+                            int nivelAcesso = Convert.ToInt32(reader["nivel_acesso"]);
+                            reader.Close();
+
+                            // Atualiza o último acesso
+                            string updateSql = "UPDATE Funcionario SET ultimo_acesso = GETDATE() WHERE id_funcionario = @id";
+                            using (SqlCommand updateCmd = new SqlCommand(updateSql, connection))
+                            {
+                                updateCmd.Parameters.AddWithValue("@id", idFuncionario);
+                                updateCmd.ExecuteNonQuery();
+                            }
+
+                            string cargo;
+                            switch (nivelAcesso)
+                            {
+                                case 0:
+                                    cargo = "Admin Master";
+                                    break;
+                                case 1:
+                                    cargo = "Gerente";
+                                    break;
+                                case 2:
+                                    cargo = "Supervisor";
+                                    break;
+                                default:
+                                    cargo = "Funcionário";
+                                    break;
+                            }
+                            MessageBox.Show($"Bem-vindo {cargo} {nome}!", "Login realizado");
+
+                            Form1 formPrincipal = new Form1();
+                            formPrincipal.NomeUsuario = nome;
+                            formPrincipal.NivelAcesso = nivelAcesso;
+                            formPrincipal.Show();
+                            this.Hide();
+                        }
+                        else
+                        {
+                            MessageBox.Show("E-mail ou senha incorretos.", "Erro");
+                        }
                     }
-
-                    string cargo;
-                    switch (nivelAcesso)
-                    {
-                        case 0: cargo = "Admin Master"; break;
-                        case 1: cargo = "Gerente"; break;
-                        case 2: cargo = "Supervisor"; break;
-                        default: cargo = "Funcionário"; break;
-                    }
-
-                    MessageBox.Show($"Bem-vindo {cargo} {nome}!", "Login realizado");
-
-                    Form1 formPrincipal = new Form1();
-                    formPrincipal.NomeUsuario = nome;
-                    formPrincipal.NivelAcesso = nivelAcesso;
-                    formPrincipal.Show();
-                    this.Hide();
-                }
-                else
-                {
-                    MessageBox.Show("E-mail ou senha incorretos.", "Erro");
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao acessar o banco: {ex.Message}", "Erro");
+            }
+            finally
+            {
+                con.desconectar(connection);
+            }
         }
-    }
-    catch (Exception ex)
-    {
-        MessageBox.Show($"Erro ao acessar o banco: {ex.Message}", "Erro");
-    }
-    finally
-    {
-        // Garante que a conexão será fechada
-        con.desconectar();
-    }
-}
 
         private void AtualizarUltimoAcesso(SqlConnection connection, int idFuncionario)
         {
