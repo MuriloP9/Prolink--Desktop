@@ -95,6 +95,22 @@ INSERT INTO Vagas (id_func, titulo_vaga, localizacao, tipo_emprego, id_area, emp
 (1, 'Gerente Financeiro', 'São Paulo', 'full-time', 4, 'Prolink Finance'),
 (2, 'Vendedor Externo', 'Belo Horizonte', 'part-time', 5, 'Prolink Vendas');
 
+
+INSERT INTO Usuario (nome, email, senha, dataNascimento, telefone, qr_code, data_geracao_qr)
+VALUES 
+('João Silva', 'joao.silva@email.com', 'senha123', '19900515', '(11) 98765-4321', 'QR123456', '20231001 09:30:00'),
+('Maria Oliveira', 'maria.oliveira@email.com', 'mariA321', '19850822', '(21) 99876-5432', 'QR789012', '20231002 14:15:00'),
+('Carlos Souza', 'carlos.souza@email.com', 'carlos456', '19950210', '(31) 98765-1234', NULL, NULL),
+('Ana Pereira', 'ana.pereira@email.com', 'ana789', '19881130', '(41) 99999-8888', 'QR345678', '20230928 16:45:00'),
+('Pedro Costa', 'pedro.costa@email.com', 'pedroC0sta', '19920718', '(51) 98888-7777', 'QR901234', '20231003 10:20:00'),
+('Juliana Santos', 'juliana.santos@email.com', 'julianaS', '19980425', '(11) 97777-6666', NULL, NULL),
+('Marcos Rocha', 'marcos.rocha@email.com', 'marcosR2023', '19801205', '(21) 96666-5555', 'QR567890', '20230930 08:10:00'),
+('Fernanda Lima', 'fernanda.lima@email.com', 'fernandaL1', '19930912', '(31) 95555-4444', 'QR123890', '20231004 11:35:00'),
+('Ricardo Alves', 'ricardo.alves@email.com', 'ricardoA', '19870620', '(41) 94444-3333', NULL, NULL),
+('Patrícia Nunes', 'patricia.nunes@email.com', 'patriciaN', '19910308', '(51) 93333-2222', 'QR456123', '20231005 13:50:00');
+GO
+GO
+
 SELECT * FROM Funcionario;
 DELETE FROM Funcionario;
 
