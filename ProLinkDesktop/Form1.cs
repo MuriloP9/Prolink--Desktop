@@ -130,7 +130,7 @@ namespace ProLinkDesktop
             SetActiveButton(btnGerenciarFuncionarios);
             pnlNav.Top = btnGerenciarFuncionarios.Top;
             lblTitle.Text = "Gerenciar Funcionarios";
-            //CarregarForm(new FrmCadastrarEmpresas());
+            CarregarForm(new FrmGerenciarFuncionarios(_nivelAcesso)); // Passe o nível de acesso aqui
         }
 
         private void btnConfiguracoes_Click(object sender, EventArgs e)

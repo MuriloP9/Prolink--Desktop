@@ -74,6 +74,18 @@
     <Compile Include="FrmAdicionarVaga.Designer.cs">
       <DependentUpon>FrmAdicionarVaga.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmCadastrarFuncionario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCadastrarFuncionario.Designer.cs">
+      <DependentUpon>FrmCadastrarFuncionario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGerenciarFuncionarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGerenciarFuncionarios.Designer.cs">
+      <DependentUpon>FrmGerenciarFuncionarios.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmGerenciarUsuarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +129,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGerenciarFuncionarios.resx">
+      <DependentUpon>FrmGerenciarFuncionarios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmGerenciarUsuarios.resx">
       <DependentUpon>FrmGerenciarUsuarios.cs</DependentUpon>

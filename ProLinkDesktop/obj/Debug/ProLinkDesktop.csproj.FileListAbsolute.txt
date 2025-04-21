@@ -34,3 +34,4 @@ C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkD
 C:\Users\Pedro H\Source\Repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FrmPerfil.resources
 C:\Users\Pedro H\source\repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FrmLogin.resources
 C:\Users\Pedro H\source\repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FrmGerenciarUsuarios.resources
+C:\Users\Pedro H\source\repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FrmGerenciarFuncionarios.resources
