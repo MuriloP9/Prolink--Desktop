@@ -122,7 +122,7 @@ namespace ProLinkDesktop
             SetActiveButton(btnGerenciarUsuarios);
             pnlNav.Top = btnGerenciarUsuarios.Top;
             lblTitle.Text = "Gerenciar Usuários";
-            CarregarForm(new FrmExportarRelatorios());
+            CarregarForm(new FrmGerenciarUsuarios());
         }
 
         private void btnGerenciarFuncionarios_Click(object sender, EventArgs e)
@@ -130,7 +130,7 @@ namespace ProLinkDesktop
             SetActiveButton(btnGerenciarFuncionarios);
             pnlNav.Top = btnGerenciarFuncionarios.Top;
             lblTitle.Text = "Gerenciar Funcionarios";
-            CarregarForm(new FrmCadastrarEmpresas());
+            //CarregarForm(new FrmCadastrarEmpresas());
         }
 
         private void btnConfiguracoes_Click(object sender, EventArgs e)

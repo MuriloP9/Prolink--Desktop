@@ -74,6 +74,12 @@
     <Compile Include="FrmAdicionarVaga.Designer.cs">
       <DependentUpon>FrmAdicionarVaga.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmGerenciarUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGerenciarUsuarios.Designer.cs">
+      <DependentUpon>FrmGerenciarUsuarios.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,23 +92,11 @@
     <Compile Include="formDashboard.Designer.cs">
       <DependentUpon>formDashboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmCadastrarEmpresas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmCadastrarEmpresas.Designer.cs">
-      <DependentUpon>FrmCadastrarEmpresas.cs</DependentUpon>
-    </Compile>
     <Compile Include="FrmConfiguracoes.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmConfiguracoes.Designer.cs">
       <DependentUpon>FrmConfiguracoes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmExportarRelatorios.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmExportarRelatorios.Designer.cs">
-      <DependentUpon>FrmExportarRelatorios.cs</DependentUpon>
     </Compile>
     <Compile Include="frmOportunidades.cs">
       <SubType>Form</SubType>
@@ -124,20 +118,17 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmGerenciarUsuarios.resx">
+      <DependentUpon>FrmGerenciarUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formDashboard.resx">
       <DependentUpon>formDashboard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmCadastrarEmpresas.resx">
-      <DependentUpon>FrmCadastrarEmpresas.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmConfiguracoes.resx">
       <DependentUpon>FrmConfiguracoes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmExportarRelatorios.resx">
-      <DependentUpon>FrmExportarRelatorios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmOportunidades.resx">
       <DependentUpon>frmOportunidades.cs</DependentUpon>
