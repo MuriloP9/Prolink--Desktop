@@ -16,7 +16,10 @@ CREATE TABLE Usuario (
     dataNascimento DATE NULL,
     telefone NVARCHAR(15) NULL,
     qr_code NVARCHAR(255) NULL,
-    data_geracao_qr DATETIME NULL
+    data_criacao DATETIME NOT NULL DEFAULT GETDATE(),
+    data_geracao_qr DATETIME NULL,
+    ultimo_acesso DATETIME NULL,
+    ativo BIT DEFAULT 1
 );
 
 CREATE TABLE Funcionario (
@@ -113,6 +116,7 @@ GO
 
 SELECT * FROM Funcionario;
 DELETE FROM Funcionario;
+select * from Usuario;
 
 
 

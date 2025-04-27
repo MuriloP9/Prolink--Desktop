@@ -29,11 +29,10 @@ namespace ProLinkDesktop
 
         private void ConfigurarDesign()
         {
-            // Configuração do formulário
             this.BackColor = Color.FromArgb(32, 36, 55);
             this.ForeColor = Color.White;
 
-            // Configuração do DataGridView (somente leitura)
+            // Configuração do DataGridView
             dgvUsuarios.ReadOnly = true;
             dgvUsuarios.AllowUserToAddRows = false;
             dgvUsuarios.AllowUserToDeleteRows = false;
@@ -66,36 +65,58 @@ namespace ProLinkDesktop
             // Configuração do painel de detalhes
             pnlDetalhes.BackColor = Color.FromArgb(46, 51, 73);
             pnlDetalhes.BorderStyle = BorderStyle.FixedSingle;
+            lblStatusValor.Font = new Font(lblStatusValor.Font, FontStyle.Bold);
         }
 
         private void CarregarUsuarios()
         {
             try
             {
-                string query = @"SELECT id_usuario, nome, email, dataNascimento, telefone, 
-                               CASE WHEN data_geracao_qr IS NULL THEN 'Inativo' ELSE 'Ativo' END AS Status,
-                               data_geracao_qr AS 'Último Login' 
-                               FROM Usuario ORDER BY nome";
+                string query = @"SELECT 
+                                id_usuario, 
+                                nome, 
+                                email, 
+                                dataNascimento, 
+                                telefone, 
+                                CASE WHEN ativo = 1 THEN 'Ativo' ELSE 'Inativo' END AS Status,
+                                FORMAT(data_criacao, 'dd/MM/yyyy HH:mm') AS 'Data Criação',
+                                FORMAT(ultimo_acesso, 'dd/MM/yyyy HH:mm') AS 'Último Acesso'
+                               FROM Usuario 
+                               ORDER BY nome";
 
                 usuarios = conexao.executarSQL(query);
-                dgvUsuarios.DataSource = usuarios;
 
-                if (dgvUsuarios.Columns.Count > 0)
+                if (usuarios != null && usuarios.Rows.Count > 0)
                 {
+                    dgvUsuarios.DataSource = usuarios;
+
+                    // Configurar colunas
                     dgvUsuarios.Columns["id_usuario"].Visible = false;
-                    dgvUsuarios.Columns["dataNascimento"].DefaultCellStyle.Format = "dd/MM/yyyy";
-                    dgvUsuarios.Columns["Último Login"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
+
+                    // Ajustar largura das colunas
+                    dgvUsuarios.Columns["nome"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvUsuarios.Columns["email"].Width = 200;
+                    dgvUsuarios.Columns["telefone"].Width = 120;
+                    dgvUsuarios.Columns["Status"].Width = 80;
+                    dgvUsuarios.Columns["Data Criação"].Width = 150;
+                    dgvUsuarios.Columns["Último Acesso"].Width = 150;
+                }
+                else
+                {
+                    MessageBox.Show("Nenhum usuário encontrado.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dgvUsuarios.DataSource = null;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro ao carregar usuários: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                dgvUsuarios.DataSource = null;
             }
         }
 
         private void DgvUsuarios_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex >= 0 && dgvUsuarios.Rows[e.RowIndex].Cells["id_usuario"].Value != null)
             {
                 DataGridViewRow row = dgvUsuarios.Rows[e.RowIndex];
                 usuarioSelecionadoId = Convert.ToInt32(row.Cells["id_usuario"].Value);
@@ -114,14 +135,8 @@ namespace ProLinkDesktop
                     lblDataNascValor.Text = "Não informado";
                 }
 
-                if (row.Cells["Último Login"].Value != DBNull.Value)
-                {
-                    lblUltimoLoginValor.Text = Convert.ToDateTime(row.Cells["Último Login"].Value).ToString("dd/MM/yyyy HH:mm");
-                }
-                else
-                {
-                    lblUltimoLoginValor.Text = "Nunca acessou";
-                }
+                lblDataNascValor.Text = row.Cells["Data Criação"].Value?.ToString() ?? "N/A";
+                lblUltimoLoginValor.Text = row.Cells["Último Acesso"].Value?.ToString() ?? "Nunca acessou";
 
                 string status = row.Cells["Status"].Value.ToString();
                 lblStatusValor.Text = status;
@@ -152,8 +167,8 @@ namespace ProLinkDesktop
                 if (MessageBox.Show(mensagem, "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     string updateQuery = estaAtivo ?
-                        "UPDATE Usuario SET data_geracao_qr = NULL WHERE id_usuario = @id" :
-                        "UPDATE Usuario SET data_geracao_qr = GETDATE() WHERE id_usuario = @id";
+                        "UPDATE Usuario SET ativo = 0 WHERE id_usuario = @id" :
+                        "UPDATE Usuario SET ativo = 1 WHERE id_usuario = @id";
 
                     SqlCommand updateCmd = new SqlCommand(updateQuery);
                     updateCmd.Parameters.AddWithValue("@id", usuarioSelecionadoId);
@@ -179,6 +194,7 @@ namespace ProLinkDesktop
             lblEmailValor.Text = string.Empty;
             lblTelefoneValor.Text = string.Empty;
             lblDataNascValor.Text = string.Empty;
+            lblDataNascValor.Text = string.Empty;
             lblUltimoLoginValor.Text = string.Empty;
             lblStatusValor.Text = string.Empty;
             btnAtivarInativar.Enabled = false;
@@ -189,7 +205,7 @@ namespace ProLinkDesktop
         {
             if (usuarios != null)
             {
-                string filtro = txtPesquisa.Text.Trim().ToLower();
+                string filtro = txtPesquisa.Text.Trim();
                 DataView dv = usuarios.DefaultView;
 
                 if (!string.IsNullOrEmpty(filtro))
