@@ -281,5 +281,5 @@ UNION ALL
 SELECT 'Notificacao', COUNT(*) FROM Notificacao;
 
 SELECT * FROM Funcionario;
- 
+ SELECT * FROM Usuario;
 select * from Candidatura;
