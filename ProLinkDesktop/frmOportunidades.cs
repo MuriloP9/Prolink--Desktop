@@ -15,8 +15,27 @@ namespace ProLinkDesktop
         {
             InitializeComponent();
             conexao = new ClasseConexao();
+            ConfigurarDesign();
             ConfigurarGrid();
             CarregarVagas();
+        }
+
+        private void ConfigurarDesign()
+        {
+            // Configuração do formulário
+            this.BackColor = Color.FromArgb(32, 36, 55);
+            this.ForeColor = Color.White;
+
+            // Configuração dos botões
+            foreach (Button btn in new[] { btnAdicionar, btnAtualizar })
+            {
+                btn.BackColor = Color.FromArgb(67, 74, 105);
+                btn.FlatStyle = FlatStyle.Flat;
+                btn.FlatAppearance.BorderSize = 0;
+                btn.ForeColor = Color.White;
+                btn.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+                btn.Cursor = Cursors.Hand;
+            }
         }
 
         private void ConfigurarGrid()
@@ -29,11 +48,17 @@ namespace ProLinkDesktop
             gridOportunidades.MultiSelect = false;
             gridOportunidades.RowHeadersVisible = false;
 
-            // Estilo do cabeçalho
-            gridOportunidades.EnableHeadersVisualStyles = false;
+            // Estilo do grid no padrão escuro
+            gridOportunidades.BackgroundColor = Color.FromArgb(32, 36, 55);
             gridOportunidades.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(46, 51, 73);
             gridOportunidades.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            gridOportunidades.ColumnHeadersDefaultCellStyle.Font = new Font("Microsoft Sans Serif", 9, FontStyle.Bold);
+            gridOportunidades.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Bold);
+            gridOportunidades.DefaultCellStyle.BackColor = Color.FromArgb(32, 36, 55);
+            gridOportunidades.DefaultCellStyle.ForeColor = Color.White;
+            gridOportunidades.DefaultCellStyle.SelectionBackColor = Color.FromArgb(67, 74, 105);
+            gridOportunidades.DefaultCellStyle.SelectionForeColor = Color.White;
+            gridOportunidades.EnableHeadersVisualStyles = false;
+            gridOportunidades.GridColor = Color.FromArgb(67, 74, 105);
 
             // Definindo as colunas
             gridOportunidades.Columns.Clear();
@@ -41,7 +66,7 @@ namespace ProLinkDesktop
             // Coluna ID (oculta)
             gridOportunidades.Columns.Add(new DataGridViewTextBoxColumn()
             {
-                Name = "id_vaga", // Nome deve ser exatamente "id_vaga"
+                Name = "id_vaga",
                 DataPropertyName = "id_vaga",
                 HeaderText = "ID",
                 Visible = false
@@ -112,7 +137,14 @@ namespace ProLinkDesktop
                 HeaderText = "Ações",
                 Width = 80,
                 Text = "Editar",
-                UseColumnTextForButtonValue = true
+                UseColumnTextForButtonValue = true,
+                DefaultCellStyle = new DataGridViewCellStyle()
+                {
+                    BackColor = Color.FromArgb(67, 74, 105),
+                    ForeColor = Color.White,
+                    SelectionBackColor = Color.FromArgb(67, 74, 105),
+                    SelectionForeColor = Color.White
+                }
             };
             gridOportunidades.Columns.Add(btnAcoes);
 
@@ -164,12 +196,12 @@ namespace ProLinkDesktop
                     int totalCandidatos = (value == null || value == DBNull.Value) ? 0 : Convert.ToInt32(value);
 
                     // Cria um bitmap com tamanho adequado
-                    Bitmap bmp = new Bitmap(120, 20); // Aumentei a largura para caber o texto
+                    Bitmap bmp = new Bitmap(120, 20);
 
                     using (Graphics g = Graphics.FromImage(bmp))
                     {
-                        // Desenha o fundo branco
-                        g.FillRectangle(Brushes.White, 0, 0, bmp.Width, bmp.Height);
+                        // Desenha o fundo transparente
+                        g.Clear(Color.Transparent);
 
                         // Tenta carregar a imagem do arquivo
                         Image icon = null;
@@ -197,16 +229,16 @@ namespace ProLinkDesktop
                         }
                         else
                         {
-                            g.FillEllipse(Brushes.Blue, 5, 2, 16, 16);
+                            g.FillEllipse(Brushes.LightBlue, 5, 2, 16, 16);
                         }
 
                         // Desenha o número de candidatos ao lado do ícone
-                        using (var font = new Font("Microsoft Sans Serif", 8, FontStyle.Regular))
+                        using (var font = new Font("Segoe UI", 8, FontStyle.Regular))
                         {
                             g.DrawString(totalCandidatos.ToString(),
                                         font,
-                                        Brushes.Black,
-                                        new PointF(25, 3)); // Posição ajustada para ficar ao lado do ícone
+                                        Brushes.White,
+                                        new PointF(25, 3));
                         }
                     }
 
@@ -226,7 +258,6 @@ namespace ProLinkDesktop
 
             try
             {
-                // Verifica se clicou na coluna de candidatos
                 if (gridOportunidades.Columns[e.ColumnIndex].Name == "colCandidatos")
                 {
                     var idVagaCell = gridOportunidades.Rows[e.RowIndex].Cells["id_vaga"];
@@ -247,10 +278,8 @@ namespace ProLinkDesktop
 
                     AbrirFormCandidatos(idVaga);
                 }
-                // Verifica se clicou na coluna de ações (editar)
                 else if (gridOportunidades.Columns[e.ColumnIndex].Name == "colAcoes")
                 {
-                    // Pega o ID da vaga da linha clicada
                     var idVagaCell = gridOportunidades.Rows[e.RowIndex].Cells["id_vaga"];
 
                     if (idVagaCell.Value == null || idVagaCell.Value == DBNull.Value)
@@ -267,12 +296,11 @@ namespace ProLinkDesktop
                         return;
                     }
 
-                    // Abre o formulário de edição
                     using (var frmEditarVaga = new FrmAdicionarVaga(idVaga))
                     {
                         if (frmEditarVaga.ShowDialog() == DialogResult.OK)
                         {
-                            CarregarVagas(); // Atualiza o grid após edição
+                            CarregarVagas();
                         }
                     }
                 }

@@ -25,24 +25,30 @@
             // 
             // gridOportunidades
             // 
-            this.gridOportunidades.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.gridOportunidades.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridOportunidades.BackgroundColor = System.Drawing.Color.White;
+            this.gridOportunidades.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(36)))), ((int)(((byte)(55)))));
+            this.gridOportunidades.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.gridOportunidades.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.gridOportunidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridOportunidades.Location = new System.Drawing.Point(33, 50);
+            this.gridOportunidades.EnableHeadersVisualStyles = false;
+            this.gridOportunidades.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(74)))), ((int)(((byte)(105)))));
+            this.gridOportunidades.Location = new System.Drawing.Point(12, 50);
             this.gridOportunidades.Name = "gridOportunidades";
-            this.gridOportunidades.Size = new System.Drawing.Size(719, 385);
+            this.gridOportunidades.Size = new System.Drawing.Size(760, 400);
             this.gridOportunidades.TabIndex = 0;
             // 
             // btnAdicionar
             // 
-            this.btnAdicionar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.btnAdicionar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(74)))), ((int)(((byte)(105)))));
+            this.btnAdicionar.FlatAppearance.BorderSize = 0;
             this.btnAdicionar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdicionar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdicionar.ForeColor = System.Drawing.Color.White;
-            this.btnAdicionar.Location = new System.Drawing.Point(33, 12);
+            this.btnAdicionar.Location = new System.Drawing.Point(12, 12);
             this.btnAdicionar.Name = "btnAdicionar";
-            this.btnAdicionar.Size = new System.Drawing.Size(100, 30);
+            this.btnAdicionar.Size = new System.Drawing.Size(120, 30);
             this.btnAdicionar.TabIndex = 1;
             this.btnAdicionar.Text = "Adicionar Vaga";
             this.btnAdicionar.UseVisualStyleBackColor = false;
@@ -50,10 +56,12 @@
             // 
             // btnAtualizar
             // 
-            this.btnAtualizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.btnAtualizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(74)))), ((int)(((byte)(105)))));
+            this.btnAtualizar.FlatAppearance.BorderSize = 0;
             this.btnAtualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAtualizar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAtualizar.ForeColor = System.Drawing.Color.White;
-            this.btnAtualizar.Location = new System.Drawing.Point(139, 12);
+            this.btnAtualizar.Location = new System.Drawing.Point(138, 12);
             this.btnAtualizar.Name = "btnAtualizar";
             this.btnAtualizar.Size = new System.Drawing.Size(100, 30);
             this.btnAtualizar.TabIndex = 2;
@@ -65,12 +73,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(36)))), ((int)(((byte)(55)))));
             this.ClientSize = new System.Drawing.Size(784, 462);
             this.Controls.Add(this.btnAtualizar);
             this.Controls.Add(this.btnAdicionar);
             this.Controls.Add(this.gridOportunidades);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.ForeColor = System.Drawing.Color.White;
             this.Name = "frmOportunidades";
             this.Text = "Oportunidades";
             ((System.ComponentModel.ISupportInitialize)(this.gridOportunidades)).EndInit();
