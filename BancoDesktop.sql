@@ -1,13 +1,14 @@
-
 Create Database Resetar;
 Use Resetar;
 ---------------------------------BD Prolink------------------------------------------------
 Drop DATABASE Prolink;
-CREATE DATABASE Prolink;
-GO
-USE Prolink;
+CREATE DATABASE prolink;
 GO
 
+USE prolink;
+GO
+
+-- Tabela de Usuários
 CREATE TABLE Usuario (
     id_usuario INT IDENTITY(1,1) PRIMARY KEY,
     nome NVARCHAR(255) NOT NULL,
@@ -19,14 +20,36 @@ CREATE TABLE Usuario (
     data_criacao DATETIME NOT NULL DEFAULT GETDATE(),
     data_geracao_qr DATETIME NULL,
     ultimo_acesso DATETIME NULL,
-    ativo BIT DEFAULT 1
+    ativo BIT DEFAULT 1,
+    foto_perfil VARBINARY(MAX) NULL
 );
+GO
 
+-- Tabela de Perfil 
+CREATE TABLE Perfil (
+    id_perfil INT IDENTITY(1,1) PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    idade INT,
+    endereco NVARCHAR(100),
+    formacao NVARCHAR(255),
+    experiencia_profissional NVARCHAR(MAX),
+    interesses NVARCHAR(MAX),
+    projetos_especializacoes NVARCHAR(MAX),
+    habilidades NVARCHAR(MAX),
+    qr_code NVARCHAR(255),
+    CONSTRAINT FK_Perfil_Usuario FOREIGN KEY (id_usuario)
+        REFERENCES Usuario(id_usuario)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+GO
+
+-- Tabela de Funcionários (corrigida)
 CREATE TABLE Funcionario (
     id_funcionario INT IDENTITY(1,1) PRIMARY KEY,
     nome_completo NVARCHAR(255) NOT NULL,
     email NVARCHAR(100) UNIQUE NOT NULL,
-    senha NVARCHAR(255) NOT NULL,  -- Armazenará o hash (ou texto puro temporariamente)
+    senha NVARCHAR(255) NOT NULL,
     nivel_acesso INT NOT NULL DEFAULT 2,  -- 0=Admin, 1=Gerente, 2=Supervisor
     criado_por INT NULL,                 -- ID de quem cadastrou (NULL = Admin Master)
     data_cadastro DATETIME DEFAULT GETDATE(),
@@ -34,92 +57,229 @@ CREATE TABLE Funcionario (
     ativo BIT DEFAULT 1,                 -- 1=Ativo, 0=Inativo
     FOREIGN KEY (criado_por) REFERENCES Funcionario(id_funcionario)
 );
+GO
 
+-- Tabela de Áreas de Atuação
 CREATE TABLE AreaAtuacao (
     id_area INT IDENTITY(1,1) PRIMARY KEY,
     nome_area NVARCHAR(100) NOT NULL
 );
+GO
 
-
+-- Tabela de Vagas (corrigida para referenciar id_funcionario corretamente)
 CREATE TABLE Vagas (
     id_vaga INT IDENTITY(1,1) PRIMARY KEY,
-    id_func INT NOT NULL FOREIGN KEY REFERENCES Funcionario(id_funcionario),
+    id_funcionario INT NOT NULL,
     titulo_vaga NVARCHAR(255) NOT NULL,
     localizacao NVARCHAR(255),
     tipo_emprego NVARCHAR(20) NOT NULL,
     id_area INT,
-    id_usuario INT FOREIGN KEY REFERENCES Usuario(id_usuario),
+    id_usuario INT,
     empresa NVARCHAR(255) NOT NULL,
-    FOREIGN KEY (id_area) REFERENCES AreaAtuacao(id_area),
+    CONSTRAINT FK_Vagas_Funcionario FOREIGN KEY (id_funcionario) 
+        REFERENCES Funcionario(id_funcionario),
+    CONSTRAINT FK_Vagas_Area FOREIGN KEY (id_area) 
+        REFERENCES AreaAtuacao(id_area),
+    CONSTRAINT FK_Vagas_Usuario FOREIGN KEY (id_usuario) 
+        REFERENCES Usuario(id_usuario),
     CONSTRAINT chk_tipo_emprego CHECK (tipo_emprego IN ('full-time', 'part-time', 'internship'))
 );
+GO
 
-INSERT INTO Funcionario (nome_completo, email, senha, nivel_acesso, criado_por)
-VALUES (
-    'Pedro Henrique', 
-    'admin@empresa.com', 
-    'senha123',  -- Troque por um hash depois!
-    0,           -- Nível 0 (Admin)
-    NULL         -- Criado manualmente (sem referência)
+-- Tabela de Profissionais em Áreas
+CREATE TABLE ProfissionalArea (
+    id_profissional_area INT IDENTITY(1,1) PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    id_area INT NOT NULL,
+    CONSTRAINT FK_ProfissionalArea_Usuario FOREIGN KEY (id_usuario) 
+        REFERENCES Usuario(id_usuario),
+    CONSTRAINT FK_ProfissionalArea_Area FOREIGN KEY (id_area) 
+        REFERENCES AreaAtuacao(id_area)
 );
+GO
 
-INSERT INTO Funcionario (nome_completo, email, senha, nivel_acesso, criado_por)
-VALUES (
-    'Alberto Ramos', 
-    'gerente@empresa.com', 
-    'senha456',  -- Substituir por hash depois!
-    1,           -- Nível 1 (Pode gerenciar usuários)
-    1            -- Cadastrado pelo Admin Master (id 1)
+-- Tabela de Candidaturas (corrigida)
+CREATE TABLE Candidatura (
+    id_candidatura INT IDENTITY(1,1) PRIMARY KEY,
+    id_vaga INT NOT NULL,
+    id_perfil INT NOT NULL,
+    data_candidatura DATETIME DEFAULT GETDATE(),
+    status NVARCHAR(20) DEFAULT 'Pendente',
+    CONSTRAINT FK_Candidatura_Vaga FOREIGN KEY (id_vaga) 
+        REFERENCES Vagas(id_vaga),
+    CONSTRAINT FK_Candidatura_Perfil FOREIGN KEY (id_perfil) 
+        REFERENCES Perfil(id_perfil)
 );
-INSERT INTO Funcionario (nome_completo, email, senha, nivel_acesso, criado_por)
-VALUES (
-    'Hugo Souza', 
-    'supervisor@empresa.com', 
-    'senha789',  -- Substituir por hash depois!
-    2,           -- Nível 2 (Acesso restrito)
-    2            -- Cadastrado pelo Gerente (id 2)
+GO
+
+-- Tabela de Mensagens
+CREATE TABLE Mensagem (
+    id_mensagem INT IDENTITY(1,1) PRIMARY KEY,
+    id_usuario_remetente INT NOT NULL,
+    id_usuario_destinatario INT NOT NULL,
+    texto NVARCHAR(MAX) NOT NULL,
+    data_hora DATETIME DEFAULT GETDATE(),
+    lida BIT DEFAULT 0,
+    CONSTRAINT FK_Remetente FOREIGN KEY (id_usuario_remetente) 
+        REFERENCES Usuario(id_usuario),
+    CONSTRAINT FK_Destinatario FOREIGN KEY (id_usuario_destinatario) 
+        REFERENCES Usuario(id_usuario)
 );
+GO
 
-INSERT INTO AreaAtuacao (nome_area) VALUES 
-('Tecnologia da Informação'),
-('Marketing'),
-('Recursos
- Humanos'),
-('Finanças'),
-('Vendas');
+-- Tabela de Inscrições em Webinars
+CREATE TABLE inscricoes_webinar(
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    nome_completo VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    telefone VARCHAR(20),
+    recebe_notificacoes BIT DEFAULT 0,
+    consentimento_lgpd BIT NOT NULL,
+    id_usuario INT,
+    data_inscricao DATETIME DEFAULT GETDATE(),
+    CONSTRAINT FK_Inscricoes_Usuario FOREIGN KEY (id_usuario) 
+        REFERENCES Usuario(id_usuario)
+);
+GO
 
-INSERT INTO Vagas (id_func, titulo_vaga, localizacao, tipo_emprego, id_area, empresa) VALUES
-(2, 'Vndedor iNterno', 'Belo Horizonte', 'part-time', 5, 'Vendas');
+-- Tabela de Notificações
+CREATE TABLE Notificacao (
+    id_notificacao INT IDENTITY(1,1) PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    mensagem NVARCHAR(MAX) NOT NULL,
+    data_hora DATETIME DEFAULT GETDATE(),
+    lida BIT DEFAULT 0,
+    CONSTRAINT FK_Notificacao_Usuario FOREIGN KEY (id_usuario) 
+        REFERENCES Usuario(id_usuario)
+);
+GO
 
-INSERT INTO Vagas (id_func, titulo_vaga, localizacao, tipo_emprego, id_area, empresa) VALUES
-(1, 'Desenvolvedor Full Stack', 'São Paulo/Remoto', 'full-time', 1, 'Prolink Solutions'),
-(2, 'Analista de RH Pleno', 'Rio de Janeiro', 'full-time', 3, 'Prolink RH'),
-(3, 'Estagiário em Marketing Digital', 'São Paulo', 'internship', 2, 'Prolink Marketing'),
-(1, 'Gerente Financeiro', 'São Paulo', 'full-time', 4, 'Prolink Finance'),
-(2, 'Vendedor Externo', 'Belo Horizonte', 'part-time', 5, 'Prolink Vendas');
+USE prolink;
+GO
 
-
+-- Inserções na tabela Usuario
 INSERT INTO Usuario (nome, email, senha, dataNascimento, telefone, qr_code, data_geracao_qr)
 VALUES 
-('João Silva', 'joao.silva@email.com', 'senha123', '19900515', '(11) 98765-4321', 'QR123456', '20231001 09:30:00'),
-('Maria Oliveira', 'maria.oliveira@email.com', 'mariA321', '19850822', '(21) 99876-5432', 'QR789012', '20231002 14:15:00'),
-('Carlos Souza', 'carlos.souza@email.com', 'carlos456', '19950210', '(31) 98765-1234', NULL, NULL),
-('Ana Pereira', 'ana.pereira@email.com', 'ana789', '19881130', '(41) 99999-8888', 'QR345678', '20230928 16:45:00'),
-('Pedro Costa', 'pedro.costa@email.com', 'pedroC0sta', '19920718', '(51) 98888-7777', 'QR901234', '20231003 10:20:00'),
-('Juliana Santos', 'juliana.santos@email.com', 'julianaS', '19980425', '(11) 97777-6666', NULL, NULL),
-('Marcos Rocha', 'marcos.rocha@email.com', 'marcosR2023', '19801205', '(21) 96666-5555', 'QR567890', '20230930 08:10:00'),
-('Fernanda Lima', 'fernanda.lima@email.com', 'fernandaL1', '19930912', '(31) 95555-4444', 'QR123890', '20231004 11:35:00'),
-('Ricardo Alves', 'ricardo.alves@email.com', 'ricardoA', '19870620', '(41) 94444-3333', NULL, NULL),
-('Patrícia Nunes', 'patricia.nunes@email.com', 'patriciaN', '19910308', '(51) 93333-2222', 'QR456123', '20231005 13:50:00');
+('João Silva', 'joao.silva@email.com', 'senha123', '1990-05-15', '(11)98765-4321', 'qr_joao.png', GETDATE()),
+('Maria Oliveira', 'maria.oliveira@email.com', 'senha456', '1985-08-22', '(21)99876-5432', 'qr_maria.png', GETDATE()),
+('Carlos Souza', 'carlos.souza@email.com', 'senha789', '1995-03-10', '(31)98765-1234', 'qr_carlos.png', GETDATE()),
+('Ana Costa', 'ana.costa@email.com', 'senha101', '1988-11-30', '(41)91234-5678', 'qr_ana.png', GETDATE()),
+('Pedro Santos', 'pedro.santos@email.com', 'senha202', '1992-07-25', '(51)92345-6789', 'qr_pedro.png', GETDATE());
 GO
+
+-- Inserções na tabela Perfil
+INSERT INTO Perfil (id_usuario, idade, endereco, formacao, experiencia_profissional, interesses, projetos_especializacoes, habilidades, qr_code)
+VALUES 
+(1, 33, 'Rua A, 100 - São Paulo/SP', 'Engenharia de Software', '5 anos como desenvolvedor full-stack', 'Tecnologia, esportes', 'Sistema de gestão ERP', 'Java, Python, SQL', 'qr_joao_profile.png'),
+(2, 38, 'Av. B, 200 - Rio de Janeiro/RJ', 'Administração', '10 anos em RH', 'Leitura, viagens', 'Programa de treinamento', 'Recrutamento, Treinamento', 'qr_maria_profile.png'),
+(3, 28, 'Rua C, 300 - Belo Horizonte/MG', 'Ciência da Computação', '3 anos como analista de dados', 'Data Science, IA', 'Modelo preditivo de vendas', 'Python, R, SQL', 'qr_carlos_profile.png'),
+(4, 35, 'Av. D, 400 - Curitiba/PR', 'Design Gráfico', '7 anos em agências', 'Arte, fotografia', 'Identidade visual para startups', 'Photoshop, Illustrator', 'qr_ana_profile.png'),
+(5, 31, 'Rua E, 500 - Porto Alegre/RS', 'Marketing Digital', '6 anos em e-commerce', 'Redes sociais, SEO', 'Campanhas de performance', 'Google Ads, Facebook Ads', 'qr_pedro_profile.png');
 GO
+
+-- Inserções na tabela Funcionario (incluindo um admin master)
+INSERT INTO Funcionario (nome_completo, email, senha, nivel_acesso, criado_por, data_cadastro, ultimo_acesso, ativo)
+VALUES 
+('Admin Master', 'admin@prolink.com', 'admin123', 0, NULL, GETDATE(), GETDATE(), 1),
+('Gerente RH', 'rh@prolink.com', 'rh456', 1, 1, GETDATE(), GETDATE(), 1),
+('Supervisor TI', 'ti@prolink.com', 'ti789', 2, 1, GETDATE(), GETDATE(), 1),
+('Analista Marketing', 'marketing@prolink.com', 'mkt101', 2, 2, GETDATE(), GETDATE(), 1),
+('Assistente Comercial', 'comercial@prolink.com', 'com202', 2, 2, GETDATE(), GETDATE(), 1);
+GO
+
+-- Inserções na tabela AreaAtuacao
+INSERT INTO AreaAtuacao (nome_area)
+VALUES 
+('Desenvolvimento de Software'),
+('Recursos Humanos'),
+('Ciência de Dados'),
+('Design Gráfico'),
+('Marketing Digital');
+GO
+
+-- Inserções na tabela ProfissionalArea
+INSERT INTO ProfissionalArea (id_usuario, id_area)
+VALUES 
+(1, 1), -- João - Desenvolvimento
+(2, 2), -- Maria - RH
+(3, 3), -- Carlos - Ciência de Dados
+(4, 4), -- Ana - Design
+(5, 5), -- Pedro - Marketing
+(1, 3), -- João também em Ciência de Dados
+(3, 1); -- Carlos também em Desenvolvimento
+GO
+
+-- Inserções na tabela Vagas
+INSERT INTO Vagas (id_funcionario, titulo_vaga, localizacao, tipo_emprego, id_area, id_usuario, empresa)
+VALUES 
+(3, 'Desenvolvedor Back-end Java', 'São Paulo - SP', 'full-time', 1, NULL, 'Tech Solutions Inc.'),
+(2, 'Analista de RH Pleno', 'Rio de Janeiro - RJ', 'full-time', 2, 2, 'HR Partners'),
+(3, 'Cientista de Dados Júnior', 'Remoto', 'part-time', 3, NULL, 'Data Analytics Co.'),
+(4, 'Designer UX/UI', 'Curitiba - PR', 'full-time', 4, 4, 'Creative Designs Ltd.'),
+(5, 'Especialista em SEO', 'Remoto', 'part-time', 5, NULL, 'Digital Marketing Agency');
+go
+
+-- Inserções na tabela Candidatura
+INSERT INTO Candidatura (id_vaga, id_perfil, status)
+VALUES 
+(1, 1, 'Aprovado'),
+(1, 3, 'Em análise'),
+(2, 2, 'Aprovado'),
+(3, 3, 'Reprovado'),
+(4, 4, 'Aprovado');
+GO
+
+-- Inserções na tabela Mensagem
+INSERT INTO Mensagem (id_usuario_remetente, id_usuario_destinatario, texto, data_hora, lida)
+VALUES 
+(1, 2, 'Olá Maria, gostaria de saber mais sobre a vaga de RH.', GETDATE(), 0),
+(2, 1, 'Claro João, que informações você precisa?', GETDATE(), 0),
+(3, 5, 'Pedro, vi seu perfil e temos uma oportunidade em Marketing.', GETDATE(), 1),
+(4, 3, 'Carlos, como vai o projeto de dados?', GETDATE(), 0),
+(5, 4, 'Ana, precisamos atualizar nosso material gráfico.', GETDATE(), 1);
+GO
+
+-- Inserções na tabela inscricoes_webinar
+INSERT INTO inscricoes_webinar (nome_completo, email, telefone, recebe_notificacoes, consentimento_lgpd, id_usuario)
+VALUES 
+('João Silva', 'joao.silva@email.com', '(11)98765-4321', 1, 1, 1),
+('Maria Oliveira', 'maria.oliveira@email.com', '(21)99876-5432', 1, 1, 2),
+('Carlos Souza', 'carlos.souza@email.com', '(31)98765-1234', 0, 1, 3),
+('Ana Costa', 'ana.costa@email.com', '(41)91234-5678', 1, 1, 4),
+('Pedro Santos', 'pedro.santos@email.com', '(51)92345-6789', 0, 1, 5);
+GO
+
+-- Inserções na tabela Notificacao
+INSERT INTO Notificacao (id_usuario, mensagem, data_hora, lida)
+VALUES 
+(1, 'Sua candidatura foi aprovada!', GETDATE(), 0),
+(2, 'Nova mensagem recebida de João Silva', GETDATE(), 1),
+(3, 'Webinar sobre Data Science amanhã às 10h', GETDATE(), 0),
+(4, 'Seu design foi selecionado para a campanha', GETDATE(), 1),
+(5, 'Atualização nas políticas de Marketing Digital', GETDATE(), 0);
+GO
+
+-- Verificando as inserções
+SELECT 'Usuario' AS Tabela, COUNT(*) AS Registros FROM Usuario
+UNION ALL
+SELECT 'Perfil', COUNT(*) FROM Perfil
+UNION ALL
+SELECT 'Funcionario', COUNT(*) FROM Funcionario
+UNION ALL
+SELECT 'AreaAtuacao', COUNT(*) FROM AreaAtuacao
+UNION ALL
+SELECT 'ProfissionalArea', COUNT(*) FROM ProfissionalArea
+UNION ALL
+SELECT 'Vagas', COUNT(*) FROM Vagas
+UNION ALL
+SELECT 'Candidatura', COUNT(*) FROM Candidatura
+UNION ALL
+SELECT 'Mensagem', COUNT(*) FROM Mensagem
+UNION ALL
+SELECT 'inscricoes_webinar', COUNT(*) FROM inscricoes_webinar
+UNION ALL
+SELECT 'Notificacao', COUNT(*) FROM Notificacao;
 
 SELECT * FROM Funcionario;
-DELETE FROM Funcionario;
-select * from Usuario;
-
-
-
-SELECT id_funcionario, nome_completo, email, ultimo_acesso 
-FROM Funcionario 
-ORDER BY ultimo_acesso DESC;
+ 
+select * from Candidatura;

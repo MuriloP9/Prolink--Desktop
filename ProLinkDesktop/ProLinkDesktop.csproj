@@ -135,6 +135,12 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmAdicionarVaga.resx">
+      <DependentUpon>FrmAdicionarVaga.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCandidatos.resx">
+      <DependentUpon>FrmCandidatos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmGerenciarFuncionarios.resx">
       <DependentUpon>FrmGerenciarFuncionarios.cs</DependentUpon>
     </EmbeddedResource>
