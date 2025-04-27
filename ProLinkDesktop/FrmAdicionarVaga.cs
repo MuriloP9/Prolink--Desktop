@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ProLinkDesktop
@@ -15,37 +10,35 @@ namespace ProLinkDesktop
     public partial class FrmAdicionarVaga : Form
     {
         private ClasseConexao conexao;
+        private bool editMode = false;
+        private int vagaId = -1;
 
-        public FrmAdicionarVaga()
+        public FrmAdicionarVaga(int vagaId = -1)
         {
             InitializeComponent();
             conexao = new ClasseConexao();
             CarregarAreasAtuacao();
             ConfigurarFormulario();
+
+            this.vagaId = vagaId;
+            this.editMode = vagaId > 0;
+
+            if (editMode)
+            {
+                this.Text = "Editar Vaga";
+                btnSalvar.Text = "Salvar Alterações";
+                CarregarDadosVaga();
+            }
         }
 
         private void ConfigurarFormulario()
         {
-            // Configuração básica do formulário
-            this.Text = "Adicionar Nova Vaga";
             this.StartPosition = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
 
-            // Estilo dos controles
-            foreach (Control control in this.Controls)
-            {
-                if (control is Label)
-                {
-                    control.Font = new Font("Microsoft Sans Serif", 9, FontStyle.Regular);
-                }
-                else if (control is TextBox || control is ComboBox)
-                {
-                    control.Font = new Font("Microsoft Sans Serif", 9, FontStyle.Regular);
-                    control.BackColor = Color.White;
-                }
-            }
+            cmbTipoEmprego.Items.AddRange(new string[] { "full-time", "part-time", "internship" });
         }
 
         private void CarregarAreasAtuacao()
@@ -55,23 +48,48 @@ namespace ProLinkDesktop
                 string sql = "SELECT id_area, nome_area FROM AreaAtuacao ORDER BY nome_area";
                 DataTable dt = conexao.executarSQL(sql);
 
-                // DEBUG: Verifique os dados retornados
-                Debug.WriteLine("Dados da Área de Atuação:");
-                foreach (DataRow row in dt.Rows)
+                if (dt != null && dt.Rows.Count > 0)
                 {
-                    Debug.WriteLine($"ID: {row["id_area"]}, Nome: {row["nome_area"]}");
+                    cmbArea.DataSource = dt;
+                    cmbArea.DisplayMember = "nome_area";
+                    cmbArea.ValueMember = "id_area";
                 }
-
-                cmbArea.DataSource = dt;
-                cmbArea.DisplayMember = "nome_area";
-                cmbArea.ValueMember = "id_area";
-
-                // DEBUG: Verifique o binding
-                Debug.WriteLine($"Configuração do ComboBox: DisplayMember={cmbArea.DisplayMember}, ValueMember={cmbArea.ValueMember}");
+                else
+                {
+                    MessageBox.Show("Nenhuma área de atuação cadastrada.", "Aviso",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao carregar áreas: " + ex.ToString(), "Erro",
+                MessageBox.Show($"Erro ao carregar áreas: {ex.Message}", "Erro",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CarregarDadosVaga()
+        {
+            try
+            {
+                string sql = $@"SELECT titulo_vaga, empresa, localizacao, tipo_emprego, id_area 
+                             FROM Vagas WHERE id_vaga = {vagaId}";
+
+                DataTable dt = conexao.executarSQL(sql);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    DataRow row = dt.Rows[0];
+
+                    txtTitulo.Text = row["titulo_vaga"].ToString();
+                    txtEmpresa.Text = row["empresa"].ToString();
+                    txtLocalizacao.Text = row["localizacao"].ToString();
+                    cmbTipoEmprego.SelectedItem = row["tipo_emprego"].ToString();
+                    cmbArea.SelectedValue = Convert.ToInt32(row["id_area"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar dados da vaga: {ex.Message}", "Erro",
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -83,77 +101,85 @@ namespace ProLinkDesktop
 
             try
             {
-                int idFuncionario = ObterIdFuncionarioLogado();
-                int idUsuario = ObterIdUsuarioLogado();
-
-                // Verifique se os IDs são válidos
-                if (idFuncionario <= 0 || idUsuario <= 0)
+                if (editMode)
                 {
-                    MessageBox.Show("IDs de usuário/funcionário inválidos!", "Erro",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                    // Modo edição
+                    string sql = @"UPDATE Vagas SET 
+                                 titulo_vaga = @titulo,
+                                 empresa = @empresa,
+                                 localizacao = @localizacao,
+                                 tipo_emprego = @tipo,
+                                 id_area = @id_area
+                                 WHERE id_vaga = @id_vaga";
 
-                string sql = @"INSERT INTO Vagas 
-                     (id_func, titulo_vaga, localizacao, tipo_emprego, id_area, id_usuario, empresa)
-                     VALUES 
-                     (@id_func, @titulo, @localizacao, @tipo, @id_area, @id_usuario, @empresa)";
-
-                using (SqlCommand comando = new SqlCommand(sql))
-                {
-                    // Converta explicitamente os valores para evitar problemas de tipo
-                    comando.Parameters.AddWithValue("@id_func", idFuncionario);
-                    comando.Parameters.AddWithValue("@titulo", txtTitulo.Text.Trim());
-                    comando.Parameters.AddWithValue("@localizacao", txtLocalizacao.Text.Trim());
-                    comando.Parameters.AddWithValue("@tipo", cmbTipoEmprego.SelectedItem.ToString());
-                    comando.Parameters.AddWithValue("@id_area", Convert.ToInt32(cmbArea.SelectedValue));
-                    comando.Parameters.AddWithValue("@id_usuario", idUsuario);
-                    comando.Parameters.AddWithValue("@empresa", txtEmpresa.Text.Trim());
-
-                    // DEBUG: Mostrar os valores que estão sendo enviados
-                    string debugInfo = $"Valores enviados:\n" +
-                                     $"ID Funcionário: {idFuncionario}\n" +
-                                     $"Título: {txtTitulo.Text.Trim()}\n" +
-                                     $"Localização: {txtLocalizacao.Text.Trim()}\n" +
-                                     $"Tipo: {cmbTipoEmprego.SelectedItem}\n" +
-                                     $"Área: {cmbArea.SelectedValue} (Texto: {cmbArea.Text})\n" +
-                                     $"ID Usuário: {idUsuario}\n" +
-                                     $"Empresa: {txtEmpresa.Text.Trim()}";
-
-                    Debug.WriteLine(debugInfo); // Visualizar no Output do Visual Studio
-                                                // MessageBox.Show(debugInfo); // Descomente para ver os valores em uma mensagem
-
-                    int linhasAfetadas = conexao.manutencaoDB_Parametros(comando);
-
-                    if (linhasAfetadas > 0)
+                    using (SqlCommand comando = new SqlCommand(sql))
                     {
-                        MessageBox.Show("Vaga cadastrada com sucesso!", "Sucesso",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.DialogResult = DialogResult.OK;
-                        this.Close();
+                        comando.Parameters.AddWithValue("@titulo", txtTitulo.Text.Trim());
+                        comando.Parameters.AddWithValue("@empresa", txtEmpresa.Text.Trim());
+                        comando.Parameters.AddWithValue("@localizacao", txtLocalizacao.Text.Trim());
+                        comando.Parameters.AddWithValue("@tipo", cmbTipoEmprego.SelectedItem.ToString());
+                        comando.Parameters.AddWithValue("@id_area", Convert.ToInt32(cmbArea.SelectedValue));
+                        comando.Parameters.AddWithValue("@id_vaga", vagaId);
+
+                        int linhasAfetadas = conexao.manutencaoDB_Parametros(comando);
+
+                        if (linhasAfetadas > 0)
+                        {
+                            MessageBox.Show("Vaga atualizada com sucesso!", "Sucesso",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.DialogResult = DialogResult.OK;
+                            this.Close();
+                        }
                     }
-                    else
-                    {
-                        // Teste direto no banco com os mesmos valores
-                        string testeSQL = $"Teste no SQL: INSERT INTO Vagas VALUES " +
-                                        $"({idFuncionario}, '{txtTitulo.Text.Trim()}', " +
-                                        $"'{txtLocalizacao.Text.Trim()}', " +
-                                        $"'{cmbTipoEmprego.SelectedItem}', " +
-                                        $"{cmbArea.SelectedValue}, {idUsuario}, " +
-                                        $"'{txtEmpresa.Text.Trim()}')";
+                }
+                else
+                {
+                    // Modo adição
+                    int idFuncionario = ObterIdFuncionarioLogado();
+                    int idUsuario = ObterIdUsuarioLogado();
 
-                        Debug.WriteLine(testeSQL);
-                        MessageBox.Show($"Falha ao cadastrar. Execute manualmente no SQL:\n{testeSQL}",
-                                        "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (idFuncionario <= 0 || idUsuario <= 0)
+                    {
+                        MessageBox.Show("Não foi possível identificar o usuário/funcionário logado.", "Erro",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    string sql = @"INSERT INTO Vagas 
+                                 (id_funcionario, titulo_vaga, empresa, localizacao, tipo_emprego, id_area, id_usuario)
+                                 VALUES 
+                                 (@id_funcionario, @titulo, @empresa, @localizacao, @tipo, @id_area, @id_usuario)";
+
+                    using (SqlCommand comando = new SqlCommand(sql))
+                    {
+                        comando.Parameters.AddWithValue("@id_funcionario", idFuncionario);
+                        comando.Parameters.AddWithValue("@titulo", txtTitulo.Text.Trim());
+                        comando.Parameters.AddWithValue("@empresa", txtEmpresa.Text.Trim());
+                        comando.Parameters.AddWithValue("@localizacao", txtLocalizacao.Text.Trim());
+                        comando.Parameters.AddWithValue("@tipo", cmbTipoEmprego.SelectedItem.ToString());
+                        comando.Parameters.AddWithValue("@id_area", Convert.ToInt32(cmbArea.SelectedValue));
+                        comando.Parameters.AddWithValue("@id_usuario", idUsuario);
+
+                        int linhasAfetadas = conexao.manutencaoDB_Parametros(comando);
+
+                        if (linhasAfetadas > 0)
+                        {
+                            MessageBox.Show("Vaga cadastrada com sucesso!", "Sucesso",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.DialogResult = DialogResult.OK;
+                            this.Close();
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"ERRO DETALHADO:\n{ex.ToString()}", "Erro Grave",
+                MessageBox.Show($"Erro ao {(editMode ? "atualizar" : "cadastrar")} vaga: {ex.Message}", "Erro",
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine($"Erro detalhado: {ex.ToString()}");
             }
         }
+
         private bool ValidarCampos()
         {
             if (string.IsNullOrWhiteSpace(txtTitulo.Text))
@@ -161,6 +187,14 @@ namespace ProLinkDesktop
                 MessageBox.Show("Por favor, informe o título da vaga.", "Aviso",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtTitulo.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtEmpresa.Text))
+            {
+                MessageBox.Show("Por favor, informe o nome da empresa.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtEmpresa.Focus();
                 return false;
             }
 
@@ -180,28 +214,17 @@ namespace ProLinkDesktop
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(txtEmpresa.Text))
-            {
-                MessageBox.Show("Por favor, informe o nome da empresa.", "Aviso",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtEmpresa.Focus();
-                return false;
-            }
-
             return true;
         }
 
-        // Métodos auxiliares - você precisará implementar conforme sua lógica de autenticação
         private int ObterIdFuncionarioLogado()
         {
-            // Implemente conforme seu sistema
-            return 1; // Exemplo - substitua pelo valor real
+            return 1; // Substitua pela lógica real
         }
 
         private int ObterIdUsuarioLogado()
         {
-            // Implemente conforme seu sistema
-            return 1; // Exemplo - substitua pelo valor real
+            return 1; // Substitua pela lógica real
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

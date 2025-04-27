@@ -15,7 +15,7 @@ namespace ProLinkDesktop
     public partial class FrmGerenciarUsuarios : Form
     {
         private ClasseConexao conexao;
-        private DataTable usuarios;
+        private DataTable Usuarios;
         private int usuarioSelecionadoId = -1;
 
         public FrmGerenciarUsuarios()
@@ -73,33 +73,42 @@ namespace ProLinkDesktop
             try
             {
                 string query = @"SELECT 
-                                id_usuario, 
-                                nome, 
-                                email, 
-                                dataNascimento, 
-                                telefone, 
-                                CASE WHEN ativo = 1 THEN 'Ativo' ELSE 'Inativo' END AS Status,
-                                FORMAT(data_criacao, 'dd/MM/yyyy HH:mm') AS 'Data Criação',
-                                FORMAT(ultimo_acesso, 'dd/MM/yyyy HH:mm') AS 'Último Acesso'
-                               FROM Usuario 
-                               ORDER BY nome";
+                    id_usuario, 
+                    nome, 
+                    email, 
+                    dataNascimento, 
+                    telefone, 
+                    CASE WHEN ativo = 1 THEN 'Ativo' ELSE 'Inativo' END AS Status,
+                    FORMAT(data_criacao, 'dd/MM/yyyy HH:mm') AS 'Data Criação',
+                    FORMAT(ultimo_acesso, 'dd/MM/yyyy HH:mm') AS 'Último Acesso'
+                   FROM Usuario 
+                   ORDER BY nome";
 
-                usuarios = conexao.executarSQL(query);
+                Usuarios = conexao.executarSQL(query);
 
-                if (usuarios != null && usuarios.Rows.Count > 0)
+                if (Usuarios != null && Usuarios.Rows.Count > 0)
                 {
-                    dgvUsuarios.DataSource = usuarios;
+                    dgvUsuarios.DataSource = Usuarios;
 
                     // Configurar colunas
                     dgvUsuarios.Columns["id_usuario"].Visible = false;
 
-                    // Ajustar largura das colunas
-                    dgvUsuarios.Columns["nome"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dgvUsuarios.Columns["email"].Width = 200;
-                    dgvUsuarios.Columns["telefone"].Width = 120;
+                    // Desativar o redimensionamento automático temporariamente
+                    dgvUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
+                    // Definir larguras específicas para cada coluna
+                    dgvUsuarios.Columns["nome"].Width = 200;  // Largura maior para o nome
+                    dgvUsuarios.Columns["email"].Width = 180;
+                    dgvUsuarios.Columns["telefone"].Width = 100;
                     dgvUsuarios.Columns["Status"].Width = 80;
                     dgvUsuarios.Columns["Data Criação"].Width = 150;
                     dgvUsuarios.Columns["Último Acesso"].Width = 150;
+
+                    // Permitir que o usuário redimensione as colunas
+                    dgvUsuarios.AllowUserToResizeColumns = true;
+
+                    // Configurar a coluna nome para mostrar texto completo
+                    dgvUsuarios.Columns["nome"].DefaultCellStyle.WrapMode = DataGridViewTriState.False;
                 }
                 else
                 {
@@ -203,10 +212,10 @@ namespace ProLinkDesktop
 
         private void TxtPesquisa_TextChanged(object sender, EventArgs e)
         {
-            if (usuarios != null)
+            if (Usuarios != null)
             {
                 string filtro = txtPesquisa.Text.Trim();
-                DataView dv = usuarios.DefaultView;
+                DataView dv = Usuarios.DefaultView;
 
                 if (!string.IsNullOrEmpty(filtro))
                 {

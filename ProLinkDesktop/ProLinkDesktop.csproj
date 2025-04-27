@@ -39,6 +39,9 @@
     <Reference Include="CircularProgressBar, Version=2.8.0.16, Culture=neutral, PublicKeyToken=310fd07b25df79b3, processorArchitecture=MSIL">
       <HintPath>..\packages\CircularProgressBar.2.8.0.16\lib\net40\CircularProgressBar.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\..\..\Documents\PrjPdf\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -77,6 +80,12 @@
     </Compile>
     <Compile Include="FrmCadastrarFuncionario.Designer.cs">
       <DependentUpon>FrmCadastrarFuncionario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCandidatos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCandidatos.Designer.cs">
+      <DependentUpon>FrmCandidatos.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmGerenciarFuncionarios.cs">
       <SubType>Form</SubType>
