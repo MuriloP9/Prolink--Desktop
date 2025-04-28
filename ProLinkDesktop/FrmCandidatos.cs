@@ -362,7 +362,7 @@ namespace ProLinkDesktop
 
         private void btnFechar_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
         }
     }
 }

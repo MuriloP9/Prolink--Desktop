@@ -157,16 +157,35 @@ GO
 USE prolink;
 GO
 
--- Inserções na tabela Usuario
-INSERT INTO Usuario (nome, email, senha, dataNascimento, telefone, qr_code, data_geracao_qr)
-VALUES 
-('João Silva', 'joao.silva@email.com', 'senha123', '1990-05-15', '(11)98765-4321', 'qr_joao.png', GETDATE()),
-('Maria Oliveira', 'maria.oliveira@email.com', 'senha456', '1985-08-22', '(21)99876-5432', 'qr_maria.png', GETDATE()),
-('Carlos Souza', 'carlos.souza@email.com', 'senha789', '1995-03-10', '(31)98765-1234', 'qr_carlos.png', GETDATE()),
-('Ana Costa', 'ana.costa@email.com', 'senha101', '1988-11-30', '(41)91234-5678', 'qr_ana.png', GETDATE()),
-('Pedro Santos', 'pedro.santos@email.com', 'senha202', '1992-07-25', '(51)92345-6789', 'qr_pedro.png', GETDATE());
-GO
+-- Usuários ativos (15)
+INSERT INTO Usuario (nome, email, senha, dataNascimento, telefone, ativo, data_criacao) VALUES
+('Luiza Fernandes', 'luiza.fernandes@email.com', 'senha303', '1993-09-12', '(11)94567-8901', 1, GETDATE()),
+('Ricardo Almeida', 'ricardo.almeida@email.com', 'senha404', '1987-04-05', '(21)95678-9012', 1, GETDATE()),
+('Fernanda Lima', 'fernanda.lima@email.com', 'senha505', '1991-12-18', '(31)96789-0123', 1, GETDATE()),
+('Marcos Rocha', 'marcos.rocha@email.com', 'senha606', '1989-06-22', '(41)97890-1234', 1, GETDATE()),
+('Juliana Martins', 'juliana.martins@email.com', 'senha707', '1994-02-28', '(51)98901-2345', 1, GETDATE()),
+('Roberto Gomes', 'roberto.gomes@email.com', 'senha808', '1986-10-15', '(11)99012-3456', 1, GETDATE()),
+('Patrícia Nunes', 'patricia.nunes@email.com', 'senha909', '1996-01-20', '(21)90123-4567', 1, GETDATE()),
+('Eduardo Pereira', 'eduardo.pereira@email.com', 'senha010', '1984-07-08', '(31)91234-5678', 1, GETDATE()),
+('Camila Ribeiro', 'camila.ribeiro@email.com', 'senha111', '1997-05-30', '(41)92345-6789', 1, GETDATE()),
+('Gustavo Henrique', 'gustavo.henrique@email.com', 'senha121', '1998-11-25', '(51)93456-7890', 1, GETDATE()),
 
+-- Usuários inativos (15)
+('Antônio Carlos', 'antonio.carlos@email.com', 'senha131', '1983-04-17', '(11)94567-8901', 0, GETDATE()),
+('Beatriz Souza', 'beatriz.souza@email.com', 'senha141', '1999-08-14', '(21)95678-9012', 0, GETDATE()),
+('Daniel Costa', 'daniel.costa@email.com', 'senha151', '1982-12-03', '(31)96789-0123', 0, GETDATE()),
+('Elaine Santos', 'elaine.santos@email.com', 'senha161', '1981-09-19', '(41)97890-1234', 0, GETDATE()),
+('Fábio Oliveira', 'fabio.oliveira@email.com', 'senha171', '1980-06-27', '(51)98901-2345', 0, GETDATE()),
+('Gabriela Lima', 'gabriela.lima@email.com', 'senha181', '1995-03-08', '(11)99012-3456', 0, GETDATE()),
+('Hugo Alves', 'hugo.alves@email.com', 'senha191', '1987-01-11', '(21)90123-4567', 0, GETDATE()),
+('Isabela Rocha', 'isabela.rocha@email.com', 'senha202', '1993-07-22', '(31)91234-5678', 0, GETDATE()),
+('José Pereira', 'jose.pereira@email.com', 'senha212', '1989-10-05', '(41)92345-6789', 0, GETDATE()),
+('Karen Gomes', 'karen.gomes@email.com', 'senha222', '1992-02-28', '(51)93456-7890', 0, GETDATE()),
+('Leonardo Nunes', 'leonardo.nunes@email.com', 'senha232', '1984-11-15', '(11)94567-8901', 0, GETDATE()),
+('Mariana Fernandes', 'mariana.fernandes@email.com', 'senha242', '1996-04-18', '(21)95678-9012', 0, GETDATE()),
+('Nelson Ribeiro', 'nelson.ribeiro@email.com', 'senha252', '1985-08-29', '(31)96789-0123', 0, GETDATE()),
+('Olívia Martins', 'olivia.martins@email.com', 'senha262', '1997-12-07', '(41)97890-1234', 0, GETDATE()),
+('Paulo Henrique', 'paulo.henrique@email.com', 'senha272', '1988-05-21', '(51)98901-2345', 0, GETDATE());
 -- Inserções na tabela Perfil
 INSERT INTO Perfil (id_usuario, idade, endereco, formacao, experiencia_profissional, interesses, projetos_especializacoes, habilidades, qr_code)
 VALUES 
@@ -212,11 +231,21 @@ GO
 -- Inserções na tabela Vagas
 INSERT INTO Vagas (id_funcionario, titulo_vaga, localizacao, tipo_emprego, id_area, id_usuario, empresa)
 VALUES 
-(3, 'Desenvolvedor Back-end Java', 'São Paulo - SP', 'full-time', 1, NULL, 'Tech Solutions Inc.'),
-(2, 'Analista de RH Pleno', 'Rio de Janeiro - RJ', 'full-time', 2, 2, 'HR Partners'),
-(3, 'Cientista de Dados Júnior', 'Remoto', 'part-time', 3, NULL, 'Data Analytics Co.'),
-(4, 'Designer UX/UI', 'Curitiba - PR', 'full-time', 4, 4, 'Creative Designs Ltd.'),
-(5, 'Especialista em SEO', 'Remoto', 'part-time', 5, NULL, 'Digital Marketing Agency');
+(3, 'Desenvolvedor Front-end React', 'Remoto', 'full-time', 1, NULL, 'WebTech Innovations'),
+(2, 'Recrutador Tech', 'São Paulo - SP', 'full-time', 2, NULL, 'Tech Talent Solutions'),
+(3, 'Engenheiro de Machine Learning', 'Belo Horizonte - MG', 'full-time', 3, NULL, 'AI Pioneers'),
+(4, 'Designer Gráfico Sênior', 'Porto Alegre - RS', 'part-time', 4, NULL, 'Visual Arts Studio'),
+(5, 'Gerente de Mídias Sociais', 'Remoto', 'full-time', 5, NULL, 'Digital Influence Corp'),
+(3, 'Arquiteto de Software', 'Campinas - SP', 'full-time', 1, NULL, 'Byte Architects'),
+(2, 'Psicólogo Organizacional', 'Rio de Janeiro - RJ', 'part-time', 2, NULL, 'Mind & Work Consulting'),
+(3, 'Analista de BI', 'Remoto', 'full-time', 3, NULL, 'Data Insights Ltd'),
+(4, 'Ilustrador Digital', 'Florianópolis - SC', 'part-time', 4, NULL, 'Creative Minds Agency'),
+(5, 'Copywriter Publicitário', 'Remoto', 'part-time', 5, NULL, 'Words That Sell'),
+(3, 'Engenheiro de DevOps', 'São Paulo - SP', 'full-time', 1, NULL, 'Cloud Transformers'),
+(2, 'Business Partner RH', 'Brasília - DF', 'full-time', 2, NULL, 'Strategic HR Group'),
+(3, 'Especialista em Big Data', 'Remoto', 'full-time', 3, NULL, 'Quantum Analytics'),
+(4, 'Diretor de Arte', 'Salvador - BA', 'full-time', 4, NULL, 'Brand Visionaries'),
+(5, 'Analista de Growth Marketing', 'Remoto', 'part-time', 5, NULL, 'Scale Up Digital');
 go
 
 -- Inserções na tabela Candidatura
@@ -283,3 +312,4 @@ SELECT 'Notificacao', COUNT(*) FROM Notificacao;
 SELECT * FROM Funcionario;
  SELECT * FROM Usuario;
 select * from Candidatura;
+SELECT * FROM Vagas;

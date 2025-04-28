@@ -30,8 +30,8 @@ namespace ProLinkDesktop
         private void InitializeComponent()
         {
             this.panel6 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.circularProgressBar1 = new CircularProgressBar.CircularProgressBar();
+            this.lblAtividade = new System.Windows.Forms.Label();
+            this.CpbInatividade = new CircularProgressBar.CircularProgressBar();
             this.label12 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblAcessoHorario = new System.Windows.Forms.Label();
@@ -40,14 +40,12 @@ namespace ProLinkDesktop
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lblNUsuario = new System.Windows.Forms.Label();
+            this.lblUsuario = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblNEmpresas = new System.Windows.Forms.Label();
+            this.lblEmpresas = new System.Windows.Forms.Label();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel5.SuspendLayout();
@@ -60,56 +58,56 @@ namespace ProLinkDesktop
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
-            this.panel6.Controls.Add(this.label1);
-            this.panel6.Controls.Add(this.circularProgressBar1);
+            this.panel6.Controls.Add(this.lblAtividade);
+            this.panel6.Controls.Add(this.CpbInatividade);
             this.panel6.Controls.Add(this.label12);
             this.panel6.Location = new System.Drawing.Point(307, 170);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(404, 295);
             this.panel6.TabIndex = 12;
             // 
-            // label1
+            // lblAtividade
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(161)))), ((int)(((byte)(176)))));
-            this.label1.Location = new System.Drawing.Point(19, 253);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(165, 17);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "8 de 12 vagas preenchidas";
+            this.lblAtividade.AutoSize = true;
+            this.lblAtividade.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAtividade.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(161)))), ((int)(((byte)(176)))));
+            this.lblAtividade.Location = new System.Drawing.Point(19, 253);
+            this.lblAtividade.Name = "lblAtividade";
+            this.lblAtividade.Size = new System.Drawing.Size(165, 17);
+            this.lblAtividade.TabIndex = 4;
+            this.lblAtividade.Text = "8 de 12 vagas preenchidas";
             // 
-            // circularProgressBar1
+            // CpbInatividade
             // 
-            this.circularProgressBar1.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner;
-            this.circularProgressBar1.AnimationSpeed = 500;
-            this.circularProgressBar1.BackColor = System.Drawing.Color.Transparent;
-            this.circularProgressBar1.Font = new System.Drawing.Font("Agency FB", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.circularProgressBar1.ForeColor = System.Drawing.Color.White;
-            this.circularProgressBar1.InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
-            this.circularProgressBar1.InnerMargin = 2;
-            this.circularProgressBar1.InnerWidth = -1;
-            this.circularProgressBar1.Location = new System.Drawing.Point(131, 73);
-            this.circularProgressBar1.MarqueeAnimationSpeed = 2000;
-            this.circularProgressBar1.Name = "circularProgressBar1";
-            this.circularProgressBar1.OuterColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
-            this.circularProgressBar1.OuterMargin = -25;
-            this.circularProgressBar1.OuterWidth = 26;
-            this.circularProgressBar1.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.circularProgressBar1.ProgressWidth = 7;
-            this.circularProgressBar1.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 36F);
-            this.circularProgressBar1.Size = new System.Drawing.Size(150, 150);
-            this.circularProgressBar1.StartAngle = 270;
-            this.circularProgressBar1.SubscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.circularProgressBar1.SubscriptMargin = new System.Windows.Forms.Padding(10, -35, 0, 0);
-            this.circularProgressBar1.SubscriptText = "";
-            this.circularProgressBar1.SuperscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.circularProgressBar1.SuperscriptMargin = new System.Windows.Forms.Padding(10, 35, 0, 0);
-            this.circularProgressBar1.SuperscriptText = "";
-            this.circularProgressBar1.TabIndex = 1;
-            this.circularProgressBar1.Text = "67%";
-            this.circularProgressBar1.TextMargin = new System.Windows.Forms.Padding(5, 8, 0, 0);
-            this.circularProgressBar1.Value = 68;
+            this.CpbInatividade.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner;
+            this.CpbInatividade.AnimationSpeed = 500;
+            this.CpbInatividade.BackColor = System.Drawing.Color.Transparent;
+            this.CpbInatividade.Font = new System.Drawing.Font("Agency FB", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CpbInatividade.ForeColor = System.Drawing.Color.White;
+            this.CpbInatividade.InnerColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
+            this.CpbInatividade.InnerMargin = 2;
+            this.CpbInatividade.InnerWidth = -1;
+            this.CpbInatividade.Location = new System.Drawing.Point(131, 73);
+            this.CpbInatividade.MarqueeAnimationSpeed = 2000;
+            this.CpbInatividade.Name = "CpbInatividade";
+            this.CpbInatividade.OuterColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
+            this.CpbInatividade.OuterMargin = -25;
+            this.CpbInatividade.OuterWidth = 26;
+            this.CpbInatividade.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.CpbInatividade.ProgressWidth = 7;
+            this.CpbInatividade.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 36F);
+            this.CpbInatividade.Size = new System.Drawing.Size(150, 150);
+            this.CpbInatividade.StartAngle = 270;
+            this.CpbInatividade.SubscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.CpbInatividade.SubscriptMargin = new System.Windows.Forms.Padding(10, -35, 0, 0);
+            this.CpbInatividade.SubscriptText = "";
+            this.CpbInatividade.SuperscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.CpbInatividade.SuperscriptMargin = new System.Windows.Forms.Padding(10, 35, 0, 0);
+            this.CpbInatividade.SuperscriptText = "";
+            this.CpbInatividade.TabIndex = 1;
+            this.CpbInatividade.Text = "67%";
+            this.CpbInatividade.TextMargin = new System.Windows.Forms.Padding(5, 8, 0, 0);
+            this.CpbInatividade.Value = 68;
             // 
             // label12
             // 
@@ -118,9 +116,9 @@ namespace ProLinkDesktop
             this.label12.ForeColor = System.Drawing.Color.White;
             this.label12.Location = new System.Drawing.Point(4, 21);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(190, 25);
+            this.label12.Size = new System.Drawing.Size(204, 25);
             this.label12.TabIndex = 0;
-            this.label12.Text = "Meta de Candidatura";
+            this.label12.Text = "Atividade dos Usuarios";
             // 
             // pictureBox1
             // 
@@ -180,9 +178,8 @@ namespace ProLinkDesktop
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
             this.panel4.Controls.Add(this.pictureBox3);
-            this.panel4.Controls.Add(this.label7);
-            this.panel4.Controls.Add(this.label8);
-            this.panel4.Controls.Add(this.label9);
+            this.panel4.Controls.Add(this.lblNUsuario);
+            this.panel4.Controls.Add(this.lblUsuario);
             this.panel4.Location = new System.Drawing.Point(307, 10);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(404, 130);
@@ -190,54 +187,42 @@ namespace ProLinkDesktop
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Image = global::ProLinkDesktop.Properties.Resources.Download;
-            this.pictureBox3.Location = new System.Drawing.Point(275, 41);
+            this.pictureBox3.Image = global::ProLinkDesktop.Properties.Resources.Oportunidades;
+            this.pictureBox3.Location = new System.Drawing.Point(283, 45);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(100, 70);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 3;
             this.pictureBox3.TabStop = false;
             // 
-            // label7
+            // lblNUsuario
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(161)))), ((int)(((byte)(176)))));
-            this.label7.Location = new System.Drawing.Point(19, 94);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(191, 17);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "relatórios exportados este mês";
+            this.lblNUsuario.AutoSize = true;
+            this.lblNUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(226)))), ((int)(((byte)(178)))));
+            this.lblNUsuario.Location = new System.Drawing.Point(18, 55);
+            this.lblNUsuario.Name = "lblNUsuario";
+            this.lblNUsuario.Size = new System.Drawing.Size(32, 32);
+            this.lblNUsuario.TabIndex = 1;
+            this.lblNUsuario.Text = "8";
             // 
-            // label8
+            // lblUsuario
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(226)))), ((int)(((byte)(178)))));
-            this.label8.Location = new System.Drawing.Point(18, 55);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(32, 32);
-            this.label8.TabIndex = 1;
-            this.label8.Text = "8";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(19, 17);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(175, 25);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Relatórios Baixados";
+            this.lblUsuario.AutoSize = true;
+            this.lblUsuario.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsuario.ForeColor = System.Drawing.Color.White;
+            this.lblUsuario.Location = new System.Drawing.Point(19, 17);
+            this.lblUsuario.Name = "lblUsuario";
+            this.lblUsuario.Size = new System.Drawing.Size(194, 25);
+            this.lblUsuario.TabIndex = 0;
+            this.lblUsuario.Text = "Usuarios Cadastrados";
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
             this.panel3.Controls.Add(this.pictureBox2);
-            this.panel3.Controls.Add(this.label6);
-            this.panel3.Controls.Add(this.label5);
-            this.panel3.Controls.Add(this.label4);
+            this.panel3.Controls.Add(this.lblNEmpresas);
+            this.panel3.Controls.Add(this.lblEmpresas);
             this.panel3.Location = new System.Drawing.Point(21, 10);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(258, 130);
@@ -248,43 +233,32 @@ namespace ProLinkDesktop
             this.pictureBox2.Image = global::ProLinkDesktop.Properties.Resources.Empresas;
             this.pictureBox2.Location = new System.Drawing.Point(152, 45);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(103, 82);
+            this.pictureBox2.Size = new System.Drawing.Size(103, 72);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
             // 
-            // label6
+            // lblNEmpresas
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(161)))), ((int)(((byte)(176)))));
-            this.label6.Location = new System.Drawing.Point(19, 94);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(99, 17);
-            this.label6.TabIndex = 2;
-            this.label6.Text = "Ultimos 28 Dias";
+            this.lblNEmpresas.AutoSize = true;
+            this.lblNEmpresas.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNEmpresas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.lblNEmpresas.Location = new System.Drawing.Point(25, 69);
+            this.lblNEmpresas.Name = "lblNEmpresas";
+            this.lblNEmpresas.Size = new System.Drawing.Size(49, 32);
+            this.lblNEmpresas.TabIndex = 1;
+            this.lblNEmpresas.Text = "58";
             // 
-            // label5
+            // lblEmpresas
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
-            this.label5.Location = new System.Drawing.Point(18, 55);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(49, 32);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "58";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(19, 17);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(200, 25);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Empresas Cadastradas";
+            this.lblEmpresas.AutoSize = true;
+            this.lblEmpresas.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmpresas.ForeColor = System.Drawing.Color.White;
+            this.lblEmpresas.Location = new System.Drawing.Point(10, 17);
+            this.lblEmpresas.Name = "lblEmpresas";
+            this.lblEmpresas.Size = new System.Drawing.Size(173, 25);
+            this.lblEmpresas.TabIndex = 0;
+            this.lblEmpresas.Text = "Empresas Parceiras";
             // 
             // formDashboard
             // 
@@ -318,19 +292,17 @@ namespace ProLinkDesktop
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Panel panel5;
-        private CircularProgressBar.CircularProgressBar circularProgressBar1;
+        private CircularProgressBar.CircularProgressBar CpbInatividade;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblNUsuario;
+        private System.Windows.Forms.Label lblUsuario;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblNEmpresas;
+        private System.Windows.Forms.Label lblEmpresas;
+        private System.Windows.Forms.Label lblAtividade;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblAcessoHorario;
         private System.Windows.Forms.Label lblAcessoEmail;
