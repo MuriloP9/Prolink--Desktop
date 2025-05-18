@@ -39,12 +39,12 @@ namespace ProLinkDesktop
             this.btnMenu = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblUsuario = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.PicBox = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlFormLoader = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBox)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -177,7 +177,7 @@ namespace ProLinkDesktop
             // panel2
             // 
             this.panel2.Controls.Add(this.lblUsuario);
-            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Controls.Add(this.PicBox);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
@@ -194,18 +194,16 @@ namespace ProLinkDesktop
             this.lblUsuario.Size = new System.Drawing.Size(62, 16);
             this.lblUsuario.TabIndex = 1;
             this.lblUsuario.Text = "Usuário";
-            this.lblUsuario.Click += new System.EventHandler(this.lblUsuario_Click);
             // 
-            // pictureBox1
+            // PicBox
             // 
-            this.pictureBox1.Image = global::ProLinkDesktop.Properties.Resources.Usuario;
-            this.pictureBox1.Location = new System.Drawing.Point(45, 22);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(94, 75);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.PicBox.Image = global::ProLinkDesktop.Properties.Resources.Usuario;
+            this.PicBox.Location = new System.Drawing.Point(45, 22);
+            this.PicBox.Name = "PicBox";
+            this.PicBox.Size = new System.Drawing.Size(94, 75);
+            this.PicBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PicBox.TabIndex = 0;
+            this.PicBox.TabStop = false;
             // 
             // lblTitle
             // 
@@ -242,7 +240,7 @@ namespace ProLinkDesktop
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -254,7 +252,7 @@ namespace ProLinkDesktop
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnMenu;
         private System.Windows.Forms.Label lblUsuario;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox PicBox;
         private System.Windows.Forms.Button btnConfiguracoes;
         private System.Windows.Forms.Button btnGerenciarFuncionarios;
         private System.Windows.Forms.Button btnGerenciarUsuarios;

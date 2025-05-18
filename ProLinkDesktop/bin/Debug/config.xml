@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ConfiguracaoApp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <TemaEscuro>true</TemaEscuro>
+  <TemaEscuro>false</TemaEscuro>
   <CorPrimaria>#004040</CorPrimaria>
   <CorSecundaria>#434A69</CorSecundaria>
   <CorFundo>#FFFFFF</CorFundo>

@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 public class ClasseConexao
 {
-    private static readonly string connectionString = "Password=etesp; Persist Security Info=True; User ID=sa; Initial Catalog=Prolink; Data Source=(local)"; // ou seu nome de servidor fixo
+    private static readonly string connectionString = "Password=etesp; Persist Security Info=True; User ID=sa; Initial Catalog=prolink01; Data Source=(local)"; // ou seu nome de servidor fixo
 
     public SqlConnection conectar()
     {

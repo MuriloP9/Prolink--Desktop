@@ -75,8 +75,8 @@ namespace ProLinkDesktop
                 connection = con.conectar();
 
                 string sql = @"SELECT id_funcionario, nome_completo, nivel_acesso 
-              FROM Funcionario 
-              WHERE email = @Email AND senha = @Senha AND ativo = 1";
+                      FROM Funcionario 
+                      WHERE email = @Email AND senha = @Senha AND ativo = 1";
 
                 using (SqlCommand cmd = new SqlCommand(sql, connection))
                 {
@@ -92,13 +92,11 @@ namespace ProLinkDesktop
                             int nivelAcesso = Convert.ToInt32(reader["nivel_acesso"]);
                             reader.Close();
 
-                            // Atualiza o último acesso
-                            string updateSql = "UPDATE Funcionario SET ultimo_acesso = GETDATE() WHERE id_funcionario = @id";
-                            using (SqlCommand updateCmd = new SqlCommand(updateSql, connection))
-                            {
-                                updateCmd.Parameters.AddWithValue("@id", idFuncionario);
-                                updateCmd.ExecuteNonQuery();
-                            }
+                            // Atualiza o último acesso na tabela Funcionario
+                            AtualizarUltimoAcesso(connection, idFuncionario);
+
+                            // Registra o novo acesso na tabela de histórico
+                            RegistrarNovoAcesso(connection, idFuncionario, email);
 
                             string cargo;
                             switch (nivelAcesso)
@@ -116,11 +114,13 @@ namespace ProLinkDesktop
                                     cargo = "Funcionário";
                                     break;
                             }
+
                             MessageBox.Show($"Bem-vindo {cargo} {nome}!", "Login realizado");
 
                             Form1 formPrincipal = new Form1();
                             formPrincipal.NomeUsuario = nome;
                             formPrincipal.NivelAcesso = nivelAcesso;
+                            formPrincipal.IdFuncionario = idFuncionario; // Adiciona esta linha
                             formPrincipal.Show();
                             this.Hide();
                         }
@@ -138,6 +138,32 @@ namespace ProLinkDesktop
             finally
             {
                 con.desconectar(connection);
+            }
+        }
+
+        private void RegistrarNovoAcesso(SqlConnection connection, int idFuncionario, string email)
+        {
+            // Encerra qualquer acesso anterior não finalizado
+            string sqlEncerrar = @"UPDATE HistoricoAcessos 
+                          SET data_logout = GETDATE() 
+                          WHERE id_funcionario = @id 
+                          AND data_logout IS NULL";
+
+            using (SqlCommand cmd = new SqlCommand(sqlEncerrar, connection))
+            {
+                cmd.Parameters.AddWithValue("@id", idFuncionario);
+                cmd.ExecuteNonQuery();
+            }
+
+            // Insere novo acesso
+            string sqlInserir = @"INSERT INTO HistoricoAcessos (id_funcionario, email, data_login)
+                         VALUES (@id, @email, GETDATE())";
+
+            using (SqlCommand cmd = new SqlCommand(sqlInserir, connection))
+            {
+                cmd.Parameters.AddWithValue("@id", idFuncionario);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.ExecuteNonQuery();
             }
         }
 

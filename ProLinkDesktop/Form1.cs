@@ -8,23 +8,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Data.SqlClient;
+
 
 namespace ProLinkDesktop
 {
     public partial class Form1 : Form
     {
+        // Variáveis de instância
         private string _nomeUsuario;
         private int _nivelAcesso;
+        private readonly string _connectionString = "Password=etesp; Persist Security Info=True; User ID=sa; Initial Catalog=prolink01; Data Source=" + Environment.MachineName;
+        private Button _activeButton;
 
+        // Propriedades
         public string NomeUsuario
         {
-            get { return _nomeUsuario; }
+            get => _nomeUsuario;
             set { _nomeUsuario = value; lblUsuario.Text = value; }
         }
 
         public int NivelAcesso
         {
-            get { return _nivelAcesso; }
+            get => _nivelAcesso;
             set { _nivelAcesso = value; ConfigurarBotoesPorNivel(); }
         }
 
@@ -33,21 +39,55 @@ namespace ProLinkDesktop
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
 
-        private Button activeButton;
-
         public Form1()
         {
             InitializeComponent();
             Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
+            ConfigurarInterfaceInicial();
+        }
 
+        private void ConfigurarInterfaceInicial()
+        {
             pnlNav.Height = btnMenu.Height;
             pnlNav.Top = btnMenu.Top;
             pnlNav.Left = btnMenu.Left;
             btnMenu.BackColor = Color.FromArgb(46, 51, 73);
-            activeButton = btnMenu;
-
+            _activeButton = btnMenu;
             lblTitle.Text = "Menu";
             CarregarForm(new formDashboard(this));
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                RegistrarLogout();
+            }
+        }
+
+        private void RegistrarLogout()
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                using (var cmd = new SqlCommand(
+                    @"IF EXISTS (SELECT 1 FROM HistoricoAcessos WHERE id_funcionario = @id AND data_logout IS NULL)
+                      UPDATE HistoricoAcessos SET data_logout = GETDATE() WHERE id_funcionario = @id AND data_logout IS NULL
+                      ELSE
+                      INSERT INTO HistoricoAcessos (id_funcionario, email, data_login, data_logout)
+                      SELECT id_funcionario, email, DATEADD(MINUTE, -1, GETDATE()), GETDATE()
+                      FROM Funcionario WHERE id_funcionario = @id", connection))
+                {
+                    cmd.Parameters.AddWithValue("@id", IdFuncionario);
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao registrar logout: {ex.Message}");
+            }
         }
 
         private void ConfigurarBotoesPorNivel()
@@ -59,36 +99,27 @@ namespace ProLinkDesktop
 
         private void ReorganizarBotoes()
         {
-            int posY = btnMenu.Bottom + 10;
+            var posY = btnMenu.Bottom + 10;
+            var buttons = new[] { btnGerenciarFuncionarios, btnGerenciarUsuarios, btnOportunidades, btnConfiguracoes, btnSair };
 
-            if (btnGerenciarFuncionarios.Visible)
+            foreach (var btn in buttons)
             {
-                btnGerenciarFuncionarios.Location = new Point(btnMenu.Left, posY);
-                posY = btnGerenciarFuncionarios.Bottom + 10;
+                if (btn.Visible)
+                {
+                    btn.Location = new Point(btnMenu.Left, posY);
+                    posY = btn.Bottom + 10;
+                }
             }
-
-            if (btnGerenciarUsuarios.Visible)
-            {
-                btnGerenciarUsuarios.Location = new Point(btnMenu.Left, posY);
-                posY = btnGerenciarUsuarios.Bottom + 10;
-            }
-
-            btnOportunidades.Location = new Point(btnMenu.Left, posY);
-            btnConfiguracoes.Location = new Point(btnMenu.Left, btnOportunidades.Bottom + 10);
-            btnSair.Location = new Point(btnMenu.Left, btnConfiguracoes.Bottom + 10);
-        }
-
-        private void ResetButtonColors()
-        {
-            if (activeButton != null)
-                activeButton.BackColor = Color.FromArgb(24, 30, 54);
         }
 
         private void SetActiveButton(Button button)
         {
-            ResetButtonColors();
-            activeButton = button;
-            activeButton.BackColor = Color.FromArgb(46, 51, 73);
+            if (_activeButton != null)
+                _activeButton.BackColor = Color.FromArgb(24, 30, 54);
+
+            _activeButton = button;
+            _activeButton.BackColor = Color.FromArgb(46, 51, 73);
+            pnlNav.Top = button.Top;
         }
 
         public void CarregarForm(Form form)
@@ -101,18 +132,19 @@ namespace ProLinkDesktop
             form.Show();
         }
 
+        // Event handlers
         private void btnMenu_Click(object sender, EventArgs e)
         {
             SetActiveButton(btnMenu);
-            pnlNav.Top = btnMenu.Top;
             lblTitle.Text = "Menu";
+
+            // Cria uma nova instância do dashboard (sempre atualizada)
             CarregarForm(new formDashboard(this));
         }
 
         private void btnOportunidades_Click(object sender, EventArgs e)
         {
             SetActiveButton(btnOportunidades);
-            pnlNav.Top = btnOportunidades.Top;
             lblTitle.Text = "Oportunidades";
             CarregarForm(new frmOportunidades());
         }
@@ -120,7 +152,6 @@ namespace ProLinkDesktop
         private void btnGerenciarUsuarios_Click(object sender, EventArgs e)
         {
             SetActiveButton(btnGerenciarUsuarios);
-            pnlNav.Top = btnGerenciarUsuarios.Top;
             lblTitle.Text = "Gerenciar Usuários";
             CarregarForm(new FrmGerenciarUsuarios());
         }
@@ -128,33 +159,21 @@ namespace ProLinkDesktop
         private void btnGerenciarFuncionarios_Click(object sender, EventArgs e)
         {
             SetActiveButton(btnGerenciarFuncionarios);
-            pnlNav.Top = btnGerenciarFuncionarios.Top;
             lblTitle.Text = "Gerenciar Funcionarios";
-            CarregarForm(new FrmGerenciarFuncionarios(_nivelAcesso)); // Passe o nível de acesso aqui
+            CarregarForm(new FrmGerenciarFuncionarios(_nivelAcesso));
         }
 
         private void btnConfiguracoes_Click(object sender, EventArgs e)
         {
             SetActiveButton(btnConfiguracoes);
-            pnlNav.Top = btnConfiguracoes.Top;
             lblTitle.Text = "Configurações";
             CarregarForm(new FrmConfiguracoes());
         }
 
         private void btnSair_Click(object sender, EventArgs e)
         {
+            RegistrarLogout();
             Application.Exit();
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            lblTitle.Text = "Perfil";
-            CarregarForm(new FrmPerfil());
-        }
-
-        private void lblUsuario_Click(object sender, EventArgs e)
-        {
-            pictureBox1_Click(sender, e);
         }
     }
 }
