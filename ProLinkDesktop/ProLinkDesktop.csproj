@@ -272,6 +272,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Globo.ico" />
+    <None Include="Resources\Documento.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NewFolder1\" />

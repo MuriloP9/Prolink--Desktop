@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-
 namespace ProLinkDesktop
 {
     public partial class formDashboard : Form
@@ -32,12 +31,24 @@ namespace ProLinkDesktop
             {
                 CarregarUltimoAcessoAdm();
                 CarregarNumeroEmpresas();
+                CarregarNumeroVagas(); // Novo método para carregar número de vagas
                 CarregarNumeroUsuarios();
                 AtualizarStatusUsuarios();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro ao atualizar dashboard: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Novo método para carregar o número de vagas
+        private void CarregarNumeroVagas()
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            using (var cmd = new SqlCommand("SELECT COUNT(*) FROM Vagas", connection))
+            {
+                connection.Open();
+                lblVagas.Text = cmd.ExecuteScalar().ToString();
             }
         }
 
@@ -121,5 +132,15 @@ namespace ProLinkDesktop
         }
 
         private void CpbInatividade_Click(object sender, EventArgs e) => AtualizarStatusUsuarios();
+
+        private void lblVagas_Click(object sender, EventArgs e)
+        {
+            // Você pode adicionar alguma funcionalidade aqui se necessário
+        }
+
+        private void pnlUser_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

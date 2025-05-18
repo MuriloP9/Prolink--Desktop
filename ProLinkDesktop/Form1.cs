@@ -133,14 +133,14 @@ namespace ProLinkDesktop
         }
 
         // Event handlers
-        private void btnMenu_Click(object sender, EventArgs e)
-        {
-            SetActiveButton(btnMenu);
-            lblTitle.Text = "Menu";
-
-            // Cria uma nova instância do dashboard (sempre atualizada)
-            CarregarForm(new formDashboard(this));
-        }
+     private void btnMenu_Click(object sender, EventArgs e)
+{
+    SetActiveButton(btnMenu);
+    lblTitle.Text = "Menu";
+    
+    // Cria uma nova instância do dashboard (sempre atualizada)
+    CarregarForm(new formDashboard(this));
+}
 
         private void btnOportunidades_Click(object sender, EventArgs e)
         {

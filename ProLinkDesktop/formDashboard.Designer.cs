@@ -29,42 +29,49 @@ namespace ProLinkDesktop
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel6 = new System.Windows.Forms.Panel();
+            this.pnlUser = new System.Windows.Forms.Panel();
             this.lblAtividade = new System.Windows.Forms.Label();
             this.CpbInatividade = new CircularProgressBar.CircularProgressBar();
             this.label12 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblAcessoHorario = new System.Windows.Forms.Label();
             this.lblAcessoEmail = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.lblNUsuario = new System.Windows.Forms.Label();
             this.lblUsuario = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.lblNEmpresas = new System.Windows.Forms.Label();
             this.lblEmpresas = new System.Windows.Forms.Label();
-            this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblVagas = new System.Windows.Forms.Label();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pnlUser.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.panel3.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
-            // panel6
+            // pnlUser
             // 
-            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
-            this.panel6.Controls.Add(this.lblAtividade);
-            this.panel6.Controls.Add(this.CpbInatividade);
-            this.panel6.Controls.Add(this.label12);
-            this.panel6.Location = new System.Drawing.Point(307, 170);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(404, 295);
-            this.panel6.TabIndex = 12;
+            this.pnlUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
+            this.pnlUser.Controls.Add(this.lblAtividade);
+            this.pnlUser.Controls.Add(this.CpbInatividade);
+            this.pnlUser.Controls.Add(this.label12);
+            this.pnlUser.Location = new System.Drawing.Point(307, 170);
+            this.pnlUser.Name = "pnlUser";
+            this.pnlUser.Size = new System.Drawing.Size(404, 295);
+            this.pnlUser.TabIndex = 12;
+            this.pnlUser.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlUser_Paint);
             // 
             // lblAtividade
             // 
@@ -120,21 +127,12 @@ namespace ProLinkDesktop
             this.label12.TabIndex = 0;
             this.label12.Text = "Atividade dos Usuarios";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::ProLinkDesktop.Properties.Resources.UltimoAcesso;
-            this.pictureBox1.Location = new System.Drawing.Point(22, 124);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(52, 47);
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
-            // 
             // lblAcessoHorario
             // 
             this.lblAcessoHorario.AutoSize = true;
             this.lblAcessoHorario.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAcessoHorario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(161)))), ((int)(((byte)(176)))));
-            this.lblAcessoHorario.Location = new System.Drawing.Point(12, 73);
+            this.lblAcessoHorario.Location = new System.Drawing.Point(74, 94);
             this.lblAcessoHorario.Name = "lblAcessoHorario";
             this.lblAcessoHorario.Size = new System.Drawing.Size(118, 17);
             this.lblAcessoHorario.TabIndex = 6;
@@ -145,7 +143,7 @@ namespace ProLinkDesktop
             this.lblAcessoEmail.AutoSize = true;
             this.lblAcessoEmail.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAcessoEmail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(161)))), ((int)(((byte)(176)))));
-            this.lblAcessoEmail.Location = new System.Drawing.Point(12, 56);
+            this.lblAcessoEmail.Location = new System.Drawing.Point(13, 58);
             this.lblAcessoEmail.Name = "lblAcessoEmail";
             this.lblAcessoEmail.Size = new System.Drawing.Size(135, 17);
             this.lblAcessoEmail.TabIndex = 5;
@@ -156,7 +154,7 @@ namespace ProLinkDesktop
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.White;
-            this.label13.Location = new System.Drawing.Point(10, 21);
+            this.label13.Location = new System.Drawing.Point(11, 14);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(131, 25);
             this.label13.TabIndex = 0;
@@ -169,9 +167,9 @@ namespace ProLinkDesktop
             this.panel5.Controls.Add(this.label13);
             this.panel5.Controls.Add(this.lblAcessoHorario);
             this.panel5.Controls.Add(this.lblAcessoEmail);
-            this.panel5.Location = new System.Drawing.Point(21, 170);
+            this.panel5.Location = new System.Drawing.Point(21, 318);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(258, 296);
+            this.panel5.Size = new System.Drawing.Size(258, 147);
             this.panel5.TabIndex = 13;
             // 
             // panel4
@@ -185,21 +183,11 @@ namespace ProLinkDesktop
             this.panel4.Size = new System.Drawing.Size(404, 130);
             this.panel4.TabIndex = 10;
             // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::ProLinkDesktop.Properties.Resources.Oportunidades;
-            this.pictureBox3.Location = new System.Drawing.Point(283, 45);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(100, 70);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 3;
-            this.pictureBox3.TabStop = false;
-            // 
             // lblNUsuario
             // 
             this.lblNUsuario.AutoSize = true;
             this.lblNUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(226)))), ((int)(((byte)(178)))));
+            this.lblNUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
             this.lblNUsuario.Location = new System.Drawing.Point(18, 55);
             this.lblNUsuario.Name = "lblNUsuario";
             this.lblNUsuario.Size = new System.Drawing.Size(32, 32);
@@ -228,16 +216,6 @@ namespace ProLinkDesktop
             this.panel3.Size = new System.Drawing.Size(258, 130);
             this.panel3.TabIndex = 9;
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::ProLinkDesktop.Properties.Resources.Empresas;
-            this.pictureBox2.Location = new System.Drawing.Point(152, 45);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(103, 72);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 3;
-            this.pictureBox2.TabStop = false;
-            // 
             // lblNEmpresas
             // 
             this.lblNEmpresas.AutoSize = true;
@@ -260,36 +238,113 @@ namespace ProLinkDesktop
             this.lblEmpresas.TabIndex = 0;
             this.lblEmpresas.Text = "Empresas Parceiras";
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(42)))), ((int)(((byte)(64)))));
+            this.panel1.Controls.Add(this.pictureBox4);
+            this.panel1.Controls.Add(this.lblVagas);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(21, 170);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(255, 127);
+            this.panel1.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(11, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(170, 25);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Vagas Cadastradas";
+            // 
+            // lblVagas
+            // 
+            this.lblVagas.AutoSize = true;
+            this.lblVagas.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVagas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(126)))), ((int)(((byte)(249)))));
+            this.lblVagas.Location = new System.Drawing.Point(19, 61);
+            this.lblVagas.Name = "lblVagas";
+            this.lblVagas.Size = new System.Drawing.Size(49, 32);
+            this.lblVagas.TabIndex = 4;
+            this.lblVagas.Text = "45";
+            this.lblVagas.Click += new System.EventHandler(this.lblVagas_Click);
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::ProLinkDesktop.Properties.Resources.Documento;
+            this.pictureBox4.Location = new System.Drawing.Point(163, 49);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(80, 59);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 4;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::ProLinkDesktop.Properties.Resources.UltimoAcesso;
+            this.pictureBox1.Location = new System.Drawing.Point(16, 83);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(52, 47);
+            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::ProLinkDesktop.Properties.Resources.Oportunidades;
+            this.pictureBox3.Location = new System.Drawing.Point(283, 45);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(100, 70);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 3;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::ProLinkDesktop.Properties.Resources.Empresas;
+            this.pictureBox2.Location = new System.Drawing.Point(152, 45);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(103, 72);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 3;
+            this.pictureBox2.TabStop = false;
+            // 
             // formDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(733, 477);
-            this.Controls.Add(this.panel6);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnlUser);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "formDashboard";
             this.Text = "Oportunidades";
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.pnlUser.ResumeLayout(false);
+            this.pnlUser.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel pnlUser;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Panel panel5;
         private CircularProgressBar.CircularProgressBar CpbInatividade;
@@ -306,5 +361,9 @@ namespace ProLinkDesktop
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblAcessoHorario;
         private System.Windows.Forms.Label lblAcessoEmail;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.Label lblVagas;
+        private System.Windows.Forms.Label label1;
     }
 }
