@@ -30,6 +30,7 @@ namespace ProLinkDesktop
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnWebinar = new System.Windows.Forms.Button();
             this.btnSair = new System.Windows.Forms.Button();
             this.pnlNav = new System.Windows.Forms.Panel();
             this.btnConfiguracoes = new System.Windows.Forms.Button();
@@ -42,7 +43,6 @@ namespace ProLinkDesktop
             this.PicBox = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlFormLoader = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBox)).BeginInit();
@@ -51,7 +51,7 @@ namespace ProLinkDesktop
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.btnWebinar);
             this.panel1.Controls.Add(this.btnSair);
             this.panel1.Controls.Add(this.pnlNav);
             this.panel1.Controls.Add(this.btnConfiguracoes);
@@ -65,6 +65,23 @@ namespace ProLinkDesktop
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(186, 577);
             this.panel1.TabIndex = 0;
+            // 
+            // btnWebinar
+            // 
+            this.btnWebinar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnWebinar.FlatAppearance.BorderSize = 0;
+            this.btnWebinar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnWebinar.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnWebinar.ForeColor = System.Drawing.Color.White;
+            this.btnWebinar.Image = global::ProLinkDesktop.Properties.Resources.config;
+            this.btnWebinar.Location = new System.Drawing.Point(0, 322);
+            this.btnWebinar.Name = "btnWebinar";
+            this.btnWebinar.Size = new System.Drawing.Size(186, 42);
+            this.btnWebinar.TabIndex = 7;
+            this.btnWebinar.Text = "Webinar";
+            this.btnWebinar.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btnWebinar.UseVisualStyleBackColor = true;
+            this.btnWebinar.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnSair
             // 
@@ -224,22 +241,6 @@ namespace ProLinkDesktop
             this.pnlFormLoader.Size = new System.Drawing.Size(765, 477);
             this.pnlFormLoader.TabIndex = 4;
             // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Image = global::ProLinkDesktop.Properties.Resources.config;
-            this.button1.Location = new System.Drawing.Point(0, 322);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(186, 42);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Webinar";
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -277,7 +278,7 @@ namespace ProLinkDesktop
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnSair;
         private System.Windows.Forms.Panel pnlFormLoader;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnWebinar;
     }
 }
 

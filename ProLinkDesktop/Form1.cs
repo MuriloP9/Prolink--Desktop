@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Data.SqlClient;
 
-
 namespace ProLinkDesktop
 {
     public partial class Form1 : Form
@@ -100,7 +99,7 @@ namespace ProLinkDesktop
         private void ReorganizarBotoes()
         {
             var posY = btnMenu.Bottom + 10;
-            var buttons = new[] { btnGerenciarFuncionarios, btnGerenciarUsuarios, btnOportunidades, btnConfiguracoes, btnSair };
+            var buttons = new[] { btnGerenciarFuncionarios, btnGerenciarUsuarios, btnOportunidades, btnWebinar, btnConfiguracoes, btnSair };
 
             foreach (var btn in buttons)
             {
@@ -133,14 +132,14 @@ namespace ProLinkDesktop
         }
 
         // Event handlers
-     private void btnMenu_Click(object sender, EventArgs e)
-{
-    SetActiveButton(btnMenu);
-    lblTitle.Text = "Menu";
-    
-    // Cria uma nova instância do dashboard (sempre atualizada)
-    CarregarForm(new formDashboard(this));
-}
+        private void btnMenu_Click(object sender, EventArgs e)
+        {
+            SetActiveButton(btnMenu);
+            lblTitle.Text = "Menu";
+
+            // Cria uma nova instância do dashboard (sempre atualizada)
+            CarregarForm(new formDashboard(this));
+        }
 
         private void btnOportunidades_Click(object sender, EventArgs e)
         {
@@ -174,6 +173,13 @@ namespace ProLinkDesktop
         {
             RegistrarLogout();
             Application.Exit();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SetActiveButton(btnWebinar);
+            lblTitle.Text = "Webinar";
+            CarregarForm(new FrmWebinar());
         }
     }
 }

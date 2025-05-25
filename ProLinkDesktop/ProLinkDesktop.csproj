@@ -75,6 +75,12 @@
     <Compile Include="FrmAdicionarVaga.Designer.cs">
       <DependentUpon>FrmAdicionarVaga.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmAdicionarWebinar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAdicionarWebinar.Designer.cs">
+      <DependentUpon>FrmAdicionarWebinar.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmCadastrarFuncionario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +134,12 @@
     </Compile>
     <Compile Include="FrmPerfil.Designer.cs">
       <DependentUpon>FrmPerfil.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmWebinar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmWebinar.Designer.cs">
+      <DependentUpon>FrmWebinar.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
