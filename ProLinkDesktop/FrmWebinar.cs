@@ -13,36 +13,8 @@ namespace ProLinkDesktop
         public FrmWebinar()
         {
             InitializeComponent();
-            CarregarTheme();
             CarregarWebinars();
-        }
-
-        private void CarregarTheme()
-        {
-            this.BackColor = Color.FromArgb(34, 36, 49);
-            dgvWebinars.BackgroundColor = Color.FromArgb(34, 36, 49);
-            dgvWebinars.GridColor = Color.FromArgb(64, 64, 64);
-            dgvWebinars.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(46, 51, 73);
-            dgvWebinars.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvWebinars.RowsDefaultCellStyle.BackColor = Color.FromArgb(34, 36, 49);
-            dgvWebinars.RowsDefaultCellStyle.ForeColor = Color.White;
-            dgvWebinars.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(46, 51, 73);
-            dgvWebinars.EnableHeadersVisualStyles = false;
-
-            btnAdicionar.BackColor = Color.FromArgb(0, 126, 249);
-            btnAdicionar.ForeColor = Color.White;
-            btnAdicionar.FlatStyle = FlatStyle.Flat;
-            btnAdicionar.FlatAppearance.BorderSize = 0;
-
-            btnInativar.BackColor = Color.FromArgb(255, 80, 80);
-            btnInativar.ForeColor = Color.White;
-            btnInativar.FlatStyle = FlatStyle.Flat;
-            btnInativar.FlatAppearance.BorderSize = 0;
-
-            lblTitulo.ForeColor = Color.White;
-            txtBusca.BackColor = Color.FromArgb(46, 51, 73);
-            txtBusca.ForeColor = Color.White;
-            txtBusca.BorderStyle = BorderStyle.FixedSingle;
+            VerificarWebinarsExpirados();
         }
 
         private void CarregarWebinars()
@@ -67,9 +39,29 @@ namespace ProLinkDesktop
             }
         }
 
+        private void VerificarWebinarsExpirados()
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                using (var cmd = new SqlCommand("UPDATE Webinar SET ativo = 0 WHERE ativo = 1 AND data_hora < GETDATE()", connection))
+                {
+                    connection.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                    {
+                        CarregarWebinars();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao verificar webinars expirados: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void ConfigurarGrid()
         {
-            dgvWebinars.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvWebinars.Columns["id_webinar"].Visible = false;
 
             if (dgvWebinars.Columns["link"] != null)
@@ -78,12 +70,40 @@ namespace ProLinkDesktop
                 dgvWebinars.Columns["link"].DefaultCellStyle.Font = new Font(dgvWebinars.Font, FontStyle.Underline);
             }
 
+            // Configurar estilo das células
+            dgvWebinars.DefaultCellStyle.BackColor = Color.FromArgb(32, 36, 55);
+            dgvWebinars.DefaultCellStyle.ForeColor = Color.White;
+            dgvWebinars.DefaultCellStyle.SelectionBackColor = Color.FromArgb(67, 74, 105);
+            dgvWebinars.DefaultCellStyle.SelectionForeColor = Color.White;
+
+            dgvWebinars.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(46, 51, 73);
+            dgvWebinars.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvWebinars.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(46, 51, 73);
+
+            dgvWebinars.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(40, 45, 65);
+
             dgvWebinars.ClearSelection();
         }
 
         private void btnAdicionar_Click(object sender, EventArgs e)
         {
             var frm = new FrmAdicionarWebinar();
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                CarregarWebinars();
+            }
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (dgvWebinars.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selecione um webinar para editar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var id = Convert.ToInt32(dgvWebinars.SelectedRows[0].Cells["id_webinar"].Value);
+            var frm = new FrmAdicionarWebinar(id);
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 CarregarWebinars();
@@ -124,7 +144,9 @@ namespace ProLinkDesktop
 
         private void dgvWebinars_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == dgvWebinars.Columns["link"]?.Index && e.RowIndex >= 0)
+            if (e.RowIndex < 0) return;
+
+            if (e.ColumnIndex == dgvWebinars.Columns["link"]?.Index)
             {
                 var link = dgvWebinars.Rows[e.RowIndex].Cells["link"].Value.ToString();
                 if (!string.IsNullOrEmpty(link))

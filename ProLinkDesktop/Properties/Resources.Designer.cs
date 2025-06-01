@@ -183,6 +183,16 @@ namespace ProLinkDesktop.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Funcionario {
+            get {
+                object obj = ResourceManager.GetObject("Funcionario", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap globo_mundial {
             get {
                 object obj = ResourceManager.GetObject("globo-mundial", resourceCulture);
@@ -226,6 +236,16 @@ namespace ProLinkDesktop.Properties {
         internal static System.Drawing.Bitmap MoneyBag {
             get {
                 object obj = ResourceManager.GetObject("MoneyBag", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Oportunidad {
+            get {
+                object obj = ResourceManager.GetObject("Oportunidad", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -346,6 +366,26 @@ namespace ProLinkDesktop.Properties {
         internal static System.Drawing.Bitmap Usuario {
             get {
                 object obj = ResourceManager.GetObject("Usuario", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Usuarios {
+            get {
+                object obj = ResourceManager.GetObject("Usuarios", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Webinar {
+            get {
+                object obj = ResourceManager.GetObject("Webinar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
