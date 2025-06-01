@@ -14,7 +14,7 @@ namespace ProLinkDesktop
         public FrmAdicionarWebinar()
         {
             InitializeComponent();
-            this.AcceptButton = btnSalvar;
+            this.AcceptButton = null; // Remove o botão padrão de aceitação
         }
 
         public FrmAdicionarWebinar(int webinarId) : this()
@@ -51,6 +51,33 @@ namespace ProLinkDesktop
             {
                 MessageBox.Show($"Erro ao carregar dados do webinar: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
+            }
+        }
+
+        private void Control_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true; // Impede o som de "beep"
+                this.SelectNextControl((Control)sender, true, true, true, true);
+            }
+        }
+
+        private void txtDescricao_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && e.Control)
+            {
+                // Se Ctrl+Enter, salva o formulário
+                btnSalvar.PerformClick();
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                // Enter normal apenas adiciona nova linha
+                int pos = txtDescricao.SelectionStart;
+                txtDescricao.Text = txtDescricao.Text.Insert(pos, Environment.NewLine);
+                txtDescricao.SelectionStart = pos + Environment.NewLine.Length;
+                e.SuppressKeyPress = true;
             }
         }
 
@@ -133,51 +160,6 @@ namespace ProLinkDesktop
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
-        }
-
-        private void txtTema_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                dtpDataHora.Focus();
-                e.SuppressKeyPress = true;
-            }
-        }
-
-        private void dtpDataHora_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPalestrante.Focus();
-                e.SuppressKeyPress = true;
-            }
-        }
-
-        private void txtPalestrante_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtLink.Focus();
-                e.SuppressKeyPress = true;
-            }
-        }
-
-        private void txtLink_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtDescricao.Focus();
-                e.SuppressKeyPress = true;
-            }
-        }
-
-        private void txtDescricao_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter && !txtDescricao.Text.EndsWith(Environment.NewLine))
-            {
-                btnSalvar.PerformClick();
-                e.SuppressKeyPress = true;
-            }
         }
     }
 }
