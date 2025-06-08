@@ -22,25 +22,29 @@
             this.btnAtualizar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridOportunidades)).BeginInit();
             this.SuspendLayout();
-            // 
+
             // gridOportunidades
-            // 
+            this.gridOportunidades.AllowUserToAddRows = false;
+            this.gridOportunidades.AllowUserToDeleteRows = false;
+            this.gridOportunidades.AllowUserToResizeColumns = false;
+            this.gridOportunidades.AllowUserToResizeRows = false;
             this.gridOportunidades.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridOportunidades.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(36)))), ((int)(((byte)(55)))));
-            this.gridOportunidades.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.gridOportunidades.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.gridOportunidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridOportunidades.EnableHeadersVisualStyles = false;
             this.gridOportunidades.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(74)))), ((int)(((byte)(105)))));
             this.gridOportunidades.Location = new System.Drawing.Point(12, 50);
+            this.gridOportunidades.MultiSelect = false;
             this.gridOportunidades.Name = "gridOportunidades";
+            this.gridOportunidades.ReadOnly = true;
+            this.gridOportunidades.RowHeadersVisible = false;
+            this.gridOportunidades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridOportunidades.Size = new System.Drawing.Size(760, 400);
             this.gridOportunidades.TabIndex = 0;
-            // 
+
             // btnAdicionar
-            // 
             this.btnAdicionar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(74)))), ((int)(((byte)(105)))));
             this.btnAdicionar.FlatAppearance.BorderSize = 0;
             this.btnAdicionar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -53,9 +57,8 @@
             this.btnAdicionar.Text = "Adicionar Vaga";
             this.btnAdicionar.UseVisualStyleBackColor = false;
             this.btnAdicionar.Click += new System.EventHandler(this.btnAdicionar_Click);
-            // 
+
             // btnAtualizar
-            // 
             this.btnAtualizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(74)))), ((int)(((byte)(105)))));
             this.btnAtualizar.FlatAppearance.BorderSize = 0;
             this.btnAtualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -68,9 +71,8 @@
             this.btnAtualizar.Text = "Atualizar";
             this.btnAtualizar.UseVisualStyleBackColor = false;
             this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
-            // 
+
             // frmOportunidades
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(36)))), ((int)(((byte)(55)))));
@@ -83,7 +85,6 @@
             this.Text = "Oportunidades";
             ((System.ComponentModel.ISupportInitialize)(this.gridOportunidades)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         #endregion

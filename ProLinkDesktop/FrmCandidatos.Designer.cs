@@ -21,11 +21,14 @@
             this.btnFechar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridCandidatos)).BeginInit();
             this.SuspendLayout();
-            // 
+
             // gridCandidatos
-            // 
-            this.gridCandidatos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.gridCandidatos.AllowUserToAddRows = false;
+            this.gridCandidatos.AllowUserToDeleteRows = false;
+            this.gridCandidatos.AllowUserToResizeColumns = false;
+            this.gridCandidatos.AllowUserToResizeRows = false;
+            this.gridCandidatos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridCandidatos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(36)))), ((int)(((byte)(55)))));
             this.gridCandidatos.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -33,12 +36,14 @@
             this.gridCandidatos.EnableHeadersVisualStyles = false;
             this.gridCandidatos.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(74)))), ((int)(((byte)(105)))));
             this.gridCandidatos.Location = new System.Drawing.Point(12, 12);
+            this.gridCandidatos.MultiSelect = false;
             this.gridCandidatos.Name = "gridCandidatos";
+            this.gridCandidatos.RowHeadersVisible = false;
+            this.gridCandidatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridCandidatos.Size = new System.Drawing.Size(960, 400);
             this.gridCandidatos.TabIndex = 0;
-            // 
+
             // btnFechar
-            // 
             this.btnFechar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFechar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(74)))), ((int)(((byte)(105)))));
             this.btnFechar.FlatAppearance.BorderSize = 0;
@@ -52,9 +57,8 @@
             this.btnFechar.Text = "Fechar";
             this.btnFechar.UseVisualStyleBackColor = false;
             this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
-            // 
+
             // FrmCandidatos
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(36)))), ((int)(((byte)(55)))));
@@ -67,7 +71,6 @@
             this.Text = "Candidatos";
             ((System.ComponentModel.ISupportInitialize)(this.gridCandidatos)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         #endregion

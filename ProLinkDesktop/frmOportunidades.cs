@@ -2,7 +2,6 @@
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace ProLinkDesktop
@@ -22,11 +21,9 @@ namespace ProLinkDesktop
 
         private void ConfigurarDesign()
         {
-            // Configuração do formulário
             this.BackColor = Color.FromArgb(32, 36, 55);
             this.ForeColor = Color.White;
 
-            // Configuração dos botões
             foreach (Button btn in new[] { btnAdicionar, btnAtualizar })
             {
                 btn.BackColor = Color.FromArgb(67, 74, 105);
@@ -41,6 +38,8 @@ namespace ProLinkDesktop
         private void ConfigurarGrid()
         {
             gridOportunidades.AutoGenerateColumns = false;
+            gridOportunidades.AllowUserToResizeRows = false;
+            gridOportunidades.AllowUserToResizeColumns = false;
             gridOportunidades.AllowUserToAddRows = false;
             gridOportunidades.AllowUserToDeleteRows = false;
             gridOportunidades.ReadOnly = true;
@@ -48,7 +47,6 @@ namespace ProLinkDesktop
             gridOportunidades.MultiSelect = false;
             gridOportunidades.RowHeadersVisible = false;
 
-            // Estilo do grid no padrão escuro
             gridOportunidades.BackgroundColor = Color.FromArgb(32, 36, 55);
             gridOportunidades.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(46, 51, 73);
             gridOportunidades.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
@@ -60,10 +58,8 @@ namespace ProLinkDesktop
             gridOportunidades.EnableHeadersVisualStyles = false;
             gridOportunidades.GridColor = Color.FromArgb(67, 74, 105);
 
-            // Definindo as colunas
             gridOportunidades.Columns.Clear();
 
-            // Coluna ID (oculta)
             gridOportunidades.Columns.Add(new DataGridViewTextBoxColumn()
             {
                 Name = "id_vaga",
@@ -72,7 +68,6 @@ namespace ProLinkDesktop
                 Visible = false
             });
 
-            // Coluna Título
             gridOportunidades.Columns.Add(new DataGridViewTextBoxColumn()
             {
                 DataPropertyName = "titulo_vaga",
@@ -80,7 +75,6 @@ namespace ProLinkDesktop
                 Width = 200
             });
 
-            // Coluna Empresa
             gridOportunidades.Columns.Add(new DataGridViewTextBoxColumn()
             {
                 DataPropertyName = "empresa",
@@ -88,7 +82,6 @@ namespace ProLinkDesktop
                 Width = 150
             });
 
-            // Coluna Localização
             gridOportunidades.Columns.Add(new DataGridViewTextBoxColumn()
             {
                 DataPropertyName = "localizacao",
@@ -96,7 +89,6 @@ namespace ProLinkDesktop
                 Width = 120
             });
 
-            // Coluna Tipo de Emprego
             gridOportunidades.Columns.Add(new DataGridViewTextBoxColumn()
             {
                 DataPropertyName = "tipo_emprego",
@@ -104,7 +96,6 @@ namespace ProLinkDesktop
                 Width = 100
             });
 
-            // Coluna Área
             gridOportunidades.Columns.Add(new DataGridViewTextBoxColumn()
             {
                 DataPropertyName = "nome_area",
@@ -112,17 +103,17 @@ namespace ProLinkDesktop
                 Width = 120
             });
 
-            // Coluna Candidatos
-            var colCandidatos = new DataGridViewImageColumn()
+            gridOportunidades.Columns.Add(new DataGridViewTextBoxColumn()
             {
                 Name = "colCandidatos",
                 HeaderText = "Candidatos",
-                Width = 120,
-                ImageLayout = DataGridViewImageCellLayout.Normal
-            };
-            gridOportunidades.Columns.Add(colCandidatos);
+                Width = 100,
+                DefaultCellStyle = new DataGridViewCellStyle()
+                {
+                    Alignment = DataGridViewContentAlignment.MiddleCenter
+                }
+            });
 
-            // Coluna Total Candidatos (oculta)
             gridOportunidades.Columns.Add(new DataGridViewTextBoxColumn()
             {
                 DataPropertyName = "total_candidatos",
@@ -130,7 +121,6 @@ namespace ProLinkDesktop
                 Visible = false
             });
 
-            // Botão de Ações
             var btnAcoes = new DataGridViewButtonColumn()
             {
                 Name = "colAcoes",
@@ -148,7 +138,6 @@ namespace ProLinkDesktop
             };
             gridOportunidades.Columns.Add(btnAcoes);
 
-            // Configurar eventos
             gridOportunidades.CellFormatting += GridOportunidades_CellFormatting;
             gridOportunidades.CellClick += GridOportunidades_CellClick;
         }
@@ -158,11 +147,12 @@ namespace ProLinkDesktop
             try
             {
                 string sql = @"SELECT v.id_vaga, v.titulo_vaga, v.empresa, v.localizacao, v.tipo_emprego, 
-                             a.nome_area, f.nome_completo AS cadastrado_por,
-                             (SELECT COUNT(*) FROM Candidatura c WHERE c.id_vaga = v.id_vaga) AS total_candidatos
+                             a.nome_area, f.nome_completo AS cadastrado_por, v.ativa,
+                            (SELECT COUNT(*) FROM Candidatura c WHERE c.id_vaga = v.id_vaga) AS total_candidatos
                              FROM Vagas v
                              INNER JOIN AreaAtuacao a ON v.id_area = a.id_area
-                             INNER JOIN Funcionario f ON v.id_funcionario = f.id_funcionario";
+                             INNER JOIN Funcionario f ON v.id_funcionario = f.id_funcionario
+                             WHERE v.ativa = 1";
 
                 DataTable dt = conexao.executarSQL(sql);
 
@@ -174,7 +164,7 @@ namespace ProLinkDesktop
                 else
                 {
                     gridOportunidades.DataSource = null;
-                    MessageBox.Show("Nenhuma vaga encontrada.", "Informação",
+                    MessageBox.Show("Nenhuma vaga ativa encontrada.", "Informação",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -194,60 +184,13 @@ namespace ProLinkDesktop
                 {
                     object value = gridOportunidades.Rows[e.RowIndex].Cells["total_candidatos"].Value;
                     int totalCandidatos = (value == null || value == DBNull.Value) ? 0 : Convert.ToInt32(value);
-
-                    // Cria um bitmap com tamanho adequado
-                    Bitmap bmp = new Bitmap(120, 20);
-
-                    using (Graphics g = Graphics.FromImage(bmp))
-                    {
-                        // Desenha o fundo transparente
-                        g.Clear(Color.Transparent);
-
-                        // Tenta carregar a imagem do arquivo
-                        Image icon = null;
-                        if (File.Exists("Oportunidades.png"))
-                        {
-                            try
-                            {
-                                icon = Image.FromFile("Oportunidades.png");
-                                // Redimensiona a imagem para 16x16 se necessário
-                                if (icon.Width != 16 || icon.Height != 16)
-                                {
-                                    icon = new Bitmap(icon, new Size(16, 16));
-                                }
-                            }
-                            catch
-                            {
-                                icon = null;
-                            }
-                        }
-
-                        // Desenha o ícone (ou um círculo azul se a imagem não existir)
-                        if (icon != null)
-                        {
-                            g.DrawImage(icon, new Rectangle(5, 2, 16, 16));
-                        }
-                        else
-                        {
-                            g.FillEllipse(Brushes.LightBlue, 5, 2, 16, 16);
-                        }
-
-                        // Desenha o número de candidatos ao lado do ícone
-                        using (var font = new Font("Segoe UI", 8, FontStyle.Regular))
-                        {
-                            g.DrawString(totalCandidatos.ToString(),
-                                        font,
-                                        Brushes.White,
-                                        new PointF(25, 3));
-                        }
-                    }
-
-                    e.Value = bmp;
+                    e.Value = totalCandidatos.ToString();
+                    e.FormattingApplied = true;
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine($"Erro ao formatar célula: {ex.Message}");
-                    e.Value = null;
+                    e.Value = "0";
                 }
             }
         }
@@ -258,50 +201,59 @@ namespace ProLinkDesktop
 
             try
             {
-                if (gridOportunidades.Columns[e.ColumnIndex].Name == "colCandidatos")
+                var idVagaCell = gridOportunidades.Rows[e.RowIndex].Cells["id_vaga"];
+
+                // Verifica se o ID da vaga é válido
+                if (idVagaCell.Value == null || idVagaCell.Value == DBNull.Value)
                 {
-                    var idVagaCell = gridOportunidades.Rows[e.RowIndex].Cells["id_vaga"];
-
-                    if (idVagaCell.Value == null || idVagaCell.Value == DBNull.Value)
-                    {
-                        MessageBox.Show("Vaga inválida ou sem ID.", "Aviso",
-                                      MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-
-                    if (!int.TryParse(idVagaCell.Value.ToString(), out int idVaga))
-                    {
-                        MessageBox.Show("ID da vaga em formato inválido.", "Erro",
-                                      MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    AbrirFormCandidatos(idVaga);
+                    MessageBox.Show("Vaga inválida ou sem ID.", "Aviso",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
-                else if (gridOportunidades.Columns[e.ColumnIndex].Name == "colAcoes")
+
+                if (!int.TryParse(idVagaCell.Value.ToString(), out int idVaga))
                 {
-                    var idVagaCell = gridOportunidades.Rows[e.RowIndex].Cells["id_vaga"];
+                    MessageBox.Show("ID da vaga em formato inválido.", "Erro",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-                    if (idVagaCell.Value == null || idVagaCell.Value == DBNull.Value)
-                    {
-                        MessageBox.Show("Vaga inválida ou sem ID.", "Aviso",
-                                      MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-
-                    if (!int.TryParse(idVagaCell.Value.ToString(), out int idVaga))
-                    {
-                        MessageBox.Show("ID da vaga em formato inválido.", "Erro",
-                                      MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
+                // Verifica se clicou na coluna de AÇÕES (EDITAR)
+                if (gridOportunidades.Columns[e.ColumnIndex].Name == "colAcoes")
+                {
                     using (var frmEditarVaga = new FrmAdicionarVaga(idVaga))
                     {
                         if (frmEditarVaga.ShowDialog() == DialogResult.OK)
                         {
-                            CarregarVagas();
+                            CarregarVagas(); // Atualiza a lista após edição
                         }
+                    }
+                }
+                // Verifica se clicou na coluna de CANDIDATOS
+                else if (gridOportunidades.Columns[e.ColumnIndex].Name == "colCandidatos")
+                {
+                    // Pega o número de candidatos da célula
+                    int totalCandidatos = 0;
+                    var cellCandidatos = gridOportunidades.Rows[e.RowIndex].Cells["colCandidatos"];
+                    if (cellCandidatos.Value != null && cellCandidatos.Value != DBNull.Value)
+                    {
+                        totalCandidatos = Convert.ToInt32(cellCandidatos.Value);
+                    }
+
+                    // Só abre se tiver candidatos
+                    if (totalCandidatos > 0)
+                    {
+                        using (var frmCandidatos = new FrmCandidatos(idVaga))
+                        {
+                            this.Hide(); // Esconde o form atual
+                            frmCandidatos.ShowDialog();
+                            this.Show(); // Mostra novamente quando fechar
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Esta vaga não possui candidatos.", "Informação",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
@@ -310,26 +262,6 @@ namespace ProLinkDesktop
                 MessageBox.Show($"Erro inesperado: {ex.Message}", "Erro",
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Debug.WriteLine($"Erro detalhado: {ex.ToString()}");
-            }
-        }
-
-        private void AbrirFormCandidatos(int idVaga)
-        {
-            try
-            {
-                using (var frmCandidatos = new FrmCandidatos(idVaga))
-                {
-                    this.Hide();
-                    frmCandidatos.ShowDialog();
-                    this.Show();
-                    CarregarVagas();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao abrir candidatos: {ex.Message}", "Erro",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Show();
             }
         }
 

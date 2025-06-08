@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -27,6 +26,7 @@ namespace ProLinkDesktop
             {
                 this.Text = "Editar Vaga";
                 btnSalvar.Text = "Salvar Alterações";
+                chkAtiva.Visible = true;
                 CarregarDadosVaga();
             }
         }
@@ -39,6 +39,57 @@ namespace ProLinkDesktop
             this.MinimizeBox = false;
 
             cmbTipoEmprego.Items.AddRange(new string[] { "full-time", "part-time", "internship" });
+
+            // Configurar navegação por Enter
+            txtTitulo.KeyDown += NavigateToNextControl;
+            txtEmpresa.KeyDown += NavigateToNextControl;
+            txtLocalizacao.KeyDown += NavigateToNextControl;
+            cmbTipoEmprego.KeyDown += NavigateToNextControlCombo;
+            cmbArea.KeyDown += NavigateToNextControlCombo;
+            txtSalario.KeyDown += NavigateToNextControlNumeric;
+            txtRequisitos.KeyDown += NavigateToNextControlMultiline;
+            txtBeneficios.KeyDown += NavigateToNextControlMultiline;
+        }
+
+        private void NavigateToNextControl(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.SelectNextControl((Control)sender, true, true, true, true);
+                e.Handled = e.SuppressKeyPress = true;
+            }
+        }
+
+        private void NavigateToNextControlCombo(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (((ComboBox)sender).DroppedDown)
+                {
+                    ((ComboBox)sender).DroppedDown = false;
+                    return;
+                }
+                this.SelectNextControl((Control)sender, true, true, true, true);
+                e.Handled = e.SuppressKeyPress = true;
+            }
+        }
+
+        private void NavigateToNextControlNumeric(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.SelectNextControl((Control)sender, true, true, true, true);
+                e.Handled = e.SuppressKeyPress = true;
+            }
+        }
+
+        private void NavigateToNextControlMultiline(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && !e.Shift)
+            {
+                this.SelectNextControl((Control)sender, true, true, true, true);
+                e.Handled = e.SuppressKeyPress = true;
+            }
         }
 
         private void CarregarAreasAtuacao()
@@ -71,7 +122,8 @@ namespace ProLinkDesktop
         {
             try
             {
-                string sql = $@"SELECT titulo_vaga, empresa, localizacao, tipo_emprego, id_area 
+                string sql = $@"SELECT titulo_vaga, empresa, localizacao, tipo_emprego, id_area, 
+                             salario, requisitos, beneficios, ativa
                              FROM Vagas WHERE id_vaga = {vagaId}";
 
                 DataTable dt = conexao.executarSQL(sql);
@@ -85,6 +137,10 @@ namespace ProLinkDesktop
                     txtLocalizacao.Text = row["localizacao"].ToString();
                     cmbTipoEmprego.SelectedItem = row["tipo_emprego"].ToString();
                     cmbArea.SelectedValue = Convert.ToInt32(row["id_area"]);
+                    txtSalario.Text = row["salario"] != DBNull.Value ? Convert.ToDecimal(row["salario"]).ToString("N2") : "";
+                    txtRequisitos.Text = row["requisitos"].ToString();
+                    txtBeneficios.Text = row["beneficios"].ToString();
+                    chkAtiva.Checked = Convert.ToBoolean(row["ativa"]);
                 }
             }
             catch (Exception ex)
@@ -103,13 +159,16 @@ namespace ProLinkDesktop
             {
                 if (editMode)
                 {
-                    // Modo edição
                     string sql = @"UPDATE Vagas SET 
                                  titulo_vaga = @titulo,
                                  empresa = @empresa,
                                  localizacao = @localizacao,
                                  tipo_emprego = @tipo,
-                                 id_area = @id_area
+                                 id_area = @id_area,
+                                 salario = @salario,
+                                 requisitos = @requisitos,
+                                 beneficios = @beneficios,
+                                 ativa = @ativa
                                  WHERE id_vaga = @id_vaga";
 
                     using (SqlCommand comando = new SqlCommand(sql))
@@ -119,6 +178,10 @@ namespace ProLinkDesktop
                         comando.Parameters.AddWithValue("@localizacao", txtLocalizacao.Text.Trim());
                         comando.Parameters.AddWithValue("@tipo", cmbTipoEmprego.SelectedItem.ToString());
                         comando.Parameters.AddWithValue("@id_area", Convert.ToInt32(cmbArea.SelectedValue));
+                        comando.Parameters.AddWithValue("@salario", string.IsNullOrEmpty(txtSalario.Text) ? (object)DBNull.Value : Convert.ToDecimal(txtSalario.Text));
+                        comando.Parameters.AddWithValue("@requisitos", string.IsNullOrEmpty(txtRequisitos.Text) ? (object)DBNull.Value : txtRequisitos.Text.Trim());
+                        comando.Parameters.AddWithValue("@beneficios", string.IsNullOrEmpty(txtBeneficios.Text) ? (object)DBNull.Value : txtBeneficios.Text.Trim());
+                        comando.Parameters.AddWithValue("@ativa", chkAtiva.Checked);
                         comando.Parameters.AddWithValue("@id_vaga", vagaId);
 
                         int linhasAfetadas = conexao.manutencaoDB_Parametros(comando);
@@ -134,7 +197,6 @@ namespace ProLinkDesktop
                 }
                 else
                 {
-                    // Modo adição
                     int idFuncionario = ObterIdFuncionarioLogado();
                     int idUsuario = ObterIdUsuarioLogado();
 
@@ -146,9 +208,11 @@ namespace ProLinkDesktop
                     }
 
                     string sql = @"INSERT INTO Vagas 
-                                 (id_funcionario, titulo_vaga, empresa, localizacao, tipo_emprego, id_area, id_usuario)
+                                 (id_funcionario, titulo_vaga, empresa, localizacao, tipo_emprego, 
+                                 id_area, salario, requisitos, beneficios, id_usuario, ativa)
                                  VALUES 
-                                 (@id_funcionario, @titulo, @empresa, @localizacao, @tipo, @id_area, @id_usuario)";
+                                 (@id_funcionario, @titulo, @empresa, @localizacao, @tipo, 
+                                 @id_area, @salario, @requisitos, @beneficios, @id_usuario, 1)";
 
                     using (SqlCommand comando = new SqlCommand(sql))
                     {
@@ -158,6 +222,9 @@ namespace ProLinkDesktop
                         comando.Parameters.AddWithValue("@localizacao", txtLocalizacao.Text.Trim());
                         comando.Parameters.AddWithValue("@tipo", cmbTipoEmprego.SelectedItem.ToString());
                         comando.Parameters.AddWithValue("@id_area", Convert.ToInt32(cmbArea.SelectedValue));
+                        comando.Parameters.AddWithValue("@salario", string.IsNullOrEmpty(txtSalario.Text) ? (object)DBNull.Value : Convert.ToDecimal(txtSalario.Text));
+                        comando.Parameters.AddWithValue("@requisitos", string.IsNullOrEmpty(txtRequisitos.Text) ? (object)DBNull.Value : txtRequisitos.Text.Trim());
+                        comando.Parameters.AddWithValue("@beneficios", string.IsNullOrEmpty(txtBeneficios.Text) ? (object)DBNull.Value : txtBeneficios.Text.Trim());
                         comando.Parameters.AddWithValue("@id_usuario", idUsuario);
 
                         int linhasAfetadas = conexao.manutencaoDB_Parametros(comando);
@@ -176,7 +243,6 @@ namespace ProLinkDesktop
             {
                 MessageBox.Show($"Erro ao {(editMode ? "atualizar" : "cadastrar")} vaga: {ex.Message}", "Erro",
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Debug.WriteLine($"Erro detalhado: {ex.ToString()}");
             }
         }
 
@@ -214,17 +280,27 @@ namespace ProLinkDesktop
                 return false;
             }
 
+            if (!string.IsNullOrEmpty(txtSalario.Text) && !decimal.TryParse(txtSalario.Text, out _))
+            {
+                MessageBox.Show("Por favor, informe um valor de salário válido.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSalario.Focus();
+                return false;
+            }
+
             return true;
         }
 
         private int ObterIdFuncionarioLogado()
         {
-            return 1; // Substitua pela lógica real
+            // Implemente a lógica para obter o ID do funcionário logado
+            return 1; // Exemplo
         }
 
         private int ObterIdUsuarioLogado()
         {
-            return 1; // Substitua pela lógica real
+            // Implemente a lógica para obter o ID do usuário logado
+            return 1; // Exemplo
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

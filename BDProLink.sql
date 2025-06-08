@@ -184,4 +184,4 @@ CREATE TABLE Contatos (
 GO
 
 select * from Funcionario
-select * from Webinar
+select * from Webinar 
