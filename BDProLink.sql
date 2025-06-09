@@ -119,15 +119,22 @@ CREATE TABLE ProfissionalArea (
 GO
 
 -- Tabela de Candidaturas
+select * from Candidatura
 CREATE TABLE Candidatura (
     id_candidatura INT IDENTITY(1,1) PRIMARY KEY,
     id_vaga INT NOT NULL,
     id_perfil INT NOT NULL,
     data_candidatura DATETIME DEFAULT GETDATE(),
-    status NVARCHAR(20) DEFAULT 'Pendente',
+    status NVARCHAR(20) DEFAULT 'Em Análise',
     FOREIGN KEY (id_vaga) REFERENCES Vagas(id_vaga),
     FOREIGN KEY (id_perfil) REFERENCES Perfil(id_perfil)
 );
+
+ALTER TABLE Candidatura
+ALTER COLUMN status NVARCHAR(20) NOT NULL;
+
+-- Atualize os valores existentes para 'Em análise' se necessário
+UPDATE Candidatura SET status = 'Em análise' WHERE status = 'Pendente';
 GO
 
 -- Tabela de Mensagens

@@ -116,3 +116,11 @@ VALUES
 (2, 1, '2023-06-03T12:00:00'),
 (3, 4, '2023-06-04T13:00:00');
 GO
+
+INSERT INTO Candidatura (id_vaga, id_perfil, status)
+VALUES 
+(1, 1, 'Pendente'),
+(1, 2, 'Aprovado'),
+(2, 3, 'Em análise'),
+(3, 1, 'Rejeitado'),
+(3, 2, 'Pendente');

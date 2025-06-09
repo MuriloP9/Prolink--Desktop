@@ -60,6 +60,7 @@ namespace ProLinkDesktop
 
             gridOportunidades.Columns.Clear();
 
+            // Coluna ID (oculta)
             gridOportunidades.Columns.Add(new DataGridViewTextBoxColumn()
             {
                 Name = "id_vaga",
@@ -68,6 +69,7 @@ namespace ProLinkDesktop
                 Visible = false
             });
 
+            // Colunas visíveis
             gridOportunidades.Columns.Add(new DataGridViewTextBoxColumn()
             {
                 DataPropertyName = "titulo_vaga",
@@ -103,6 +105,7 @@ namespace ProLinkDesktop
                 Width = 120
             });
 
+            // Coluna de Candidatos (com formatação especial)
             gridOportunidades.Columns.Add(new DataGridViewTextBoxColumn()
             {
                 Name = "colCandidatos",
@@ -114,13 +117,16 @@ namespace ProLinkDesktop
                 }
             });
 
+            // Coluna oculta para armazenar o total de candidatos
             gridOportunidades.Columns.Add(new DataGridViewTextBoxColumn()
             {
+                Name = "total_candidatos",
                 DataPropertyName = "total_candidatos",
                 HeaderText = "Total Candidatos",
                 Visible = false
             });
 
+            // Coluna de Ações
             var btnAcoes = new DataGridViewButtonColumn()
             {
                 Name = "colAcoes",
@@ -138,6 +144,7 @@ namespace ProLinkDesktop
             };
             gridOportunidades.Columns.Add(btnAcoes);
 
+            // Eventos
             gridOportunidades.CellFormatting += GridOportunidades_CellFormatting;
             gridOportunidades.CellClick += GridOportunidades_CellClick;
         }
@@ -146,12 +153,12 @@ namespace ProLinkDesktop
         {
             try
             {
+                // Consulta que conta os candidatos de cada vaga diretamente da tabela Candidatura
                 string sql = @"SELECT v.id_vaga, v.titulo_vaga, v.empresa, v.localizacao, v.tipo_emprego, 
-                             a.nome_area, f.nome_completo AS cadastrado_por, v.ativa,
-                            (SELECT COUNT(*) FROM Candidatura c WHERE c.id_vaga = v.id_vaga) AS total_candidatos
+                             a.nome_area, 
+                             (SELECT COUNT(*) FROM Candidatura c WHERE c.id_vaga = v.id_vaga) AS total_candidatos
                              FROM Vagas v
                              INNER JOIN AreaAtuacao a ON v.id_area = a.id_area
-                             INNER JOIN Funcionario f ON v.id_funcionario = f.id_funcionario
                              WHERE v.ativa = 1";
 
                 DataTable dt = conexao.executarSQL(sql);
@@ -160,19 +167,25 @@ namespace ProLinkDesktop
                 {
                     gridOportunidades.DataSource = dt;
                     Debug.WriteLine($"Vagas carregadas: {dt.Rows.Count}");
+
+                    // Log para verificar os dados
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        Debug.WriteLine($"Vaga ID: {row["id_vaga"]}, Candidatos: {row["total_candidatos"]}");
+                    }
                 }
                 else
                 {
                     gridOportunidades.DataSource = null;
                     MessageBox.Show("Nenhuma vaga ativa encontrada.", "Informação",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro ao carregar vagas: {ex.Message}", "Erro",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Debug.WriteLine($"Erro: {ex.ToString()}");
+                Debug.WriteLine($"Erro detalhado: {ex}");
             }
         }
 
@@ -182,15 +195,36 @@ namespace ProLinkDesktop
             {
                 try
                 {
-                    object value = gridOportunidades.Rows[e.RowIndex].Cells["total_candidatos"].Value;
-                    int totalCandidatos = (value == null || value == DBNull.Value) ? 0 : Convert.ToInt32(value);
+                    // Obtém o valor REAL da coluna oculta total_candidatos
+                    var row = gridOportunidades.Rows[e.RowIndex];
+                    var totalCell = row.Cells["total_candidatos"];
+
+                    int totalCandidatos = 0;
+                    if (totalCell.Value != null && totalCell.Value != DBNull.Value)
+                    {
+                        totalCandidatos = Convert.ToInt32(totalCell.Value);
+                    }
+
+                    // Define o valor a ser exibido
                     e.Value = totalCandidatos.ToString();
                     e.FormattingApplied = true;
+
+                    // Formatação condicional
+                    if (totalCandidatos > 0)
+                    {
+                        e.CellStyle.ForeColor = Color.LimeGreen;
+                        e.CellStyle.Font = new Font(gridOportunidades.Font, FontStyle.Bold);
+                    }
+                    else
+                    {
+                        e.CellStyle.ForeColor = Color.LightGray;
+                    }
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine($"Erro ao formatar célula: {ex.Message}");
+                    Debug.WriteLine($"Erro ao formatar célula de candidatos: {ex}");
                     e.Value = "0";
+                    e.FormattingApplied = true;
                 }
             }
         }
@@ -201,7 +235,8 @@ namespace ProLinkDesktop
 
             try
             {
-                var idVagaCell = gridOportunidades.Rows[e.RowIndex].Cells["id_vaga"];
+                var row = gridOportunidades.Rows[e.RowIndex];
+                var idVagaCell = row.Cells["id_vaga"];
 
                 // Verifica se o ID da vaga é válido
                 if (idVagaCell.Value == null || idVagaCell.Value == DBNull.Value)
@@ -211,12 +246,7 @@ namespace ProLinkDesktop
                     return;
                 }
 
-                if (!int.TryParse(idVagaCell.Value.ToString(), out int idVaga))
-                {
-                    MessageBox.Show("ID da vaga em formato inválido.", "Erro",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                int idVaga = Convert.ToInt32(idVagaCell.Value);
 
                 // Verifica se clicou na coluna de AÇÕES (EDITAR)
                 if (gridOportunidades.Columns[e.ColumnIndex].Name == "colAcoes")
@@ -232,22 +262,20 @@ namespace ProLinkDesktop
                 // Verifica se clicou na coluna de CANDIDATOS
                 else if (gridOportunidades.Columns[e.ColumnIndex].Name == "colCandidatos")
                 {
-                    // Pega o número de candidatos da célula
+                    // Obtém o número REAL de candidatos da coluna oculta
+                    var totalCell = row.Cells["total_candidatos"];
                     int totalCandidatos = 0;
-                    var cellCandidatos = gridOportunidades.Rows[e.RowIndex].Cells["colCandidatos"];
-                    if (cellCandidatos.Value != null && cellCandidatos.Value != DBNull.Value)
+
+                    if (totalCell.Value != null && totalCell.Value != DBNull.Value)
                     {
-                        totalCandidatos = Convert.ToInt32(cellCandidatos.Value);
+                        totalCandidatos = Convert.ToInt32(totalCell.Value);
                     }
 
-                    // Só abre se tiver candidatos
                     if (totalCandidatos > 0)
                     {
                         using (var frmCandidatos = new FrmCandidatos(idVaga))
                         {
-                            this.Hide(); // Esconde o form atual
                             frmCandidatos.ShowDialog();
-                            this.Show(); // Mostra novamente quando fechar
                         }
                     }
                     else
@@ -261,16 +289,18 @@ namespace ProLinkDesktop
             {
                 MessageBox.Show($"Erro inesperado: {ex.Message}", "Erro",
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Debug.WriteLine($"Erro detalhado: {ex.ToString()}");
+                Debug.WriteLine($"Erro detalhado: {ex}");
             }
         }
 
         private void btnAdicionar_Click(object sender, EventArgs e)
         {
-            FrmAdicionarVaga formAdicionar = new FrmAdicionarVaga();
-            if (formAdicionar.ShowDialog() == DialogResult.OK)
+            using (var formAdicionar = new FrmAdicionarVaga())
             {
-                CarregarVagas();
+                if (formAdicionar.ShowDialog() == DialogResult.OK)
+                {
+                    CarregarVagas();
+                }
             }
         }
 
