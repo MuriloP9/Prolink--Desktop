@@ -47,6 +47,7 @@ namespace ProLinkDesktop
             cmbTipoEmprego.KeyDown += NavigateToNextControlCombo;
             cmbArea.KeyDown += NavigateToNextControlCombo;
             txtSalario.KeyDown += NavigateToNextControlNumeric;
+            txtDescricao.KeyDown += NavigateToNextControlMultiline;
             txtRequisitos.KeyDown += NavigateToNextControlMultiline;
             txtBeneficios.KeyDown += NavigateToNextControlMultiline;
         }
@@ -123,7 +124,7 @@ namespace ProLinkDesktop
             try
             {
                 string sql = $@"SELECT titulo_vaga, empresa, localizacao, tipo_emprego, id_area, 
-                             salario, requisitos, beneficios, ativa
+                             salario, requisitos, beneficios, descricao, ativa
                              FROM Vagas WHERE id_vaga = {vagaId}";
 
                 DataTable dt = conexao.executarSQL(sql);
@@ -140,6 +141,7 @@ namespace ProLinkDesktop
                     txtSalario.Text = row["salario"] != DBNull.Value ? Convert.ToDecimal(row["salario"]).ToString("N2") : "";
                     txtRequisitos.Text = row["requisitos"].ToString();
                     txtBeneficios.Text = row["beneficios"].ToString();
+                    txtDescricao.Text = row["descricao"].ToString();
                     chkAtiva.Checked = Convert.ToBoolean(row["ativa"]);
                 }
             }
@@ -168,6 +170,7 @@ namespace ProLinkDesktop
                                  salario = @salario,
                                  requisitos = @requisitos,
                                  beneficios = @beneficios,
+                                 descricao = @descricao,
                                  ativa = @ativa
                                  WHERE id_vaga = @id_vaga";
 
@@ -181,6 +184,7 @@ namespace ProLinkDesktop
                         comando.Parameters.AddWithValue("@salario", string.IsNullOrEmpty(txtSalario.Text) ? (object)DBNull.Value : Convert.ToDecimal(txtSalario.Text));
                         comando.Parameters.AddWithValue("@requisitos", string.IsNullOrEmpty(txtRequisitos.Text) ? (object)DBNull.Value : txtRequisitos.Text.Trim());
                         comando.Parameters.AddWithValue("@beneficios", string.IsNullOrEmpty(txtBeneficios.Text) ? (object)DBNull.Value : txtBeneficios.Text.Trim());
+                        comando.Parameters.AddWithValue("@descricao", string.IsNullOrEmpty(txtDescricao.Text) ? (object)DBNull.Value : txtDescricao.Text.Trim());
                         comando.Parameters.AddWithValue("@ativa", chkAtiva.Checked);
                         comando.Parameters.AddWithValue("@id_vaga", vagaId);
 
@@ -209,10 +213,10 @@ namespace ProLinkDesktop
 
                     string sql = @"INSERT INTO Vagas 
                                  (id_funcionario, titulo_vaga, empresa, localizacao, tipo_emprego, 
-                                 id_area, salario, requisitos, beneficios, id_usuario, ativa)
+                                 id_area, salario, requisitos, beneficios, descricao, id_usuario, ativa)
                                  VALUES 
                                  (@id_funcionario, @titulo, @empresa, @localizacao, @tipo, 
-                                 @id_area, @salario, @requisitos, @beneficios, @id_usuario, 1)";
+                                 @id_area, @salario, @requisitos, @beneficios, @descricao, @id_usuario, 1)";
 
                     using (SqlCommand comando = new SqlCommand(sql))
                     {
@@ -225,6 +229,7 @@ namespace ProLinkDesktop
                         comando.Parameters.AddWithValue("@salario", string.IsNullOrEmpty(txtSalario.Text) ? (object)DBNull.Value : Convert.ToDecimal(txtSalario.Text));
                         comando.Parameters.AddWithValue("@requisitos", string.IsNullOrEmpty(txtRequisitos.Text) ? (object)DBNull.Value : txtRequisitos.Text.Trim());
                         comando.Parameters.AddWithValue("@beneficios", string.IsNullOrEmpty(txtBeneficios.Text) ? (object)DBNull.Value : txtBeneficios.Text.Trim());
+                        comando.Parameters.AddWithValue("@descricao", string.IsNullOrEmpty(txtDescricao.Text) ? (object)DBNull.Value : txtDescricao.Text.Trim());
                         comando.Parameters.AddWithValue("@id_usuario", idUsuario);
 
                         int linhasAfetadas = conexao.manutencaoDB_Parametros(comando);

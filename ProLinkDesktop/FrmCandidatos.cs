@@ -139,7 +139,7 @@ namespace ProLinkDesktop
                 Width = 150,
                 FlatStyle = FlatStyle.Flat
             };
-            colStatus.Items.AddRange("Em análise", "Aprovado", "Rejeitado");
+            colStatus.Items.AddRange("Pendente", "Aprovado", "Rejeitado");
             gridCandidatos.Columns.Add(colStatus);
 
             gridCandidatos.CellValueChanged += GridCandidatos_CellValueChanged;
@@ -286,86 +286,148 @@ namespace ProLinkDesktop
                 doc.Open();
 
                 // Configurações de estilo
-                iTextSharp.text.Font fonteTitulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.DARK_GRAY);
-                iTextSharp.text.Font fonteSecao = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.DARK_GRAY);
+                iTextSharp.text.Font fonteTitulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 24, new BaseColor(44, 62, 80));
+                iTextSharp.text.Font fonteSecao = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16, new BaseColor(44, 62, 80));
                 iTextSharp.text.Font fonteSubSecao = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.BLACK);
                 iTextSharp.text.Font fonteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 11, BaseColor.BLACK);
+                iTextSharp.text.Font fonteRodape = FontFactory.GetFont(FontFactory.HELVETICA, 10, new BaseColor(119, 119, 119));
 
                 // Cabeçalho
-                Paragraph cabecalho = new Paragraph("CURRÍCULO PROFISSIONAL", fonteTitulo);
-                cabecalho.Alignment = Element.ALIGN_CENTER;
-                cabecalho.SpacingAfter = 20f;
+                Paragraph cabecalho = new Paragraph(perfil["nome"].ToString(), fonteTitulo);
+                cabecalho.Alignment = Element.ALIGN_LEFT;
+                cabecalho.SpacingAfter = 5f;
                 doc.Add(cabecalho);
 
+                Paragraph subtitulo = new Paragraph("Perfil profissional", fonteNormal);
+                subtitulo.Alignment = Element.ALIGN_LEFT;
+                subtitulo.SpacingAfter = 20f;
+                doc.Add(subtitulo);
+
+                // Linha divisória
+                PdfPTable linhaDivisoria = new PdfPTable(1);
+                linhaDivisoria.WidthPercentage = 100;
+                PdfPCell cell = new PdfPCell(new Phrase(" "));
+                cell.Border = PdfPCell.BOTTOM_BORDER;
+                cell.BorderColor = new BaseColor(44, 62, 80);
+                cell.BorderWidth = 2f;
+                cell.FixedHeight = 15f;
+                linhaDivisoria.AddCell(cell);
+                doc.Add(linhaDivisoria);
+
                 // Seção Dados Pessoais
-                AdicionarSecao(doc, "DADOS PESSOAIS", fonteSecao);
+                AdicionarSecao(doc, "Informações Pessoais", fonteSecao);
 
                 PdfPTable tabelaDados = new PdfPTable(2);
                 tabelaDados.WidthPercentage = 100;
-                tabelaDados.SetWidths(new float[] { 25, 75 });
+                tabelaDados.SetWidths(new float[] { 30, 70 });
+                tabelaDados.SpacingAfter = 15f;
 
-                AdicionarCelula(tabelaDados, "Nome:", perfil["nome"].ToString(), fonteSubSecao, fonteNormal);
-                AdicionarCelula(tabelaDados, "E-mail:", perfil["email"].ToString(), fonteSubSecao, fonteNormal);
-                AdicionarCelula(tabelaDados, "Idade:", perfil["idade"].ToString(), fonteSubSecao, fonteNormal);
-                AdicionarCelula(tabelaDados, "Endereço:", perfil["endereco"].ToString(), fonteSubSecao, fonteNormal);
+                AdicionarCelulaInfo(tabelaDados, "Nome:", perfil["nome"].ToString(), fonteSubSecao, fonteNormal);
+                AdicionarCelulaInfo(tabelaDados, "E-mail:", perfil["email"].ToString(), fonteSubSecao, fonteNormal);
+
+                if (!string.IsNullOrEmpty(perfil["idade"].ToString()))
+                    AdicionarCelulaInfo(tabelaDados, "Idade:", perfil["idade"].ToString(), fonteSubSecao, fonteNormal);
+
+                AdicionarCelulaInfo(tabelaDados, "Endereço:", perfil["endereco"].ToString(), fonteSubSecao, fonteNormal);
+
+                if (perfil.Table.Columns.Contains("dataNascimento") && !string.IsNullOrEmpty(perfil["dataNascimento"].ToString()))
+                    AdicionarCelulaInfo(tabelaDados, "Data de Nascimento:", perfil["dataNascimento"].ToString(), fonteSubSecao, fonteNormal);
+
+                if (perfil.Table.Columns.Contains("telefone") && !string.IsNullOrEmpty(perfil["telefone"].ToString()))
+                    AdicionarCelulaInfo(tabelaDados, "Telefone:", perfil["telefone"].ToString(), fonteSubSecao, fonteNormal);
 
                 doc.Add(tabelaDados);
 
                 // Seção Formação
                 if (!string.IsNullOrEmpty(perfil["formacao"].ToString()))
                 {
-                    AdicionarSecao(doc, "FORMAÇÃO ACADÊMICA", fonteSecao);
-                    doc.Add(new Paragraph(perfil["formacao"].ToString(), fonteNormal));
+                    AdicionarSecao(doc, "Formação Acadêmica", fonteSecao);
+                    Paragraph formacao = new Paragraph(FormatarTexto(perfil["formacao"].ToString()), fonteNormal);
+                    formacao.SpacingAfter = 15f;
+                    doc.Add(formacao);
                 }
 
                 // Seção Experiência Profissional
                 if (!string.IsNullOrEmpty(perfil["experiencia_profissional"].ToString()))
                 {
-                    AdicionarSecao(doc, "EXPERIÊNCIA PROFISSIONAL", fonteSecao);
-                    doc.Add(new Paragraph(perfil["experiencia_profissional"].ToString(), fonteNormal));
+                    AdicionarSecao(doc, "Experiência Profissional", fonteSecao);
+                    Paragraph experiencia = new Paragraph(FormatarTexto(perfil["experiencia_profissional"].ToString()), fonteNormal);
+                    experiencia.SpacingAfter = 15f;
+                    doc.Add(experiencia);
                 }
 
                 // Seção Habilidades
                 if (!string.IsNullOrEmpty(perfil["habilidades"].ToString()))
                 {
-                    AdicionarSecao(doc, "HABILIDADES", fonteSecao);
-                    doc.Add(new Paragraph(perfil["habilidades"].ToString(), fonteNormal));
+                    AdicionarSecao(doc, "Habilidades", fonteSecao);
+                    Paragraph habilidades = new Paragraph(FormatarTexto(perfil["habilidades"].ToString()), fonteNormal);
+                    habilidades.SpacingAfter = 15f;
+                    doc.Add(habilidades);
                 }
 
                 // Seção Projetos e Especializações
                 if (!string.IsNullOrEmpty(perfil["projetos_especializacoes"].ToString()))
                 {
-                    AdicionarSecao(doc, "PROJETOS E ESPECIALIZAÇÕES", fonteSecao);
-                    doc.Add(new Paragraph(perfil["projetos_especializacoes"].ToString(), fonteNormal));
+                    AdicionarSecao(doc, "Projetos e Especializações", fonteSecao);
+                    Paragraph projetos = new Paragraph(FormatarTexto(perfil["projetos_especializacoes"].ToString()), fonteNormal);
+                    projetos.SpacingAfter = 15f;
+                    doc.Add(projetos);
                 }
 
                 // Seção Interesses
                 if (!string.IsNullOrEmpty(perfil["interesses"].ToString()))
                 {
-                    AdicionarSecao(doc, "INTERESSES", fonteSecao);
-                    doc.Add(new Paragraph(perfil["interesses"].ToString(), fonteNormal));
+                    AdicionarSecao(doc, "Interesses", fonteSecao);
+                    Paragraph interesses = new Paragraph(FormatarTexto(perfil["interesses"].ToString()), fonteNormal);
+                    interesses.SpacingAfter = 15f;
+                    doc.Add(interesses);
                 }
+
+                // Rodapé
+                Paragraph rodape = new Paragraph($"Gerado em {DateTime.Now.ToString("dd/MM/yyyy HH:mm")}", fonteRodape);
+                rodape.Alignment = Element.ALIGN_CENTER;
+                rodape.SpacingBefore = 30f;
+                doc.Add(rodape);
 
                 doc.Close();
             }
         }
 
+        private string FormatarTexto(string texto)
+        {
+            // Substitui quebras de linha para manter a formatação
+            return texto.Replace("\n", Environment.NewLine);
+        }
+
         private void AdicionarSecao(Document doc, string titulo, iTextSharp.text.Font fonte)
         {
             Paragraph secao = new Paragraph(titulo, fonte);
-            secao.SpacingBefore = 15f;
+            secao.SpacingBefore = 20f;
             secao.SpacingAfter = 10f;
             doc.Add(secao);
+
+            // Linha divisória fina
+            PdfPTable linha = new PdfPTable(1);
+            linha.WidthPercentage = 100;
+            PdfPCell cell = new PdfPCell(new Phrase(" "));
+            cell.Border = PdfPCell.BOTTOM_BORDER;
+            cell.BorderColor = new BaseColor(238, 238, 238);
+            cell.BorderWidth = 1f;
+            cell.FixedHeight = 10f;
+            linha.AddCell(cell);
+            doc.Add(linha);
         }
 
-        private void AdicionarCelula(PdfPTable tabela, string titulo, string conteudo, iTextSharp.text.Font fonteTitulo, iTextSharp.text.Font fonteConteudo)
+        private void AdicionarCelulaInfo(PdfPTable tabela, string titulo, string conteudo, iTextSharp.text.Font fonteTitulo, iTextSharp.text.Font fonteConteudo)
         {
             PdfPCell cellTitulo = new PdfPCell(new Phrase(titulo, fonteTitulo));
             cellTitulo.Border = PdfPCell.NO_BORDER;
+            cellTitulo.HorizontalAlignment = Element.ALIGN_LEFT;
             tabela.AddCell(cellTitulo);
 
             PdfPCell cellConteudo = new PdfPCell(new Phrase(conteudo, fonteConteudo));
             cellConteudo.Border = PdfPCell.NO_BORDER;
+            cellConteudo.HorizontalAlignment = Element.ALIGN_LEFT;
             tabela.AddCell(cellConteudo);
         }
 

@@ -121,6 +121,6 @@ INSERT INTO Candidatura (id_vaga, id_perfil, status)
 VALUES 
 (1, 1, 'Pendente'),
 (1, 2, 'Aprovado'),
-(2, 3, 'Em análise'),
+(2, 3, 'Pendente'),
 (3, 1, 'Rejeitado'),
 (3, 2, 'Pendente');
