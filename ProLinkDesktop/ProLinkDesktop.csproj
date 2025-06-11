@@ -81,6 +81,12 @@
     <Compile Include="FrmAdicionarWebinar.Designer.cs">
       <DependentUpon>FrmAdicionarWebinar.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmAnalise.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAnalise.Designer.cs">
+      <DependentUpon>FrmAnalise.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmCadastrarFuncionario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,6 +155,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmAdicionarVaga.resx">
       <DependentUpon>FrmAdicionarVaga.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAnalise.resx">
+      <DependentUpon>FrmAnalise.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmCandidatos.resx">
       <DependentUpon>FrmCandidatos.cs</DependentUpon>

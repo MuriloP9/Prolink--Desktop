@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
 using System.Data.SqlClient;
 
 namespace ProLinkDesktop
@@ -17,6 +11,7 @@ namespace ProLinkDesktop
         private ClasseConexao conexao;
         private DataTable Usuarios;
         private int usuarioSelecionadoId = -1;
+        private Button btnAnalisarFoto;
 
         public FrmGerenciarUsuarios()
         {
@@ -49,9 +44,10 @@ namespace ProLinkDesktop
             dgvUsuarios.DefaultCellStyle.SelectionForeColor = Color.White;
             dgvUsuarios.EnableHeadersVisualStyles = false;
 
-            // Configuração dos botões
+            // Configuração dos botões existentes
             btnAtivarInativar.BackColor = Color.FromArgb(67, 74, 105);
             btnAtualizar.BackColor = Color.FromArgb(67, 74, 105);
+
             foreach (Button btn in new[] { btnAtivarInativar, btnAtualizar })
             {
                 btn.FlatStyle = FlatStyle.Flat;
@@ -62,10 +58,74 @@ namespace ProLinkDesktop
             }
             btnAtivarInativar.Enabled = false;
 
+            // CRIAR E CONFIGURAR BOTÃO ANALISAR FOTO
+            CriarBotaoAnalisarFoto();
+
             // Configuração do painel de detalhes
             pnlDetalhes.BackColor = Color.FromArgb(46, 51, 73);
             pnlDetalhes.BorderStyle = BorderStyle.FixedSingle;
             lblStatusValor.Font = new Font(lblStatusValor.Font, FontStyle.Bold);
+        }
+
+        private void CriarBotaoAnalisarFoto()
+        {
+            // Remover botão anterior se existir
+            if (btnAnalisarFoto != null)
+            {
+                this.Controls.Remove(btnAnalisarFoto);
+                btnAnalisarFoto.Dispose();
+            }
+
+            // Criar novo botão
+            btnAnalisarFoto = new Button();
+            btnAnalisarFoto.Name = "btnAnalisarFoto";
+            btnAnalisarFoto.Text = "Analisar Foto";
+            btnAnalisarFoto.BackColor = Color.FromArgb(67, 74, 105);
+            btnAnalisarFoto.FlatStyle = FlatStyle.Flat;
+            btnAnalisarFoto.FlatAppearance.BorderSize = 0;
+            btnAnalisarFoto.ForeColor = Color.White;
+            btnAnalisarFoto.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            btnAnalisarFoto.Cursor = Cursors.Hand;
+            btnAnalisarFoto.Enabled = false;
+            btnAnalisarFoto.UseVisualStyleBackColor = false;
+
+            // Definir tamanho e posição
+            btnAnalisarFoto.Size = new Size(120, 35); // Mesmo tamanho dos outros botões
+            btnAnalisarFoto.Location = new Point(btnAtivarInativar.Right + 10, btnAtivarInativar.Top);
+
+            // Configurar ancoragem
+            btnAnalisarFoto.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+
+            // Adicionar evento
+            btnAnalisarFoto.Click += BtnAnalisarFoto_Click;
+
+            // Adicionar ao formulário
+            this.Controls.Add(btnAnalisarFoto);
+
+            // Trazer para frente
+            btnAnalisarFoto.BringToFront();
+
+            // Debug - verificar se foi adicionado
+            Console.WriteLine($"Botão Analisar Foto criado - Visible: {btnAnalisarFoto.Visible}, Location: {btnAnalisarFoto.Location}, Size: {btnAnalisarFoto.Size}");
+        }
+
+        private void BtnAnalisarFoto_Click(object sender, EventArgs e)
+        {
+            if (usuarioSelecionadoId == -1) return;
+
+            try
+            {
+                FrmAnalise frmAnalise = new FrmAnalise(usuarioSelecionadoId);
+                frmAnalise.ShowDialog();
+
+                // Atualizar lista de usuários após análise
+                CarregarUsuarios();
+                LimparDetalhes();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao abrir análise: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void CarregarUsuarios()
@@ -92,22 +152,17 @@ namespace ProLinkDesktop
 
                     // Configurar colunas
                     dgvUsuarios.Columns["id_usuario"].Visible = false;
-
-                    // Desativar o redimensionamento automático temporariamente
                     dgvUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
 
-                    // Definir larguras específicas para cada coluna
-                    dgvUsuarios.Columns["nome"].Width = 200;  // Largura maior para o nome
+                    // Definir larguras específicas
+                    dgvUsuarios.Columns["nome"].Width = 200;
                     dgvUsuarios.Columns["email"].Width = 180;
                     dgvUsuarios.Columns["telefone"].Width = 100;
                     dgvUsuarios.Columns["Status"].Width = 80;
                     dgvUsuarios.Columns["Data Criação"].Width = 150;
                     dgvUsuarios.Columns["Último Acesso"].Width = 150;
 
-                    // Permitir que o usuário redimensione as colunas
                     dgvUsuarios.AllowUserToResizeColumns = true;
-
-                    // Configurar a coluna nome para mostrar texto completo
                     dgvUsuarios.Columns["nome"].DefaultCellStyle.WrapMode = DataGridViewTriState.False;
                 }
                 else
@@ -144,6 +199,7 @@ namespace ProLinkDesktop
                     lblDataNascValor.Text = "Não informado";
                 }
 
+                // CORRIGIDO: Usar a data de criação corretamente
                 lblDataNascValor.Text = row.Cells["Data Criação"].Value?.ToString() ?? "N/A";
                 lblUltimoLoginValor.Text = row.Cells["Último Acesso"].Value?.ToString() ?? "Nunca acessou";
 
@@ -153,6 +209,12 @@ namespace ProLinkDesktop
 
                 btnAtivarInativar.Text = status == "Ativo" ? "Inativar Usuário" : "Ativar Usuário";
                 btnAtivarInativar.Enabled = true;
+
+                // HABILITAR BOTÃO ANALISAR FOTO
+                if (btnAnalisarFoto != null)
+                {
+                    btnAnalisarFoto.Enabled = true;
+                }
             }
         }
 
@@ -203,10 +265,16 @@ namespace ProLinkDesktop
             lblEmailValor.Text = string.Empty;
             lblTelefoneValor.Text = string.Empty;
             lblDataNascValor.Text = string.Empty;
-            lblDataNascValor.Text = string.Empty;
             lblUltimoLoginValor.Text = string.Empty;
             lblStatusValor.Text = string.Empty;
             btnAtivarInativar.Enabled = false;
+
+            // DESABILITAR BOTÃO ANALISAR FOTO
+            if (btnAnalisarFoto != null)
+            {
+                btnAnalisarFoto.Enabled = false;
+            }
+
             usuarioSelecionadoId = -1;
         }
 
@@ -225,6 +293,16 @@ namespace ProLinkDesktop
                 {
                     dv.RowFilter = string.Empty;
                 }
+            }
+        }
+
+        // Sobrescrever método para garantir que o botão seja criado após o form ser totalmente carregado
+        protected override void SetVisibleCore(bool value)
+        {
+            base.SetVisibleCore(value);
+            if (value && btnAnalisarFoto == null)
+            {
+                CriarBotaoAnalisarFoto();
             }
         }
     }

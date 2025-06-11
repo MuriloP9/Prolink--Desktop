@@ -34,7 +34,6 @@
             this.lblDetalhes = new System.Windows.Forms.Label();
             this.btnAtivarInativar = new System.Windows.Forms.Button();
             this.btnAtualizar = new System.Windows.Forms.Button();
-            this.lblTitulo = new System.Windows.Forms.Label();
             this.txtPesquisa = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
@@ -43,8 +42,8 @@
             // 
             // dgvUsuarios
             // 
-            this.dgvUsuarios.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.dgvUsuarios.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUsuarios.Location = new System.Drawing.Point(12, 80);
@@ -55,7 +54,7 @@
             // 
             // pnlDetalhes
             // 
-            this.pnlDetalhes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.pnlDetalhes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlDetalhes.Controls.Add(this.lblStatus);
             this.pnlDetalhes.Controls.Add(this.lblStatusValor);
@@ -237,17 +236,6 @@
             this.btnAtualizar.UseVisualStyleBackColor = false;
             this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
             // 
-            // lblTitulo
-            // 
-            this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.lblTitulo.ForeColor = System.Drawing.Color.White;
-            this.lblTitulo.Location = new System.Drawing.Point(12, 20);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(180, 25);
-            this.lblTitulo.TabIndex = 4;
-            this.lblTitulo.Text = "Gerenciar Usuários";
-            // 
             // txtPesquisa
             // 
             this.txtPesquisa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -281,7 +269,6 @@
             this.ClientSize = new System.Drawing.Size(962, 487);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtPesquisa);
-            this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.btnAtualizar);
             this.Controls.Add(this.btnAtivarInativar);
             this.Controls.Add(this.pnlDetalhes);
@@ -303,7 +290,6 @@
         private System.Windows.Forms.Label lblDetalhes;
         private System.Windows.Forms.Button btnAtivarInativar;
         private System.Windows.Forms.Button btnAtualizar;
-        private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Label lblNome;
         private System.Windows.Forms.Label lblNomeValor;
         private System.Windows.Forms.Label lblEmail;

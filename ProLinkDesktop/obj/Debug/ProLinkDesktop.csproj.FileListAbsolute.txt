@@ -38,3 +38,4 @@ C:\Users\Pedro H\source\repos\Prolink--Desktop\ProLinkDesktop\bin\Debug\itextsha
 C:\Users\Pedro H\source\repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FrmAdicionarVaga.resources
 C:\Users\Pedro H\source\repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FrmCandidatos.resources
 C:\Users\Pedro H\source\repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FrmWebinar.resources
+C:\Users\Pedro H\source\repos\Prolink--Desktop\ProLinkDesktop\obj\Debug\ProLinkDesktop.FrmAnalise.resources

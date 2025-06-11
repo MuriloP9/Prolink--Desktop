@@ -1,19 +1,23 @@
--- Verifica e remove o banco existente
+-- =============================================
+-- Criação do Banco de Dados e Estrutura Principal
+-- =============================================
+
 IF EXISTS (SELECT name FROM sys.databases WHERE name = 'prolink01')
 BEGIN
     ALTER DATABASE prolink01 SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
     DROP DATABASE prolink01;
-	use Resetar;
 END
 GO
--- Cria o banco de dados
+
 CREATE DATABASE prolink01;
 GO
 
 USE prolink01;
 GO
 
--- Tabela de Usuários
+-- =============================================
+-- Tabela: Usuario
+-- =============================================
 CREATE TABLE Usuario (
     id_usuario INT IDENTITY(1,1) PRIMARY KEY,
     nome NVARCHAR(255) NOT NULL,
@@ -35,7 +39,9 @@ CREATE TABLE Usuario (
 );
 GO
 
--- Tabela de Funcionários
+-- =============================================
+-- Tabela: Funcionario
+-- =============================================
 CREATE TABLE Funcionario (
     id_funcionario INT IDENTITY(1,1) PRIMARY KEY,
     nome_completo NVARCHAR(255) NOT NULL,
@@ -50,18 +56,29 @@ CREATE TABLE Funcionario (
 );
 GO
 
--- Tabela de Histórico de Acessos (que adicionamos)
+-- =============================================
+-- Tabela: HistoricoAcessos
+-- =============================================
 CREATE TABLE HistoricoAcessos (
     id_historico INT IDENTITY(1,1) PRIMARY KEY,
-    id_funcionario INT NOT NULL,
+    id_funcionario INT NULL,
+    id_usuario INT NULL,
     email NVARCHAR(100) NOT NULL,
     data_login DATETIME NOT NULL DEFAULT GETDATE(),
     data_logout DATETIME NULL,
-    FOREIGN KEY (id_funcionario) REFERENCES Funcionario(id_funcionario)
+    tipo_acesso CHAR(1) NULL CHECK (tipo_acesso IN ('F', 'U')),
+    FOREIGN KEY (id_funcionario) REFERENCES Funcionario(id_funcionario),
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
+    CONSTRAINT CK_ApenasUmId CHECK (
+        (id_funcionario IS NOT NULL AND id_usuario IS NULL) OR
+        (id_usuario IS NOT NULL AND id_funcionario IS NULL)
+    )
 );
 GO
 
--- Tabela de Perfil
+-- =============================================
+-- Tabela: Perfil
+-- =============================================
 CREATE TABLE Perfil (
     id_perfil INT IDENTITY(1,1) PRIMARY KEY,
     id_usuario INT NOT NULL,
@@ -77,14 +94,18 @@ CREATE TABLE Perfil (
 );
 GO
 
--- Tabela de Áreas de Atuação
+-- =============================================
+-- Tabela: AreaAtuacao
+-- =============================================
 CREATE TABLE AreaAtuacao (
     id_area INT IDENTITY(1,1) PRIMARY KEY,
     nome_area NVARCHAR(100) NOT NULL
 );
 GO
 
--- Tabela de Vagas (com campos adicionais que você pediu)
+-- =============================================
+-- Tabela: Vagas
+-- =============================================
 CREATE TABLE Vagas (
     id_vaga INT IDENTITY(1,1) PRIMARY KEY,
     id_funcionario INT NOT NULL,
@@ -108,7 +129,9 @@ CREATE TABLE Vagas (
 );
 GO
 
--- Tabela de Profissionais em Áreas
+-- =============================================
+-- Tabela: ProfissionalArea
+-- =============================================
 CREATE TABLE ProfissionalArea (
     id_profissional_area INT IDENTITY(1,1) PRIMARY KEY,
     id_usuario INT NOT NULL,
@@ -118,8 +141,9 @@ CREATE TABLE ProfissionalArea (
 );
 GO
 
--- Tabela de Candidaturas
-
+-- =============================================
+-- Tabela: Candidatura
+-- =============================================
 CREATE TABLE Candidatura (
     id_candidatura INT IDENTITY(1,1) PRIMARY KEY,
     id_vaga INT NOT NULL,
@@ -129,10 +153,11 @@ CREATE TABLE Candidatura (
     FOREIGN KEY (id_vaga) REFERENCES Vagas(id_vaga),
     FOREIGN KEY (id_perfil) REFERENCES Perfil(id_perfil)
 );
+GO
 
-
-
--- Tabela de Mensagens
+-- =============================================
+-- Tabela: Mensagem
+-- =============================================
 CREATE TABLE Mensagem (
     id_mensagem INT IDENTITY(1,1) PRIMARY KEY,
     id_usuario_remetente INT NOT NULL,
@@ -145,7 +170,9 @@ CREATE TABLE Mensagem (
 );
 GO
 
--- Tabela de Webinar
+-- =============================================
+-- Tabela: Webinar
+-- =============================================
 CREATE TABLE Webinar (
     id_webinar INT IDENTITY(1,1) PRIMARY KEY,
     tema NVARCHAR(255),
@@ -158,7 +185,9 @@ CREATE TABLE Webinar (
 );
 GO
 
--- Tabela de Inscrições em Webinars
+-- =============================================
+-- Tabela: inscricoes_webinar
+-- =============================================
 CREATE TABLE inscricoes_webinar (
     id INT IDENTITY(1,1) PRIMARY KEY,
     nome_completo VARCHAR(100) NOT NULL,
@@ -172,7 +201,9 @@ CREATE TABLE inscricoes_webinar (
 );
 GO
 
--- Tabela de Contatos
+-- =============================================
+-- Tabela: Contatos
+-- =============================================
 CREATE TABLE Contatos (
     id_contatos INT IDENTITY(1,1) PRIMARY KEY,
     id_usuario INT NOT NULL,
@@ -184,6 +215,12 @@ CREATE TABLE Contatos (
     CONSTRAINT UC_Contato UNIQUE (id_usuario, id_contato)
 );
 GO
+SELECT * FROM Usuario
+SELECT * FROM Funcionario
+SELECT * FROM Webinar
+SELECT * FROM Vagas
 
-select * from Funcionario
-select * from Webinar 
+SELECT * FROM HistoricoAcessos
+
+
+

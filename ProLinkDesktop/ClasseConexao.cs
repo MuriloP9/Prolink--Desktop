@@ -84,6 +84,34 @@ public class ClasseConexao
             desconectar(conexao);
         }
     }
+    public byte[] BuscarFotoUsuario(int userId)
+    {
+        SqlConnection conexao = null;
+        try
+        {
+            conexao = conectar();
+            string query = "SELECT foto_perfil FROM Usuario WHERE id_usuario = @id";
+            SqlCommand cmd = new SqlCommand(query, conexao);
+            cmd.Parameters.AddWithValue("@id", userId);
+
+            object result = cmd.ExecuteScalar();
+
+            if (result != null && result != DBNull.Value)
+            {
+                return (byte[])result;
+            }
+            return null;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao buscar foto: {ex.Message}");
+            return null;
+        }
+        finally
+        {
+            desconectar(conexao);
+        }
+    }
 
     public int manutencaoDB_Parametros(SqlCommand comando)
     {
