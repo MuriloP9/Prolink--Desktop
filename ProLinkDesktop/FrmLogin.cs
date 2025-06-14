@@ -61,9 +61,18 @@ namespace ProLinkDesktop
             string email = txtUsuario.Text.Trim();
             string senha = txtSenha.Text.Trim();
 
+            // Validações básicas no C#
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(senha))
             {
                 MessageBox.Show("Preencha todos os campos.");
+                return;
+            }
+
+            // Validação de formato de email continua no C#
+            if (!ValidarEmail(email))
+            {
+                MessageBox.Show("Por favor, insira um e-mail válido.");
+                txtUsuario.Focus();
                 return;
             }
 
@@ -74,12 +83,10 @@ namespace ProLinkDesktop
             {
                 connection = con.conectar();
 
-                string sql = @"SELECT id_funcionario, nome_completo, nivel_acesso 
-                      FROM Funcionario 
-                      WHERE email = @Email AND senha = @Senha AND ativo = 1";
-
-                using (SqlCommand cmd = new SqlCommand(sql, connection))
+                // Chama a stored procedure
+                using (SqlCommand cmd = new SqlCommand("sp_ValidarLogin", connection))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Email", email);
                     cmd.Parameters.AddWithValue("@Senha", senha);
 
@@ -87,46 +94,44 @@ namespace ProLinkDesktop
                     {
                         if (reader.Read())
                         {
-                            int idFuncionario = Convert.ToInt32(reader["id_funcionario"]);
-                            string nome = reader["nome_completo"].ToString();
-                            int nivelAcesso = Convert.ToInt32(reader["nivel_acesso"]);
-                            reader.Close();
+                            bool loginValido = Convert.ToBoolean(reader["LoginValido"]);
 
-                            // Atualiza o último acesso na tabela Funcionario
-                            AtualizarUltimoAcesso(connection, idFuncionario);
-
-                            // Registra o novo acesso na tabela de histórico
-                            RegistrarNovoAcesso(connection, idFuncionario, email);
-
-                            string cargo;
-                            switch (nivelAcesso)
+                            if (loginValido)
                             {
-                                case 0:
-                                    cargo = "Admin Master";
-                                    break;
-                                case 1:
-                                    cargo = "Gerente";
-                                    break;
-                                case 2:
-                                    cargo = "Supervisor";
-                                    break;
-                                default:
-                                    cargo = "Funcionário";
-                                    break;
+                                int idFuncionario = Convert.ToInt32(reader["IdFuncionario"]);
+                                string nome = reader["NomeCompleto"].ToString();
+                                int nivelAcesso = Convert.ToInt32(reader["NivelAcesso"]);
+
+                                string cargo;
+                                switch (nivelAcesso)
+                                {
+                                    case 0:
+                                        cargo = "Admin Master";
+                                        break;
+                                    case 1:
+                                        cargo = "Gerente";
+                                        break;
+                                    case 2:
+                                        cargo = "Supervisor";
+                                        break;
+                                    default:
+                                        cargo = "Funcionário";
+                                        break;
+                                }
+
+                                MessageBox.Show($"Bem-vindo {cargo} {nome}!", "Login realizado");
+
+                                Form1 formPrincipal = new Form1();
+                                formPrincipal.NomeUsuario = nome;
+                                formPrincipal.NivelAcesso = nivelAcesso;
+                                formPrincipal.IdFuncionario = idFuncionario;
+                                formPrincipal.Show();
+                                this.Hide();
                             }
-
-                            MessageBox.Show($"Bem-vindo {cargo} {nome}!", "Login realizado");
-
-                            Form1 formPrincipal = new Form1();
-                            formPrincipal.NomeUsuario = nome;
-                            formPrincipal.NivelAcesso = nivelAcesso;
-                            formPrincipal.IdFuncionario = idFuncionario; // Adiciona esta linha
-                            formPrincipal.Show();
-                            this.Hide();
-                        }
-                        else
-                        {
-                            MessageBox.Show("E-mail ou senha incorretos.", "Erro");
+                            else
+                            {
+                                MessageBox.Show("E-mail ou senha incorretos.", "Erro");
+                            }
                         }
                     }
                 }
