@@ -131,20 +131,31 @@ namespace ProLinkDesktop
                 ReadOnly = true
             });
 
+            // CORREÇÃO: ComboBox configurado corretamente
             DataGridViewComboBoxColumn colStatus = new DataGridViewComboBoxColumn()
             {
                 Name = "status",
                 HeaderText = "Status",
                 DataPropertyName = "status",
                 Width = 150,
-                FlatStyle = FlatStyle.Flat
+                FlatStyle = FlatStyle.Flat,
+                // IMPORTANTE: Permitir valores que não estão na lista
+                DisplayStyle = DataGridViewComboBoxDisplayStyle.DropDownButton,
+                DisplayStyleForCurrentCellOnly = true
             };
-            colStatus.Items.AddRange("Pendente", "Aprovado", "Recusado");
+
+            // Adicionar os itens do ComboBox
+            colStatus.Items.Add("Pendente");
+            colStatus.Items.Add("Aprovado");
+            colStatus.Items.Add("Recusado");
+
             gridCandidatos.Columns.Add(colStatus);
 
+            // Eventos
             gridCandidatos.CellValueChanged += GridCandidatos_CellValueChanged;
             gridCandidatos.SelectionChanged += GridCandidatos_SelectionChanged;
             gridCandidatos.DataError += GridCandidatos_DataError;
+            gridCandidatos.DataBindingComplete += GridCandidatos_DataBindingComplete;
         }
         private void CarregarCandidatos()
         {
@@ -431,13 +442,41 @@ namespace ProLinkDesktop
             tabela.AddCell(cellConteudo);
         }
 
+        private void GridCandidatos_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewRow row in gridCandidatos.Rows)
+            {
+                if (!row.IsNewRow)
+                {
+                    var statusCell = row.Cells["status"];
+                    var statusValue = statusCell.Value?.ToString()?.Trim();
+
+                    // Verificar se o valor existe no ComboBox, se não, definir como "Pendente"
+                    DataGridViewComboBoxColumn colStatus = (DataGridViewComboBoxColumn)gridCandidatos.Columns["status"];
+
+                    if (string.IsNullOrEmpty(statusValue) || !colStatus.Items.Contains(statusValue))
+                    {
+                        statusCell.Value = "Pendente";
+                    }
+                }
+            }
+        }
+
         private void GridCandidatos_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            if (gridCandidatos.Columns[e.ColumnIndex].Name == "status")
+            if (e.ColumnIndex >= 0 && gridCandidatos.Columns[e.ColumnIndex].Name == "status")
             {
-                MessageBox.Show("Por favor, selecione um status válido.", "Erro",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Log do erro para debug
+                System.Diagnostics.Debug.WriteLine($"Erro no ComboBox Status: {e.Exception?.Message}");
+
+                // Definir um valor padrão
+                gridCandidatos.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "Pendente";
+
+                MessageBox.Show("Status inválido detectado. Valor definido como 'Pendente'.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
                 e.ThrowException = false;
+                e.Cancel = true;
             }
         }
 

@@ -14,19 +14,13 @@ namespace ProLinkDesktop
 {
     public partial class Form1 : Form
     {
-        // Variáveis de instância
         private string _nomeUsuario;
         private int _nivelAcesso;
+        private readonly string _connectionString = "Password=etesp; Persist Security Info=True; User ID=sa; Initial Catalog=prolink01; Data Source=(local)";
 
-        // Connection string corrigida - usando SQL Server Express local
-        private readonly string _connectionString = @"Server=.\SQLEXPRESS;Database=prolink01;User Id=sa;Password=etesp;";
-
-        // Alternativa com autenticação Windows (comente a linha acima e descomente esta se preferir):
-        // private readonly string _connectionString = @"Server=.\SQLEXPRESS;Database=prolink01;Integrated Security=true;";
 
         private Button _activeButton;
 
-        // Propriedades
         public string NomeUsuario
         {
             get => _nomeUsuario;
