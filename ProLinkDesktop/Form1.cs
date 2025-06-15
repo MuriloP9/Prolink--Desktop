@@ -17,7 +17,13 @@ namespace ProLinkDesktop
         // Variáveis de instância
         private string _nomeUsuario;
         private int _nivelAcesso;
-        private readonly string _connectionString = "Password=etesp; Persist Security Info=True; User ID=sa; Initial Catalog=prolink01; Data Source=" + Environment.MachineName;
+
+        // Connection string corrigida - usando SQL Server Express local
+        private readonly string _connectionString = @"Server=.\SQLEXPRESS;Database=prolink01;User Id=sa;Password=etesp;";
+
+        // Alternativa com autenticação Windows (comente a linha acima e descomente esta se preferir):
+        // private readonly string _connectionString = @"Server=.\SQLEXPRESS;Database=prolink01;Integrated Security=true;";
+
         private Button _activeButton;
 
         // Propriedades
@@ -70,36 +76,52 @@ namespace ProLinkDesktop
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
-                using (var cmd = new SqlCommand(
-                    @"IF EXISTS (SELECT 1 FROM HistoricoAcessos WHERE id_funcionario = @id AND data_logout IS NULL)
-                      UPDATE HistoricoAcessos SET data_logout = GETDATE() WHERE id_funcionario = @id AND data_logout IS NULL
-                      ELSE
-                      INSERT INTO HistoricoAcessos (id_funcionario, email, data_login, data_logout)
-                      SELECT id_funcionario, email, DATEADD(MINUTE, -1, GETDATE()), GETDATE()
-                      FROM Funcionario WHERE id_funcionario = @id", connection))
                 {
-                    cmd.Parameters.AddWithValue("@id", IdFuncionario);
                     connection.Open();
-                    cmd.ExecuteNonQuery();
+
+                    // Atualiza registros existentes sem data_logout
+                    using (var cmd = new SqlCommand(@"
+                        UPDATE HistoricoAcessos 
+                        SET data_logout = GETDATE() 
+                        WHERE id_funcionario = @id 
+                          AND data_logout IS NULL 
+                          AND tipo_acesso = 'F'", connection))
+                    {
+                        cmd.Parameters.AddWithValue("@id", IdFuncionario);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro ao registrar logout: {ex.Message}");
+                MessageBox.Show($"Erro ao registrar logout: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void ConfigurarBotoesPorNivel()
         {
+            // Nível 0 = Super Admin (vê tudo)
+            // Nível 1 = Admin (vê quase tudo, exceto gerenciar funcionários)
+            // Nível 2 = Funcionário comum (acesso básico)
+
             btnGerenciarFuncionarios.Visible = (_nivelAcesso == 0);
             btnGerenciarUsuarios.Visible = (_nivelAcesso <= 1);
+
             ReorganizarBotoes();
         }
 
         private void ReorganizarBotoes()
         {
             var posY = btnMenu.Bottom + 10;
-            var buttons = new[] { btnGerenciarFuncionarios, btnGerenciarUsuarios, btnOportunidades, btnWebinar, btnConfiguracoes, btnSair };
+            var buttons = new[] {
+                btnGerenciarFuncionarios,
+                btnGerenciarUsuarios,
+                btnOportunidades,
+                btnWebinar,
+                btnConfiguracoes,
+                btnSair
+            };
 
             foreach (var btn in buttons)
             {
@@ -123,12 +145,20 @@ namespace ProLinkDesktop
 
         public void CarregarForm(Form form)
         {
-            pnlFormLoader.Controls.Clear();
-            form.TopLevel = false;
-            form.FormBorderStyle = FormBorderStyle.None;
-            form.Dock = DockStyle.Fill;
-            pnlFormLoader.Controls.Add(form);
-            form.Show();
+            try
+            {
+                pnlFormLoader.Controls.Clear();
+                form.TopLevel = false;
+                form.FormBorderStyle = FormBorderStyle.None;
+                form.Dock = DockStyle.Fill;
+                pnlFormLoader.Controls.Add(form);
+                form.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar formulário: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // Event handlers
@@ -136,8 +166,6 @@ namespace ProLinkDesktop
         {
             SetActiveButton(btnMenu);
             lblTitle.Text = "Menu";
-
-            // Cria uma nova instância do dashboard (sempre atualizada)
             CarregarForm(new formDashboard(this));
         }
 
@@ -166,13 +194,19 @@ namespace ProLinkDesktop
         {
             SetActiveButton(btnConfiguracoes);
             lblTitle.Text = "Configurações";
-            CarregarForm(new FrmConfiguracoes());
+            CarregarForm(new FrmConfiguracoes(IdFuncionario));
         }
 
         private void btnSair_Click(object sender, EventArgs e)
         {
-            RegistrarLogout();
-            Application.Exit();
+            DialogResult result = MessageBox.Show("Deseja realmente sair do sistema?",
+                "Confirmar Saída", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                RegistrarLogout();
+                Application.Exit();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -180,6 +214,23 @@ namespace ProLinkDesktop
             SetActiveButton(btnWebinar);
             lblTitle.Text = "Webinar";
             CarregarForm(new FrmWebinar());
+        }
+
+        // Método auxiliar para testar conexão (opcional)
+        public bool TestarConexao()
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

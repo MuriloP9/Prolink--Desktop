@@ -112,6 +112,30 @@ public class ClasseConexao
             desconectar(conexao);
         }
     }
+    // Adicione este método na sua classe ClasseConexao
+
+    public DataTable executarSQL_Parametros(SqlCommand comando)
+    {
+        SqlConnection conexao = null;
+        try
+        {
+            conexao = conectar();
+            comando.Connection = conexao;
+            SqlDataAdapter adaptador = new SqlDataAdapter(comando);
+            DataSet ds = new DataSet();
+            adaptador.Fill(ds);
+            return ds.Tables[0];
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao executar SQL com parâmetros: {ex.Message}");
+            return null;
+        }
+        finally
+        {
+            desconectar(conexao);
+        }
+    }
 
     public int manutencaoDB_Parametros(SqlCommand comando)
     {
@@ -136,5 +160,6 @@ public class ClasseConexao
                 conexao.Close();
             }
         }
+
     }
 }

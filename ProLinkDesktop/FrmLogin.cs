@@ -14,7 +14,7 @@ namespace ProLinkDesktop
 {
     public partial class FrmLogin : Form
     {
-        ClasseConexao con;
+        ClasseConexao con = new ClasseConexao(); // Inicializa aqui
         private bool isMouseOverButton = false;
 
         public FrmLogin()

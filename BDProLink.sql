@@ -54,6 +54,58 @@ CREATE TABLE Funcionario (
     ativo BIT DEFAULT 1,
     FOREIGN KEY (criado_por) REFERENCES Funcionario(id_funcionario)
 );
+
+-- Stored Procedure para validação de login
+CREATE PROCEDURE sp_ValidarLogin
+    @Email NVARCHAR(100),
+    @Senha NVARCHAR(255)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    DECLARE @IdFuncionario INT = 0;
+    DECLARE @NomeCompleto NVARCHAR(255) = '';
+    DECLARE @NivelAcesso INT = -1;
+    DECLARE @LoginValido BIT = 0;
+    
+    -- Verifica se existe funcionário ativo com email e senha informados
+    SELECT 
+        @IdFuncionario = id_funcionario,
+        @NomeCompleto = nome_completo,
+        @NivelAcesso = nivel_acesso,
+        @LoginValido = 1
+    FROM Funcionario 
+    WHERE email = @Email 
+      AND senha = @Senha 
+      AND ativo = 1;
+    
+    -- Se login é válido, atualiza último acesso e registra histórico
+    IF @LoginValido = 1
+    BEGIN
+        -- Atualiza último acesso
+        UPDATE Funcionario 
+        SET ultimo_acesso = GETDATE() 
+        WHERE id_funcionario = @IdFuncionario;
+        
+        -- Encerra acessos anteriores não finalizados para funcionários
+        UPDATE HistoricoAcessos 
+        SET data_logout = GETDATE() 
+        WHERE id_funcionario = @IdFuncionario 
+          AND data_logout IS NULL
+          AND tipo_acesso = 'F';
+        
+        -- Registra novo acesso
+        INSERT INTO HistoricoAcessos (id_funcionario, id_usuario, email, data_login, tipo_acesso)
+        VALUES (@IdFuncionario, NULL, @Email, GETDATE(), 'F');
+    END
+    
+    -- Retorna resultado
+    SELECT 
+        @LoginValido as LoginValido,
+        @IdFuncionario as IdFuncionario,
+        @NomeCompleto as NomeCompleto,
+        @NivelAcesso as NivelAcesso;
+END
 GO
 
 -- =============================================

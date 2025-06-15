@@ -139,7 +139,7 @@ namespace ProLinkDesktop
                 Width = 150,
                 FlatStyle = FlatStyle.Flat
             };
-            colStatus.Items.AddRange("Pendente", "Aprovado", "Rejeitado");
+            colStatus.Items.AddRange("Pendente", "Aprovado", "Recusado");
             gridCandidatos.Columns.Add(colStatus);
 
             gridCandidatos.CellValueChanged += GridCandidatos_CellValueChanged;
