@@ -271,7 +271,7 @@ SELECT * FROM Usuario
 SELECT * FROM Funcionario
 SELECT * FROM Webinar
 SELECT * FROM Vagas
-
+SELECT * FROM Candidatura
 SELECT * FROM HistoricoAcessos
 
 

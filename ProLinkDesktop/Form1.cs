@@ -73,7 +73,7 @@ namespace ProLinkDesktop
                 {
                     connection.Open();
 
-                    // Atualiza registros existentes sem data_logout
+               
                     using (var cmd = new SqlCommand(@"
                         UPDATE HistoricoAcessos 
                         SET data_logout = GETDATE() 
@@ -209,22 +209,6 @@ namespace ProLinkDesktop
             lblTitle.Text = "Webinar";
             CarregarForm(new FrmWebinar());
         }
-
-        // Método auxiliar para testar conexão (opcional)
-        public bool TestarConexao()
-        {
-            try
-            {
-                using (var connection = new SqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
+ 
     }
 }

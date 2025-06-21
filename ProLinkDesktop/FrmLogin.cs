@@ -14,7 +14,7 @@ namespace ProLinkDesktop
 {
     public partial class FrmLogin : Form
     {
-        ClasseConexao con = new ClasseConexao(); // Inicializa aqui
+        ClasseConexao con = new ClasseConexao(); 
         private bool isMouseOverButton = false;
 
         public FrmLogin()
@@ -61,7 +61,7 @@ namespace ProLinkDesktop
             string email = txtUsuario.Text.Trim();
             string senha = txtSenha.Text.Trim();
 
-            // Validações básicas no C#
+          
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(senha))
             {
                 MessageBox.Show("Preencha todos os campos.");
